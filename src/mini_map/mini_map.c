@@ -20,27 +20,26 @@ void create_minimap(world_t *world, win_t *win, long long size)
             win->tmp->color.r *= (direction * (day ? SUN : MOON) + 0.1);
             win->tmp->color.g *= (direction * (day ? SUN : MOON) + 0.1);
             win->tmp->color.b *= (direction * (day ? SUN : MOON) + 0.1);
-            win->tmp->position = (sfVector2f)(sfVector2f){nb * i, nb * (size - j)};
+            win->tmp->position = (sfVector2f){nb * i, nb * (size - j)};
             sfVertexArray_append(win->array, *win->tmp);
-            win->tmp->position = (sfVector2f)(sfVector2f){nb * (i + 1), nb * (size - j)};
+            win->tmp->position = (sfVector2f){nb * (i + 1), nb * (size - j)};
             sfVertexArray_append(win->array, *win->tmp);
-            win->tmp->position = (sfVector2f)(sfVector2f){nb * i, nb * (size - j + 1)};
+            win->tmp->position = (sfVector2f){nb * i, nb * (size - j + 1)};
             sfVertexArray_append(win->array, *win->tmp);
-            sfVertexArray_setPrimitiveType(win->array, sfTriangles);
             direction = apply_shades(world, world->a_triangles[i * size + j + size * size]);
             win->tmp->color = world->a_triangles[i * size + j + size * size]->color;
             win->tmp->color.r *= (direction * (day ? SUN : MOON) + 0.1);
             win->tmp->color.g *= (direction * (day ? SUN : MOON) + 0.1);
             win->tmp->color.b *= (direction * (day ? SUN : MOON) + 0.1);
-            win->tmp->position = (sfVector2f)(sfVector2f){nb * (i + 1), nb * (size - j + 1)};
+            win->tmp->position = (sfVector2f){nb * (i + 1), nb * (size - j + 1)};
             sfVertexArray_append(win->array, *win->tmp);
-            win->tmp->position = (sfVector2f)(sfVector2f){nb * (i + 1), nb * (size - j)};
+            win->tmp->position = (sfVector2f){nb * (i + 1), nb * (size - j)};
             sfVertexArray_append(win->array, *win->tmp);
-            win->tmp->position = (sfVector2f)(sfVector2f){nb * i, nb * (size - j + 1)};
+            win->tmp->position = (sfVector2f){nb * i, nb * (size - j + 1)};
             sfVertexArray_append(win->array, *win->tmp);
-            sfVertexArray_setPrimitiveType(win->array, sfTriangles);
         }
     }
+    sfVertexArray_setPrimitiveType(win->array, sfTriangles);
     sfRenderWindow_drawVertexArray(win->window, win->array, 0);
     sfVertexArray_clear(win->array);
 }
