@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "keyboard.h": "c",
+        "graphics.h": "c",
+        "world.h": "c",
+        "mat4x4.h": "c",
+        "my.h": "c",
+        "atomic": "c",
+        "cstdint": "c",
+        "array": "c",
+        "deque": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "vector": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "cstdio": "c",
+        "utility": "c"
+    }
+}
