@@ -27,21 +27,13 @@ size_t add_trig(char *buff, mesh_t *mesh, size_t trig_index)
     triangle_t *trig = &mesh->trig[trig_index];
 
     buff += 2;
-    trig->vertxs[0] = strtol(buff, &nb_end, 0) - 1;
-    trig->ptrs[0] = &mesh->vertxs[trig->vertxs[0]];
-    buff = nb_end;
-    while (buff[1] && buff[0] != ' ')
-        buff++;
-    trig->vertxs[1] = strtol(buff, &nb_end, 0) - 1;
-    trig->ptrs[1] = &mesh->vertxs[trig->vertxs[1]];
-    buff = nb_end;
-    while (buff[1] && buff[0] != ' ')
-        buff++;
-    trig->vertxs[2] = strtol(buff, &nb_end, 0) - 1;
-    trig->ptrs[2] = &mesh->vertxs[trig->vertxs[2]];
-    buff = nb_end;
-    while (buff[1] && buff[0] != ' ')
-        buff++;
+    for (int i = 0; i < 3; i++) {
+        trig->vertxs[i] = strtol(buff, &nb_end, 0) - 1;
+        trig->ptrs[i] = &mesh->vertxs[trig->vertxs[i]];
+        buff = nb_end;
+        while (buff[1] && buff[0] != ' ')
+            buff++;
+    }
     trig->color = sfWhite;
     trig->mesh_ptr = mesh;
     return trig_index + 1;
