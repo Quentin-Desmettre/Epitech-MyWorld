@@ -12,7 +12,6 @@ void move_player(Mat4x4 **matWorld)
     Mat4x4 *matMov;
     Mat4x4 *tmp;
     float vec[3] = {0, 0, 0};
-
     if (sfKeyboard_isKeyPressed(sfKeyZ))
         vec[2] = 0.5;
     if (sfKeyboard_isKeyPressed(sfKeyS))
