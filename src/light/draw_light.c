@@ -9,10 +9,10 @@
 
 void move_light(world_t *world, win_t *win)
 {
-    mat4x4 *mat_mov = mat4x4_rx(-PI / 30);
+    mat4x4 *mat_mov = mat4x4_rx(-PI / 120);
     float *tmp = malloc(sizeof(float) * 3);
 
-    if (sfClock_getElapsedTime(world->clock).microseconds / 1000000.0 > 1.0) {
+    if (sfClock_getElapsedTime(world->clock).microseconds / 1000000.0 > 0.25) {
         mat4x4_multiplyvector3(mat_mov, world->light_source, tmp);
         sfClock_restart(world->clock);
         free(world->light_source);
