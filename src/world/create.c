@@ -67,7 +67,6 @@ void add_mesh(world_t *world, mesh_t *mesh)
 world_t *create_world()
 {
     world_t *world = malloc(sizeof(world_t));
-
     if (world == NULL)
         return NULL;
     world->nb_meshes = 0;
