@@ -57,7 +57,7 @@ void draw_meshes(world_t *world, win_t *win)
     vertex_t pts[3];
     triangle_t *tri;
     vertex_t *vertxs = project_meshes(world);
-    VecSort_t *sortBuffer = sort_vertxs(world, vertxs);
+    vecsort_t *sortBuffer = sort_vertxs(world, vertxs);
 
     move_light(world, win);
     draw_light(world, win);

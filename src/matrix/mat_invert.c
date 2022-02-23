@@ -67,9 +67,9 @@ void make_calc(float *val, float *inv)
     [11] - val[12] * val[3] * val[10];
 }
 
-Mat4x4 *mat4x4_invert(float *val)
+mat4x4 *mat4x4_invert(float *val)
 {
-    Mat4x4 *matrix = mat4x4_create();
+    mat4x4 *matrix = mat4x4_create();
     float *inv = malloc(sizeof(float) * 17);
     float det;
 

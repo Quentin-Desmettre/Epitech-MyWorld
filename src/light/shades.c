@@ -24,14 +24,15 @@ float calculate_shades(float vecs[2][3], float *light, vertex_t *vertxs)
     float light_dir[3] = {
     light[0] - (vertxs[0].pos[0] + vertxs[1].pos[0] + vertxs[2].pos[0]) / 3,
     light[1] - (vertxs[0].pos[1] + vertxs[1].pos[1] + vertxs[2].pos[1]) / 3,
-    light[2] - (vertxs[0].pos[2] + vertxs[1].pos[2] + vertxs[2].pos[2]) / 3};
+    light[2] - (vertxs[0].pos[2] + vertxs[1].pos[2] + vertxs[2].pos[2]) / 3
+    };
 
     normalize(vecs[0]);
     normalize(vecs[1]);
-    crossProduct3(normale, vecs[0], vecs[1]);
+    crossproduct3(normale, vecs[0], vecs[1]);
     normalize(normale);
     normalize(light_dir);
-    direction = dotProduct3(normale, light_dir);
+    direction = dotproduct3(normale, light_dir);
     if (direction < 0)
         direction = 0;
     free(vertxs);
@@ -45,10 +46,13 @@ float apply_shades(world_t *world, triangle_t *tri)
     float vecs[2][3] = {
     {vertxs[0].pos[0] - vertxs[1].pos[0],
     vertxs[0].pos[1] - vertxs[1].pos[1],
-    vertxs[0].pos[2] - vertxs[1].pos[2]},
+    vertxs[0].pos[2] - vertxs[1].pos[2]
+    },
     {vertxs[0].pos[0] - vertxs[2].pos[0],
     vertxs[0].pos[1] - vertxs[2].pos[1],
-    vertxs[0].pos[2] - vertxs[2].pos[2]}};
+    vertxs[0].pos[2] - vertxs[2].pos[2]
+    }
+    };
 
     return calculate_shades(vecs, world->light_source, vertxs);
 }

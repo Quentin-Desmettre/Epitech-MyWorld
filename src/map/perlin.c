@@ -30,7 +30,7 @@ float lerp(float a, float b, float w)
     return (1.0 - w)*a + w*b;
 }
 
-float dotGridGradient(int ix, int iy, float x, float y)
+float dot_grid_gradient(int ix, int iy, float x, float y)
 {
     static float ***gradient = 0;
     float dx = x - (float)ix;
@@ -56,11 +56,11 @@ float apply_perlin(float x, float y)
     float ix1;
     float value;
 
-    n0 = dotGridGradient(x0, y0, x, y);
-    n1 = dotGridGradient(x1, y0, x, y);
+    n0 = dot_grid_gradient(x0, y0, x, y);
+    n1 = dot_grid_gradient(x1, y0, x, y);
     ix0 = lerp(n0, n1, sx);
-    n0 = dotGridGradient(x0, y1, x, y);
-    n1 = dotGridGradient(x1, y1, x, y);
+    n0 = dot_grid_gradient(x0, y1, x, y);
+    n1 = dot_grid_gradient(x1, y1, x, y);
     ix1 = lerp(n0, n1, sx);
     value = lerp(ix0, ix1, sy);
     return value;

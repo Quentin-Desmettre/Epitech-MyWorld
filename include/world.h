@@ -38,9 +38,9 @@
     #define ABS(nb) (nb) < 0 ? -(nb) : (nb)
 
 typedef struct world_struct {
-    VecSort_t *sortBuffer;
-    VecSort_t *sortBuffer2;
-    Mat4x4 *matrix;
+    vecsort_t *sortBuffer;
+    vecsort_t *sortBuffer2;
+    mat4x4 *matrix;
     sfClock *clock;
     list_t **meshes;
     list_t **vertxs;
@@ -57,14 +57,14 @@ typedef struct world_struct {
     void (*destroy)(struct world_struct *world);
 } world_t;
 
-void move(Mat4x4 **matWorld);
-void radixSortObjInt(void *toSort2, size_t sizes[2],
+void move(mat4x4 **mat_world);
+void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);
 world_t *create_world();
 void add_mesh(world_t *world, mesh_t *mesh);
 void draw_meshes(world_t *world, win_t *win);
 vertex_t *project_meshes(world_t *world);
-VecSort_t *sort_vertxs(world_t *world, vertex_t *vertxs);
+vecsort_t *sort_vertxs(world_t *world, vertex_t *vertxs);
 list_t *get_from_index(list_t **begin, size_t index, size_t len_list);
 void get_player_pos(world_t *world);
 void get_player_dir(world_t *world);

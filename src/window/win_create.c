@@ -52,8 +52,8 @@ win_t *win_create(size_t nb_trig)
         return NULL;
     memset(win, 0, sizeof(win_t));
     win->settings.antialiasingLevel = ALIASING;
-    win->window = sfRenderWindow_create(mode, "My World"
-    , STYLE, &win->settings);
+    win->window = sfRenderWindow_create(mode, "My World",
+    STYLE, &win->settings);
     sfRenderWindow_setVerticalSyncEnabled(win->window, VSYNC);
     sfRenderWindow_setFramerateLimit(win->window, FPS);
     win->is_open = is_open;

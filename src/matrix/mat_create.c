@@ -7,9 +7,9 @@
 
 #include "world.h"
 
-Mat4x4 *mat4x4_rx(float a)
+mat4x4 *mat4x4_rx(float a)
 {
-    Mat4x4 *mat = mat4x4_create();
+    mat4x4 *mat = mat4x4_create();
 
     mat->val[5] = cosf(a);
     mat->val[6] = sinf(a);
@@ -18,9 +18,9 @@ Mat4x4 *mat4x4_rx(float a)
     return mat;
 }
 
-Mat4x4 *mat4x4_ry(float a)
+mat4x4 *mat4x4_ry(float a)
 {
-    Mat4x4 *mat = mat4x4_create();
+    mat4x4 *mat = mat4x4_create();
 
     mat->val[0] = cosf(a);
     mat->val[2] = sinf(a);
@@ -29,9 +29,9 @@ Mat4x4 *mat4x4_ry(float a)
     return mat;
 }
 
-Mat4x4 *mat4x4_rz(float a)
+mat4x4 *mat4x4_rz(float a)
 {
-    Mat4x4 *mat = mat4x4_create();
+    mat4x4 *mat = mat4x4_create();
 
     mat->val[0] = cosf(a);
     mat->val[1] = sinf(a);
@@ -40,9 +40,9 @@ Mat4x4 *mat4x4_rz(float a)
     return mat;
 }
 
-Mat4x4 *mat4x4_t(float *vector)
+mat4x4 *mat4x4_t(float *vector)
 {
-    Mat4x4 *mat = mat4x4_create();
+    mat4x4 *mat = mat4x4_create();
 
     mat->val[12] = vector[0];
     mat->val[13] = vector[1];

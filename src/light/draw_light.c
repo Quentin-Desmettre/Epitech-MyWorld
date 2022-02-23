@@ -9,11 +9,11 @@
 
 void move_light(world_t *world, win_t *win)
 {
-    Mat4x4 *matMov = mat4x4_rx(-PI/30);
+    mat4x4 *mat_mov = mat4x4_rx(-PI / 30);
     float *tmp = malloc(sizeof(float) * 3);
 
-    if (sfClock_getElapsedTime(world->clock).microseconds / 1000000.0 > 1) {
-        mat4x4_MultiplyVector3(matMov, world->light_source, tmp);
+    if (sfClock_getElapsedTime(world->clock).microseconds / 1000000.0 > 1.0) {
+        mat4x4_multiplyvector3(mat_mov, world->light_source, tmp);
         sfClock_restart(world->clock);
         free(world->light_source);
         world->light_source = tmp;
@@ -22,9 +22,9 @@ void move_light(world_t *world, win_t *win)
         world->light_source[0] = world->light_start[0];
         world->light_source[1] = world->light_start[1];
         world->light_source[2] = world->light_start[2];
-        win->params->day = win->params->day == sfFalse;
+        win->params->day = !win->params->day;
     }
-    free(matMov);
+    free(mat_mov);
 }
 
 void draw_light(world_t *world, win_t *win)
@@ -32,7 +32,7 @@ void draw_light(world_t *world, win_t *win)
     vertex_t *tmp;
     float *vertx = malloc(sizeof(float) * 3);
 
-    mat4x4_MultiplyVector3(world->matrix, world->light_source, vertx);
+    mat4x4_multiplyvector3(world->matrix, world->light_source, vertx);
     vertx[0] /= vertx[2];
     vertx[1] /= vertx[2];
     // tmp.pos[0] = vertx[0];

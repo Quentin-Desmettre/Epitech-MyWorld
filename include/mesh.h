@@ -10,23 +10,23 @@
 
     #include "world.h"
 
-typedef struct VecSort {
+typedef struct vecsort {
     void *data;
     int id;
-} VecSort_t;
+} vecsort_t;
 
-typedef struct Vertex {
+typedef struct vertex {
     float pos[3];
 } vertex_t;
 
-typedef struct Triangle {
+typedef struct triangle {
     int vertxs[3];
     sfColor color;
     vertex_t *ptrs[3];
     void *mesh_ptr;
 } triangle_t;
 
-typedef struct Mesh {
+typedef struct mesh {
     triangle_t *trig;
     size_t trig_size;
     vertex_t *vertxs;

@@ -31,8 +31,8 @@ int main(int ac, char **av)
     create_map(world, str_to_long(av[1]));
     set_light_source(world, str_to_long(av[1]) / 2, 0, 999);
     convert_to_array(world);
-    world->sortBuffer = malloc(sizeof(VecSort_t) * world->nb_trig);
-    world->sortBuffer2 = malloc(sizeof(VecSort_t) * world->nb_trig);
+    world->sortBuffer = malloc(sizeof(vecsort_t) * world->nb_trig);
+    world->sortBuffer2 = malloc(sizeof(vecsort_t) * world->nb_trig);
     win = win_create(world->nb_trig);
     while (win->is_open(win)) {
         move(&world->matrix);
@@ -41,4 +41,5 @@ int main(int ac, char **av)
         if (!poll_window_ev(win, world))
             return 0;
     }
+    return 0;
 }

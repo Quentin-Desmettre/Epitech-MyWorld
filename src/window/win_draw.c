@@ -16,6 +16,7 @@ void draw_circle(win_t *win, size_t nb, ...)
         sfRenderTexture_drawCircleShape(win->r_tex
         , va_arg(list_arg, sfCircleShape *), 0);
     }
+    va_end(list_arg);
 }
 
 void draw_rtex_to_win(sfRenderTexture *t, sfRenderWindow *w)
@@ -38,6 +39,7 @@ void draw_shape(win_t *win, size_t nb, ...)
         sfRenderTexture_drawConvexShape(win->r_tex,
         va_arg(list_arg, sfConvexShape *), 0);
     }
+    va_end(list_arg);
 }
 
 void display(win_t *win)

@@ -55,7 +55,7 @@ size_t offset_in_struct)
         offset_in_struct + sizeof(int) - 1) ^= 0b10000000;
 }
 
-void radixSortObjInt(void *toSort2, size_t sizes[2],
+void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2)
 {
     uint8_t *toSort = toSort2;

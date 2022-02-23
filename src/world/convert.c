@@ -10,9 +10,9 @@
 void convert_to_array(world_t *world)
 {
     list_t *tmp = *world->vertxs;
+
     world->a_vertxs = malloc(sizeof(vertex_t *) * world->nb_vertxs);
     world->a_triangles = malloc(sizeof(triangle_t *) * world->nb_trig);
-
     for (size_t i = 0; i < world->nb_vertxs; i++, tmp = tmp->next)
         world->a_vertxs[i] = tmp->data;
     tmp = *world->triangles;

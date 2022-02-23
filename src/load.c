@@ -91,6 +91,5 @@ mesh_t *load_from_file(char *path)
     rewind(file);
     add_pts_trig(buff, file, mesh);
     fclose(file);
-    printf("nb points :%i, nb trig :%i\n", mesh->nb_vertxs, mesh->trig_size);
     return mesh;
 }
