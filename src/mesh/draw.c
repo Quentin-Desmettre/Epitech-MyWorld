@@ -10,17 +10,12 @@
 void draw_line(vertex_t vertxs[3], win_t *win,
 sfColor color, sfBool is_selected)
 {
-    sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
-    sfVertexArray_clear(win->array);
-    win->tmp->color = is_selected ? sfWhite : color;
-    sfVertexArray_setPrimitiveType(win->array, sfLines);
-    for (int i = 0; i < 3; i++) {
-        win->tmp->position = (sfVector2f){vertxs[i].pos[0], vertxs[i].pos[1]};
-        sfVertexArray_append(win->array, *win->tmp);
-    }
-    sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
-    sfVertexArray_setPrimitiveType(win->array, sfTriangles);
-    sfVertexArray_clear(win->array);
+    win->tmp->position = (sfVector2f){vertxs[1].pos[0], vertxs[1].pos[1]};
+    sfVertexArray_append(win->array, *win->tmp);
+    win->tmp->position = (sfVector2f){vertxs[2].pos[0], vertxs[2].pos[1]};
+    sfVertexArray_append(win->array, *win->tmp);
+    win->tmp->position = (sfVector2f){vertxs[0].pos[0], vertxs[0].pos[1]};
+    sfVertexArray_append(win->array, *win->tmp);
 }
 
 void draw_triangle(vertex_t vertxs[3], sfColor color, win_t *win
@@ -28,14 +23,12 @@ void draw_triangle(vertex_t vertxs[3], sfColor color, win_t *win
 {
     center_vertxs(vertxs, &color, direction, win->params->day);
     win->tmp->color = color;
-    if (!win->params->is_outline) {
-        for (int i = 0; i < 3; i++) {
-            win->tmp->position = (sfVector2f)
-            {vertxs[i].pos[0], vertxs[i].pos[1]};
-            sfVertexArray_append(win->array, *win->tmp);
-        }
+    for (int i = 0; i < 3; i++) {
+        win->tmp->position = (sfVector2f)
+        {vertxs[i].pos[0], vertxs[i].pos[1]};
+        sfVertexArray_append(win->array, *win->tmp);
     }
-    if (is_selected || win->params->is_outline)
+    if (win->params->is_outline)
         draw_line(vertxs, win, color, is_selected);
 }
 
@@ -71,6 +64,8 @@ void draw_meshes(world_t *world, win_t *win)
             ((mesh_t *)tri->mesh_ptr)->is_selected, apply_shades(world, tri));
         }
     }
+    sfVertexArray_setPrimitiveType(win->array, win->params->is_outline ?
+    sfLines : sfTriangles);
     sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
     sfVertexArray_clear(win->array);
     free(vertxs);

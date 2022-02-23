@@ -28,6 +28,7 @@ SRC = 	src/matrix/mat4x4.c 		\
 		src/map/create_map.c		\
 		src/map/perlin.c			\
 		src/load.c					\
+		src/mini_map/mini_map.c		\
 		$(RADIX)
 
 NAME = my_world
