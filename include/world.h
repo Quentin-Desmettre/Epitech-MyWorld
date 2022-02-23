@@ -58,8 +58,8 @@ typedef struct world_struct {
 } world_t;
 
 void move(Mat4x4 **matWorld);
-void radixSortObjInt(void *toSort2, size_t type_size, size_t size
-, size_t offset_in_struct, void *buffer2);
+void radixSortObjInt(void *toSort2, size_t sizes[2],
+size_t offset_in_struct, void *buffer2);
 world_t *create_world();
 void add_mesh(world_t *world, mesh_t *mesh);
 void draw_meshes(world_t *world, win_t *win);

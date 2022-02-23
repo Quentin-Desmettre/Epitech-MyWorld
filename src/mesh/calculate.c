@@ -50,7 +50,8 @@ VecSort_t *sort_vertxs(world_t *world, vertex_t *vertxs)
         + v_mid[2] * v_mid[2]);
         world->sortBuffer[i].data = world->a_triangles[i];
     }
-    radixSortObjInt(world->sortBuffer, sizeof(VecSort_t), world->nb_trig,
+    radixSortObjInt(world->sortBuffer,
+    (size_t [2]){sizeof(VecSort_t), world->nb_trig},
     (size_t)&((VecSort_t *)0)->id, world->sortBuffer2);
     return world->sortBuffer;
 }

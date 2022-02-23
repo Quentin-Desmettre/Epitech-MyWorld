@@ -5,6 +5,8 @@
 ## makefile
 ##
 
+RADIX = src/radix/utils.c
+
 SRC = 	src/matrix/mat4x4.c 		\
 	 	src/matrix/mat_invert.c 	\
 		src/matrix/mat_create.c 	\
@@ -26,7 +28,7 @@ SRC = 	src/matrix/mat4x4.c 		\
 		src/map/create_map.c		\
 		src/map/perlin.c			\
 		src/load.c					\
-		src/utils.c
+		$(RADIX)
 
 NAME = my_world
 
