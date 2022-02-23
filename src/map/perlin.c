@@ -9,15 +9,15 @@
 
 float ***fill_gradient(int x, int y)
 {
-    float ***gradient = malloc(sizeof(float *) * (x+1));
+    float ***gradient = malloc(sizeof(float **) * (x + 1));
+    int j = 0;
 
-    for (int i = 0; i < x; i++){
-        gradient[i] = malloc(sizeof(float *) * (y+1));
-        int j = 0;
-        for (; j < y; j++){
+    for (int i = 0; i < x; i++) {
+        gradient[i] = malloc(sizeof(float *) * (y + 1));
+        for (j = 0; j < y; j++) {
             gradient[i][j] = malloc(sizeof(float) * 2);
-            gradient[i][j][0] = ((rand()%5000)/2500.0-1);
-            gradient[i][j][1] = ((rand()%5000)/2500.0-1);
+            gradient[i][j][0] = ((rand() % 5000) / 2500.0 - 1);
+            gradient[i][j][1] = ((rand() % 5000) / 2500.0 - 1);
         }
         gradient[i][j] = 0;
     }
@@ -25,7 +25,8 @@ float ***fill_gradient(int x, int y)
     return gradient;
 }
 
-float lerp(float a, float b, float w) {
+float lerp(float a, float b, float w)
+{
     return (1.0 - w)*a + w*b;
 }
 
@@ -49,7 +50,11 @@ float apply_perlin(float x, float y)
     int y1 = y0 + 1;
     float sx = x - (float)x0;
     float sy = y - (float)y0;
-    float n0, n1, ix0, ix1, value;
+    float n0;
+    float n1;
+    float ix0;
+    float ix1;
+    float value;
 
     n0 = dotGridGradient(x0, y0, x, y);
     n1 = dotGridGradient(x1, y0, x, y);
