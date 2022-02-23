@@ -34,11 +34,11 @@ typedef struct Mesh {
     sfBool is_selected;
 } mesh_t;
 
-mesh_t *create_mesh(size_t nb_vertxs, vertex_t *mesh_vertxs
-, size_t trig_size, triangle_t *mesh_trig, ...);
-void draw_triangle(vertex_t vertxs[3], sfColor color, win_t *win
-, sfBool is_selected, float direction);
-void center_vertxs(vertex_t *vertxs, sfColor *color
-, float direction, sfBool day);
+mesh_t *create_mesh(size_t nb_vertxs, vertex_t *mesh_vertxs,
+size_t trig_size, ...);
+void draw_triangle(vertex_t vertxs[3], sfColor color, win_t *win,
+sfBool is_selected, float direction);
+void center_vertxs(vertex_t *vertxs, sfColor *color,
+float direction, sfBool day);
 
 #endif
