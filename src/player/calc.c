@@ -44,8 +44,10 @@ void add_player_pos(vertex_t *vertxs, size_t i, world_t *world, float *tmp)
     get_player_pos(world);
     get_player_dir(world);
 
-    printf("player pos=%f %f %f\n", world->p_pos[0], world->p_pos[1], world->p_pos[2]);
-    printf("player dir=%f %f %f\n", world->p_dir[0], world->p_dir[1], world->p_dir[2]);
+    printf("player pos=%f %f %f\n", world->p_pos[0],
+    world->p_pos[1], world->p_pos[2]);
+    printf("player dir=%f %f %f\n", world->p_dir[0],
+    world->p_dir[1], world->p_dir[2]);
     vertxs[i].pos[0] = tmp[0] + world->p_pos[0] - world->p_dir[0] * 10;
     vertxs[i].pos[1] = tmp[1] + world->p_pos[1] - world->p_dir[1] * 10;
     vertxs[i].pos[2] = tmp[2] + world->p_pos[2] - world->p_dir[2] * 10;
