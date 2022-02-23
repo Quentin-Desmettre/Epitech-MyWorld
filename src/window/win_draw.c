@@ -18,6 +18,17 @@ void draw_circle(win_t *win, size_t nb, ...)
     }
 }
 
+void draw_rtex_to_win(sfRenderTexture *t, sfRenderWindow *w)
+{
+    sfSprite *s = sfSprite_create();
+
+    sfRenderWindow_clear(w, sfBlack);
+    sfSprite_setPosition(s, (sfVector2f){800, 0});
+    sfSprite_setTexture(s, sfRenderTexture_getTexture(t), 0);
+    sfRenderWindow_drawSprite(w, s, NULL);
+    sfRenderWindow_display(w);
+}
+
 void draw_shape(win_t *win, size_t nb, ...)
 {
     va_list list_arg;
@@ -32,5 +43,6 @@ void draw_shape(win_t *win, size_t nb, ...)
 void display(win_t *win)
 {
     sfRenderTexture_display(win->r_tex);
+    draw_rtex_to_win(win->r_tex, win->window);
     sfRenderTexture_clear(win->r_tex, sfBlack);
 }
