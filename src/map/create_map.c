@@ -89,5 +89,4 @@ void create_map(world_t *world, size_t size)
     }
     add_map_trig(mesh, size, trig);
     add_mesh(world, mesh);
-    printf("nb points : %i,nb trig : %i\n", mesh->nb_vertxs, mesh->trig_size);
 }
