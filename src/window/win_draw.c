@@ -13,7 +13,7 @@ void draw_circle(win_t *win, size_t nb, ...)
 
     va_start(list_arg, nb);
     for (size_t i = 0; i < nb; i++) {
-        sfRenderWindow_drawCircleShape(win->window
+        sfRenderTexture_drawCircleShape(win->r_tex
         , va_arg(list_arg, sfCircleShape *), 0);
     }
 }
@@ -24,13 +24,13 @@ void draw_shape(win_t *win, size_t nb, ...)
 
     va_start(list_arg, nb);
     for (size_t i = 0; i < nb; i++) {
-        sfRenderWindow_drawConvexShape(win->window
+        sfRenderTexture_drawConvexShape(win->r_tex
         , va_arg(list_arg, sfConvexShape *), 0);
     }
 }
 
 void display(win_t *win)
 {
-    sfRenderWindow_display(win->window);
-    sfRenderWindow_clear(win->window, sfBlack);
+    sfRenderTexture_display(win->r_tex);
+    sfRenderTexture_clear(win->r_tex, sfBlack);
 }

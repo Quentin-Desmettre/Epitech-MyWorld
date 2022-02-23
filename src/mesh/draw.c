@@ -9,7 +9,7 @@
 
 void draw_line(vertex_t vertxs[3], win_t *win, sfColor color, sfBool is_selected)
 {
-    sfRenderWindow_drawVertexArray(win->window, win->array, 0);
+    sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
     sfVertexArray_clear(win->array);
     win->tmp->color = is_selected ? sfWhite : color;
     sfVertexArray_setPrimitiveType(win->array, sfLines);
@@ -17,7 +17,7 @@ void draw_line(vertex_t vertxs[3], win_t *win, sfColor color, sfBool is_selected
         win->tmp->position = (sfVector2f){vertxs[i].pos[0], vertxs[i].pos[1]};
         sfVertexArray_append(win->array, *win->tmp);
     }
-    sfRenderWindow_drawVertexArray(win->window, win->array, 0);
+    sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
     sfVertexArray_setPrimitiveType(win->array, sfTriangles);
     sfVertexArray_clear(win->array);
 }
@@ -72,7 +72,7 @@ void draw_meshes(world_t *world, win_t *win)
             ((mesh_t *)tri->mesh_ptr)->is_selected, apply_shades(world, tri));
         }
     }
-    sfRenderWindow_drawVertexArray(win->window, win->array, 0);
+    sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
     sfVertexArray_clear(win->array);
     // t = clock() - t;
     // double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds

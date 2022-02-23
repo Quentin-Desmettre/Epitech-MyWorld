@@ -14,7 +14,7 @@
     #define FPS 60
     #define ALIASING 8
 
-static const sfVideoMode mode = {800, 800, 32};
+static const sfVideoMode mode = {1600, 800, 32};
 
 static const sfUint32 STYLE = sfResize | sfClose;
 
@@ -33,6 +33,7 @@ typedef struct window_t {
     void (*display)(struct window_t *win);
     void (*draw_shape)(struct window_t *win, size_t nb, ...);
     void (*draw_circle)(struct window_t *win, size_t nb, ...);
+    sfRenderTexture *r_tex;
 } win_t;
 
 win_t *win_create(size_t nb_trig);
