@@ -7,7 +7,8 @@
 
 #include "world.h"
 
-void draw_line(vertex_t vertxs[3], win_t *win, sfColor color, sfBool is_selected)
+void draw_line(vertex_t vertxs[3], win_t *win,
+sfColor color, sfBool is_selected)
 {
     sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
     sfVertexArray_clear(win->array);
@@ -55,8 +56,6 @@ void draw_meshes(world_t *world, win_t *win)
 {
     vertex_t pts[3];
     triangle_t *tri;
-    // clock_t t;
-    // t = clock();
     vertex_t *vertxs = project_meshes(world);
     VecSort_t *sortBuffer = sort_vertxs(world, vertxs);
 
@@ -74,8 +73,5 @@ void draw_meshes(world_t *world, win_t *win)
     }
     sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
     sfVertexArray_clear(win->array);
-    // t = clock() - t;
-    // double time_taken = ((double)t) / CLOCKS_PER_SEC; // in seconds
-    // printf("fun() took %f seconds to execute \n", time_taken);
     free(vertxs);
 }
