@@ -35,8 +35,8 @@ void draw_shape(win_t *win, size_t nb, ...)
 
     va_start(list_arg, nb);
     for (size_t i = 0; i < nb; i++) {
-        sfRenderTexture_drawConvexShape(win->r_tex
-        , va_arg(list_arg, sfConvexShape *), 0);
+        sfRenderTexture_drawConvexShape(win->r_tex,
+        va_arg(list_arg, sfConvexShape *), 0);
     }
 }
 
