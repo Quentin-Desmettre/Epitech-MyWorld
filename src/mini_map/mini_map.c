@@ -9,6 +9,7 @@
 
 void create_minimap(world_t *world, win_t *win, long long size)
 {
+    const float *time = win->params->day ? day_light : night_light;
     float nb = 800.0 / (float)(size - 1);
     sfBool day = win->params->day;
     float direction = 0;
@@ -17,9 +18,9 @@ void create_minimap(world_t *world, win_t *win, long long size)
         for (int j = 0; j < size; j++) {
             direction = apply_shades(world, world->a_triangles[i * size + j]);
             win->tmp->color = world->a_triangles[i * size + j]->color;
-            win->tmp->color.r *= (direction * (day ? SUN : MOON) + 0.1);
-            win->tmp->color.g *= (direction * (day ? SUN : MOON) + 0.1);
-            win->tmp->color.b *= (direction * (day ? SUN : MOON) + 0.1);
+            win->tmp->color.r *= (direction * time[win->params->hour] + 0.1);
+            win->tmp->color.g *= (direction * time[win->params->hour] + 0.1);
+            win->tmp->color.b *= (direction * time[win->params->hour] + 0.1);
             win->tmp->position = (sfVector2f){nb * i, nb * (size - j)};
             sfVertexArray_append(win->array, *win->tmp);
             win->tmp->position = (sfVector2f){nb * (i + 1), nb * (size - j)};
@@ -28,9 +29,9 @@ void create_minimap(world_t *world, win_t *win, long long size)
             sfVertexArray_append(win->array, *win->tmp);
             direction = apply_shades(world, world->a_triangles[i * size + j + size * size]);
             win->tmp->color = world->a_triangles[i * size + j + size * size]->color;
-            win->tmp->color.r *= (direction * (day ? SUN : MOON) + 0.1);
-            win->tmp->color.g *= (direction * (day ? SUN : MOON) + 0.1);
-            win->tmp->color.b *= (direction * (day ? SUN : MOON) + 0.1);
+            win->tmp->color.r *= (direction * time[win->params->hour] + 0.1);
+            win->tmp->color.g *= (direction * time[win->params->hour] + 0.1);
+            win->tmp->color.b *= (direction * time[win->params->hour] + 0.1);
             win->tmp->position = (sfVector2f){nb * (i + 1), nb * (size - j + 1)};
             sfVertexArray_append(win->array, *win->tmp);
             win->tmp->position = (sfVector2f){nb * (i + 1), nb * (size - j)};

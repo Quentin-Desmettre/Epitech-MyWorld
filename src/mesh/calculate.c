@@ -7,18 +7,27 @@
 
 #include "world.h"
 
-void center_vertxs(vertex_t *vertxs, sfColor *color,
-float direction, sfBool day)
+sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri,
+world_t *world, win_t *win)
 {
+    sfColor color = tri->color;
+    float direction = apply_shades(world, tri);
+    const float *time = win->params->day ? day_light : night_light;
+
     for (int i = 0; i < 3; i++) {
         vertxs[i].pos[0] += 1;
         vertxs[i].pos[1] += 1;
         vertxs[i].pos[0] *= 400;
         vertxs[i].pos[1] *= 400;
     }
-    color->r *= (direction * (day ? SUN : MOON) + 0.1);
-    color->g *= (direction * (day ? SUN : MOON) + 0.1);
-    color->b *= (direction * (day ? SUN : MOON) + 0.1);
+    color.r *= (direction * time[win->params->hour] + 0.1);
+    color.g *= (direction * time[win->params->hour] + 0.1);
+    color.b *= (direction * time[win->params->hour] + 0.1);
+
+    color.r *= (direction * time[win->params->hour] + 0.1);
+    color.g *= (direction * time[win->params->hour] + 0.1);
+    color.b *= (direction * time[win->params->hour] + 0.1);
+    return color;
 }
 
 float get_direction(vertex_t *pts)

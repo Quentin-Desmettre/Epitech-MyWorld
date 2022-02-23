@@ -40,6 +40,5 @@ win_t *win_create(size_t nb_trig);
 void display(win_t *win);
 void draw_shape(win_t *win, size_t nb, ...);
 void draw_circle(win_t *win, size_t nb, ...);
-void params(win_t *win);
 
 #endif

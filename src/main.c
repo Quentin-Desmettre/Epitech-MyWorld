@@ -15,7 +15,7 @@ int poll_window_ev(win_t *win, world_t *world)
             world->destroy(world);
             return 0;
         } else
-            params(win);
+            params(win, world);
     }
     return 1;
 }
@@ -30,7 +30,7 @@ int main(int ac, char **av)
         return 84;
     srand(time(NULL));
     create_map(world, size);
-    set_light_source(world, size / 2, 0, 999);
+    set_light_source(world, size / 2, 1, 1000);
     convert_to_array(world);
     world->sortBuffer = malloc(sizeof(vecsort_t) * world->nb_trig);
     world->sortBuffer2 = malloc(sizeof(vecsort_t) * world->nb_trig);
