@@ -61,8 +61,8 @@ size_t offset_in_struct, void *buffer2)
     uint8_t *toSort = toSort2;
     uint8_t *buffer = buffer2;
     int const buftype = 8;
-    int const bufsize = pow(2, buftype);
-    int counts[bufsize + 1];
+    int const bufsize = 256;
+    int counts[257];
     uint8_t *tmp;
 
     for (size_t x = 0; x < sizes[1]; x++)
