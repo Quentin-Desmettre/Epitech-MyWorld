@@ -78,5 +78,6 @@ void draw_light(world_t *world, win_t *win);
 void convert_to_array(world_t *world);
 void create_map(world_t *world, size_t size);
 float apply_perlin(float x, float y);
+void create_minimap(world_t *world, win_t *win, long long size);
 
 #endif

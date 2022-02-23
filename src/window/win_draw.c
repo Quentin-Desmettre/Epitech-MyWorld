@@ -23,7 +23,6 @@ void draw_rtex_to_win(sfRenderTexture *t, sfRenderWindow *w)
 {
     sfSprite *s = sfSprite_create();
 
-    sfRenderWindow_clear(w, sfBlack);
     sfSprite_setPosition(s, (sfVector2f){800, 0});
     sfSprite_setTexture(s, sfRenderTexture_getTexture(t), 0);
     sfRenderWindow_drawSprite(w, s, NULL);
@@ -47,4 +46,5 @@ void display(win_t *win)
     sfRenderTexture_display(win->r_tex);
     draw_rtex_to_win(win->r_tex, win->window);
     sfRenderTexture_clear(win->r_tex, sfBlack);
+    sfRenderWindow_clear(win->window, sfBlack);
 }
