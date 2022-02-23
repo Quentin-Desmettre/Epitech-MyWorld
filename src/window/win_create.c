@@ -62,6 +62,7 @@ win_t *win_create(size_t nb_trig)
     win->display = display;
     win->draw_shape = draw_shape;
     win->draw_circle = draw_circle;
+    win->r_tex = sfRenderTexture_create(800, 800, 0);
     init_params(win, nb_trig);
     return win;
 }
