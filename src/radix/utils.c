@@ -7,8 +7,6 @@
 
 #include "world.h"
 
-#define CONST 0b10000000
-
 void get_elems_2(va_list *list, int *i, int *bufsize)
 {
     *i = va_arg(*list, int);

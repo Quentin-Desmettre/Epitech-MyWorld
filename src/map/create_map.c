@@ -62,7 +62,8 @@ void calculate_height(vertex_t *vertex, size_t i, size_t j)
     vertex->pos[0] = i * 1.5;
     vertex->pos[1] = 0;
     for (int height = 0; height < 7; height++) {
-        vertex->pos[1] += apply_perlin((float)(i * 1.5) / (1.1 * pow(2, height))
+        vertex->pos[1] +=
+        apply_perlin((float)(i * 1.5) / (1.1 * pow(2, height))
         , (float)(j * 1.5) / (1.1 * pow(2, height))) * pow(2, height);
     }
     vertex->pos[2] = j * 1.5;

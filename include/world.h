@@ -33,9 +33,9 @@
     #include "my.h"
 
     #define PI 3.14159265359
+    #define CONST 0b10000000
 
     #define ABS(nb) (nb) < 0 ? -(nb) : (nb)
-
 
 typedef struct world_struct {
     VecSort_t *sortBuffer;

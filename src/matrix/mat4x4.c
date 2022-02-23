@@ -9,18 +9,19 @@
 
 float Q_rsqrt(float number)
 {
-	union {
-		float    f;
-		uint32_t i;
-	} conv = { .f = number };
-	conv.i  = 0x5f3759df - (conv.i >> 1);
-	conv.f *= 1.5F - (number * 0.5F * conv.f * conv.f);
-	return conv.f;
+    union {
+        float    f;
+        uint32_t i;
+    } conv = { .f = number };
+    conv.i  = 0x5f3759df - (conv.i >> 1);
+    conv.f *= 1.5F - (number * 0.5F * conv.f * conv.f);
+    return conv.f;
 }
 
 void normalize(float *vec)
 {
-    float magnitude_squared = vec[0] * vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
+    float magnitude_squared = vec[0] *
+    vec[0] + vec[1] * vec[1] + vec[2] * vec[2];
     float invsqrt = Q_rsqrt(magnitude_squared);
 
     vec[0] *= invsqrt;

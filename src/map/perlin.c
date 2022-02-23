@@ -7,7 +7,6 @@
 
 #include "world.h"
 
-
 float ***fill_gradient(int x, int y)
 {
     float ***gradient = malloc(sizeof(float *) * (x+1));

@@ -1,6 +1,6 @@
 /*
-** SOLUS PROJECT, 2021
-** Solus
+** EPITECH PROJECT, 2021
+** B-MUL-200-LIL-2-1-myworld-paulin.leclercq
 ** File description:
 ** append_node.c
 */
