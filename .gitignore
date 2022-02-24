@@ -5,6 +5,8 @@ my_world
 
 *.o
 
+my.h
+
 .vscode
 
 # Compiled Object files
