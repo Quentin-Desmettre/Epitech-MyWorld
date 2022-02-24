@@ -30,7 +30,7 @@ void main_menu_release(main_menu_t *m, sfEvent ev, window_t *win)
 
 void main_menu_event(window_t *win, sfEvent ev)
 {
-    main_menu_t *m = win->home;
+    main_menu_t *m = win->menus[0];
     if (ev.type == sfEvtMouseMoved)
         check_button_move(m->buttons, 5, ev);
     if (ev.type == sfEvtMouseButtonPressed)
@@ -51,8 +51,9 @@ void destroy_home(main_menu_t *menu)
     free(menu);
 }
 
-const sfTexture *draw_main_menu(main_menu_t *menu)
+const sfTexture *draw_main_menu(void *m)
 {
+    main_menu_t *menu = m;
     sfRenderTexture_clear(menu->text, sfBlack);
 
     sfRenderTexture_drawSprite(menu->text, menu->background, NULL);

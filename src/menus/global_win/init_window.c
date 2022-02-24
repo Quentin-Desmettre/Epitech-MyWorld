@@ -53,10 +53,10 @@ window_t *win_create(void)
 {
     window_t *win = malloc(sizeof(window_t));
     const sfTexture* (*dr[6])(void *) = {
-        &draw_main_menu, NULL, NULL, NULL, NULL, NULL
+        &draw_main_menu, NULL, &draw_settings, NULL, NULL, NULL
     };
     void (*ev[6])(window_t *, sfEvent) = {
-        &main_menu_event, NULL, NULL, NULL, NULL, NULL
+        &main_menu_event, NULL, &settings_ev, NULL, NULL, NULL
     };
 
     win->state = HOME;
@@ -64,7 +64,9 @@ window_t *win_create(void)
     win->is_transition = 0;
     win->win = sfRenderWindow_create(
         (sfVideoMode){800, 600, 32}, "My world", sfClose, NULL);
-    win->home = init_main_menu(global_texture(), (sfVector2f){800, 600});
+    win->menus[0] = init_main_menu(global_texture(), (sfVector2f){800, 600});
+    win->mode = (sfVideoMode){800, 600, 32};
+    win->menus[2] = init_settings(win);
     for (int i = 0; i < 6; i++) {
         win->draw[i] = dr[i];
         win->event[i] = ev[i];

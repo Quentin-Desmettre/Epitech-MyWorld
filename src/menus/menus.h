@@ -26,6 +26,53 @@
     #define GROW_FACTOR 1.05
     #define MAIN_MENU_TXT_FACTOR 0.7
 
+typedef struct {
+    sfSprite *box;
+    sfSprite *check;
+    sfText *text;
+    int is_checked;
+} check_box;
+
+typedef struct {
+    sfText *text;
+    sfSprite *sprite;
+    int is_press;
+    int is_hover;
+    sfVector2f pos;
+    sfVector2f size;
+    void (*action)(void *);
+} button_t;
+
+typedef struct {
+    check_box *vsync;
+    check_box *full_screen;
+
+    button_t *framerate_button;
+    button_t *res_button;
+
+    sfText *sfx_vol_text;
+    sfText *sfx_text;
+    button_t *sfx_plus;
+    button_t *sfx_minus;
+
+    sfText *music_vol_text;
+    sfText *music_text;
+    button_t *music_plus;
+    button_t *music_minus;
+
+    button_t *back;
+    sfSprite *background;
+
+    sfRenderTexture *rtex;
+
+    sfClock *repeat_clock;
+
+    int sfx_vol;
+    int music_vol;
+    int framerate;
+    int resolution;
+} settings_t;
+
 static const sfIntRect button_rect = {
     1, 1, 1, 1
 };
@@ -48,12 +95,13 @@ typedef struct win {
     int next_state;
     bool is_transition;
 
-    void *map_select;
-    void *settings;
-    void *create_level;
-    void *how_to_play;
-    void *home;
-    void *game;
+    void *menus[6];
+    // void *map_select;
+    // void *settings;
+    // void *create_level;
+    // void *how_to_play;
+    // void *home;
+    // void *game;
 
     const sfTexture* (*draw[6])(void *);
     void (*event[6])(struct win *, sfEvent ev);
@@ -61,18 +109,12 @@ typedef struct win {
 
     sfClock *lum_clock;
 
+    sfVideoMode mode;
+
+    int framerate;
+
     sfRenderWindow *win;
 } window_t;
-
-typedef struct {
-    sfText *text;
-    sfSprite *sprite;
-    int is_press;
-    int is_hover;
-    sfVector2f pos;
-    sfVector2f size;
-    void (*action)(window_t *);
-} button_t;
 
 typedef enum {
     HOME, MAP_SELECT, SETTINGS, CREATE_MAP,
@@ -95,7 +137,7 @@ sfText *init_text(char const *str, int charSize);
 void set_sprite_size(sfSprite *s, sfVector2f size);
 sfSprite *init_sprite(sfTexture *t, sfIntRect rect, sfVector2f size);
 button_t *init_button(sfTexture *t, sfIntRect rect, sfVector2f pos,
-sfVector2f size, char const *str, void (*action)(window_t *));
+sfVector2f size, char const *str, void (*action)(void *));
 bool is_on_button(sfVector2f pos, button_t *b);
 void check_button_move(button_t **buttons, int nb_button, sfEvent move);
 void check_button_press(button_t **buttons, int nb_button, sfEvent press);
@@ -109,7 +151,7 @@ void scale_main_buttons(button_t *buttons[4], sfVector2f winSize);
 void move_main_buttons(button_t *buttons[4], sfVector2f winSize);
 main_menu_t *init_main_menu(sfTexture *t, sfVector2f winSize);
 void draw_button_to_rtex(button_t *b, sfRenderTexture *rtex);
-const sfTexture *draw_main_menu(main_menu_t *menu);
+const sfTexture *draw_main_menu(void *menu);
 window_t *win_create(void);
 void destroy_home(main_menu_t *menu);
 void win_destroy(window_t *win);
@@ -121,5 +163,66 @@ void draw(window_t *win);
 void poll_events(window_t *win);
 int main(void);
 void center_text(sfText *t);
+
+// check box
+void scale_check_box(check_box *c, sfVector2f factors);
+void set_box_pos(check_box *c, sfVector2f pos);
+void draw_check_box(sfRenderTexture *rtex, check_box *c);
+check_box *init_check_box(int check, char const *text, window_t *win);
+
+// truc
+void rescale_all(window_t *win);
+
+// settings
+sfSprite *get_settings_sprite(window_t *win);
+void move_settings(settings_t *se, window_t *win);
+void go_back(settings_t *se, window_t *win);
+void update_full_screen(settings_t *se, window_t *win);
+void update_vsync(settings_t *se, window_t *win);
+void update_res(settings_t *se, window_t *win);
+void update_framerate(settings_t *se, window_t *win);
+void rescale_settings(settings_t *se, window_t *win);
+sfFloatRect bounds(sfSprite *s);
+sfVector2f conv(sfVector2f c, window_t *win);
+int get_set_button_at(settings_t *se, sfEvent *ev);
+void manage_settings_hover(sfEvent *ev, window_t *win);
+void manage_settings_press(sfEvent *ev, window_t *win);
+void manage_settings_release(sfEvent *ev, window_t *win);
+void reset_set_buttons(settings_t *se);
+void update_all_texts(settings_t *se);
+void sfx_minus(settings_t *se, window_t *win);
+void sfx_plus(settings_t *se, window_t *win);
+void music_minus(settings_t *se, window_t *win);
+void music_plus(settings_t *se, window_t *win);
+void update_vol(float vol, char const *format, ...);
+void settings_ev(window_t *win, sfEvent ev);
+const sfTexture *draw_settings(void *se);
+settings_t *init_settings(window_t *win);
+void check_sound_repeat(window_t *win, sfEvent *ev);
+void scale_main_menu(main_menu_t *m, window_t *win);
+
+static const sfIntRect settings_rects[10] = {
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {0, 0, 1, 1}
+};
+
+static const sfVideoMode available_modes[] = {
+    {800, 600, 32},
+    {1024, 800, 32},
+    {1920, 1080, 32}
+};
+
+static const int available_framerates[] = {
+    30, 60, 90, 120, 144
+};
+
 
 #endif

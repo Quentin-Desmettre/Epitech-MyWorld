@@ -11,13 +11,13 @@ void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
     // destroy map sekect, settings, create level, how to play, game
-    destroy_home(win->home);
+    destroy_home(win->menus[0]);
     free(win);
 }
 
 void draw(window_t *win)
 {
-    const sfTexture* tex = win->draw[win->state](win->home);
+    const sfTexture* tex = win->draw[win->state](win->menus[win->state]);
     sfSprite *s = init_sprite_from_texture(tex);
 
     if (win->is_transition)
@@ -43,6 +43,8 @@ void poll_events(window_t *win)
         if (!win->is_transition)
             win->event[win->state](win, ev);
     }
+    if (win->state == SETTINGS)
+        check_sound_repeat(win, &ev);
 }
 
 int main(void)

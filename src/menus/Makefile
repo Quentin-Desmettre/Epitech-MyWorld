@@ -8,13 +8,13 @@
 SRC = 	*.c \
 		*/*.c
 
-SFML = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm
+SFML = -lcsfml-graphics -lcsfml-window -lcsfml-system -lcsfml-audio -lm -L ../../lib/my -lmy
 
 MY_LIB = -L ../lib/my/
 
 CFLAGS = -Wall -Wextra -g
 
-INCLUDES = -I ./
+INCLUDES = -I ./ -I ../../include/
 
 NAME = a.out
 
