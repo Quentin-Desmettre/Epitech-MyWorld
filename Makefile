@@ -25,6 +25,7 @@ SRC = 	src/matrix/mat4x4.c 		\
 		src/mesh/create.c			\
 		src/mesh/draw.c				\
 		src/player/calc.c			\
+		src/map/smooth_shader.c		\
 		src/map/create_map.c		\
 		src/map/perlin.c			\
 		src/map/smooth.c			\

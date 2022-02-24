@@ -12,7 +12,6 @@ world_t *world, win_t *win)
 {
     sfColor color = tri->color;
     float direction = tri->direction;
-    const float *time = win->params->day ? day_light : night_light;
 
     for (int i = 0; i < 3; i++) {
         vertxs[i].pos[0] += 1;
