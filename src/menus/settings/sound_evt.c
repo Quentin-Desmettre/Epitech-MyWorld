@@ -32,6 +32,7 @@ void sfx_minus(settings_t *se, window_t *win)
         return;
     se->sfx_vol--;
     update_vol(se->sfx_vol, "");
+    //win->lpick->launch_sound, win->oof, win->coin, win->death_sound);
 }
 
 void sfx_plus(settings_t *se, window_t *win)
@@ -40,6 +41,7 @@ void sfx_plus(settings_t *se, window_t *win)
         return;
     se->sfx_vol++;
     update_vol(se->sfx_vol, "");
+    //win->lpick->launch_sound, win->oof, win->coin, win->death_sound);
 }
 
 void music_minus(settings_t *se, window_t *win)
@@ -47,7 +49,7 @@ void music_minus(settings_t *se, window_t *win)
     if (se->music_vol == 0)
         return;
     se->music_vol--;
-    update_vol(se->music_vol, "");
+    update_vol(se->music_vol, "");//, win->lobby_music);
 }
 
 void music_plus(settings_t *se, window_t *win)
@@ -55,5 +57,5 @@ void music_plus(settings_t *se, window_t *win)
     if (se->music_vol == 100)
         return;
     se->music_vol++;
-    update_vol(se->music_vol, "");
+    update_vol(se->music_vol, "");//, win->lobby_music);
 }

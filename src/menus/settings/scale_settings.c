@@ -10,11 +10,22 @@
 
 static void rescale_sounds(settings_t *se, window_t *win)
 {
-    float scale = win->mode.width / settings_rects[0].width;
-    sfSprite_setScale(se->sfx_plus->sprite, (sfVector2f){scale, scale});
-    sfSprite_setScale(se->sfx_minus->sprite, (sfVector2f){scale, scale});
-    sfSprite_setScale(se->music_plus->sprite, (sfVector2f){scale, scale});
-    sfSprite_setScale(se->music_minus->sprite, (sfVector2f){scale, scale});
+    sfSprite_setScale(se->sfx_plus->sprite, (sfVector2f)
+    {win->mode.width / settings_rects[0].width / 14.0, win->mode.width / settings_rects[0].width / 14.0});
+    sfSprite_setScale(se->sfx_minus->sprite, (sfVector2f)
+    {win->mode.width / settings_rects[0].width / 14.0, win->mode.width / settings_rects[0].width / 14.0});
+    sfSprite_setScale(se->music_plus->sprite, (sfVector2f)
+    {win->mode.width / settings_rects[0].width / 14.0, win->mode.width / settings_rects[0].width / 14.0});
+    sfSprite_setScale(se->music_minus->sprite, (sfVector2f)
+    {win->mode.width / settings_rects[0].width / 14.0, win->mode.width / settings_rects[0].width / 14.0});
+
+    /*
+    sfSprite_setScale(se->sfx_minus->sprite, (sfVector2f)
+    {win->mode.width / 1110.0, win->mode.width / 1110.0});
+    sfSprite_setScale(se->music_plus->sprite, (sfVector2f)
+    {win->mode.width / 1110.0, win->mode.width / 1110.0});
+    sfSprite_setScale(se->music_minus->sprite, (sfVector2f)
+    {win->mode.width / 1110.0, win->mode.width / 1110.0});*/
 }
 
 static void rescale_buttons(settings_t *se, window_t *win)
@@ -60,6 +71,10 @@ void rescale_settings(settings_t *se, window_t *win)
     (sfVector2f){win->mode.width, win->mode.height});
     scale_check_box(se->full_screen, (sfVector2f)
     {check_scale, check_scale});
+    // scale_check_box(se->full_screen, (sfVector2f)
+    // {win->mode.width / 936.0, win->mode.width / 936.0});
+    // scale_check_box(se->vsync, (sfVector2f)
+    // {win->mode.width / 936.0, win->mode.width / 936.0});
     scale_check_box(se->vsync, (sfVector2f)
     {check_scale, check_scale});
     rescale_sounds(se, win);

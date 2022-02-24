@@ -7,6 +7,7 @@
 
 #include "menus.h"
 #include "my.h"
+#include <math.h>
 
 void update_all_texts(settings_t *se)
 {

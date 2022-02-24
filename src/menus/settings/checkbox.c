@@ -7,6 +7,11 @@
 
 #include "menus.h"
 
+static const sfIntRect check_rect[2] = {
+    {0, 0, 1, 1},
+    {0, 0, 1, 1}
+};
+
 void destroy_check_box(check_box *c)
 {
     sfText_destroy(c->text);
