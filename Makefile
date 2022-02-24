@@ -47,7 +47,7 @@ MY	=	my.h
 all: exec_lib $(NAME)
 
 exec_lib:
-	cd lib/my/ && make
+	cd lib/my/ && make re
 
 clean:
 	rm -f $(OBJ)

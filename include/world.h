@@ -87,5 +87,6 @@ void rota_right(world_t *world, win_t *win);
 void rota_left(world_t *world, win_t *win);
 void change_color(mesh_t *mesh, size_t size, size_t i, size_t j);
 void smooth(mesh_t *mesh, size_t size);
+void smooth_shadow(world_t *world, win_t *win);
 
 #endif
