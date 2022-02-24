@@ -25,6 +25,10 @@
 
     #define GROW_FACTOR 1.05
     #define MAIN_MENU_TXT_FACTOR 0.7
+    #define REPEAT_DELAY 500000
+    #define BACKGROUND_SETTINGS 0
+    #define BACK_SETTINGS 0
+
 
 typedef struct {
     sfSprite *box;
@@ -170,7 +174,12 @@ void set_box_pos(check_box *c, sfVector2f pos);
 void draw_check_box(sfRenderTexture *rtex, check_box *c);
 check_box *init_check_box(int check, char const *text, window_t *win);
 
-// truc
+static const sfIntRect check_rect[2] = {
+    {0, 0, 1, 1},
+    {0, 0, 1, 1}
+};
+
+// rescale
 void rescale_all(window_t *win);
 
 // settings
@@ -202,6 +211,8 @@ void check_sound_repeat(window_t *win, sfEvent *ev);
 void scale_main_menu(main_menu_t *m, window_t *win);
 void destroy_settings(settings_t *se);
 void destroy_button(button_t *b);
+
+static const sfIntRect back_rect = {0, 0, 0, 0};
 
 static const sfIntRect settings_rects[10] = {
     {0, 0, 1, 1},
