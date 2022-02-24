@@ -230,5 +230,24 @@ static const int available_framerates[] = {
     30, 60, 90, 120, 144
 };
 
+// maps
+    #define MAP_X_FACTOR 0.5
+    #define MAP_Y_FACTOR 0.2
+
+void rescale_map(map_t *m, sfVector2f win_size);
+sfRectangleShape *map_sprite(map_t *m);
+map_t *create_map(sfVector2f win_size, char const *file);
+
+static const sfIntRect thumbnail_rect = {
+    0, 0, 1, 1
+};
+
+typedef struct {
+    sfText *name;
+    char *file;
+    sfRenderTexture *rtex;
+    sfSprite *thumbnail;
+} map_t;
+
 
 #endif

@@ -5,6 +5,8 @@ my_world
 
 *.o
 
+.settings.conf
+
 my.h
 
 .vscode
