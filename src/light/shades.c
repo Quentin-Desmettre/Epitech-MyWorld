@@ -7,6 +7,11 @@
 
 #include "world.h"
 
+float get_time(world_t *world, win_t *win, float direction)
+{
+    
+}
+
 vertex_t *get_vertxs(world_t *world, triangle_t *tri)
 {
     vertex_t *vertxs = malloc(sizeof(vertex_t) * 3);

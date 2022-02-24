@@ -79,5 +79,10 @@ void convert_to_array(world_t *world);
 void create_map(world_t *world, size_t size);
 float apply_perlin(float x, float y);
 void create_minimap(world_t *world, win_t *win, long long size);
+sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri,
+world_t *world, win_t *win);
+void params(win_t *win, world_t *world);
+void rota_right(world_t *world, win_t *win);
+void rota_left(world_t *world, win_t *win);
 
 #endif
