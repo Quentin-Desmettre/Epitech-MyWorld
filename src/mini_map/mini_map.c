@@ -39,11 +39,11 @@ void where_minimap(world_t *world, win_t *win, long long size)
 
 void add_color(int i, win_t *win, world_t *world, const float *time)
 {
-    float direction = apply_shades(world, world->a_triangles[i]);
+    float direction = world->a_triangles[i]->direction;
     win->tmp->color = world->a_triangles[i]->color;
-    win->tmp->color.r *= (direction * time[win->params->hour] + 0.1);
-    win->tmp->color.g *= (direction * time[win->params->hour] + 0.1);
-    win->tmp->color.b *= (direction * time[win->params->hour] + 0.1);
+    win->tmp->color.r *= direction;
+    win->tmp->color.g *= direction;
+    win->tmp->color.b *= direction;
 }
 
 void create_minimap(world_t *world, win_t *win, long long size)
