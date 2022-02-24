@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "world.h": "c",
-        "sstream": "c"
+        "sstream": "c",
+        "cmath": "c",
+        "keyboard.h": "c"
     }
 }

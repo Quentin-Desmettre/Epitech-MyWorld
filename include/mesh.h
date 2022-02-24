@@ -21,6 +21,7 @@ typedef struct vertex {
 
 typedef struct triangle {
     int vertxs[3];
+    float direction;
     sfColor color;
     vertex_t *ptrs[3];
     void *mesh_ptr;

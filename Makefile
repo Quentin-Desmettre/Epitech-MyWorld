@@ -27,6 +27,7 @@ SRC = 	src/matrix/mat4x4.c 		\
 		src/player/calc.c			\
 		src/map/create_map.c		\
 		src/map/perlin.c			\
+		src/map/smooth.c			\
 		src/load.c					\
 		src/mini_map/mini_map.c		\
 		$(RADIX)
@@ -46,7 +47,7 @@ MY	=	my.h
 all: exec_lib $(NAME)
 
 exec_lib:
-	cd lib/my/ && make
+	cd lib/my/ && make re
 
 clean:
 	rm -f $(OBJ)
@@ -55,7 +56,7 @@ $(NAME):
 	gcc -o $(NAME) src/main.c $(SRC) -Llib/ -lmy -Iinclude $(FLAGS)
 
 run: re
-	./$(NAME) 64
+	./$(NAME) 128
 
 fclean: clean
 	rm -f $(NAME)
@@ -76,7 +77,7 @@ re:	fclean all
 
 valgrind: all
 	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite \
-	./$(NAME) 64
+	./$(NAME) 128
 
 tests_run: exec_lib
 	gcc -o unit_tests $(SRC) tests/*.c -Llib/ -lmy --coverage -lcriterion

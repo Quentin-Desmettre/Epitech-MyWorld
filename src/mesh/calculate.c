@@ -11,7 +11,7 @@ sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri,
 world_t *world, win_t *win)
 {
     sfColor color = tri->color;
-    float direction = apply_shades(world, tri);
+    float direction = tri->direction;
     const float *time = win->params->day ? day_light : night_light;
 
     for (int i = 0; i < 3; i++) {
@@ -20,13 +20,9 @@ world_t *world, win_t *win)
         vertxs[i].pos[0] *= 400;
         vertxs[i].pos[1] *= 400;
     }
-    color.r *= (direction * time[win->params->hour] + 0.1);
-    color.g *= (direction * time[win->params->hour] + 0.1);
-    color.b *= (direction * time[win->params->hour] + 0.1);
-
-    color.r *= (direction * time[win->params->hour] + 0.1);
-    color.g *= (direction * time[win->params->hour] + 0.1);
-    color.b *= (direction * time[win->params->hour] + 0.1);
+    color.r *= direction;
+    color.g *= direction;
+    color.b *= direction;
     return color;
 }
 

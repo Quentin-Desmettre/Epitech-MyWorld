@@ -21,6 +21,7 @@ static const sfUint32 STYLE = sfResize | sfClose;
 typedef struct window_t {
     sfEvent event;
     sfVertex *tmp;
+    size_t map_size;
     params_t *params;
     sfCircleShape *circle;
     sfConvexShape *convex;

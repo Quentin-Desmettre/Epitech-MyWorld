@@ -55,7 +55,17 @@ typedef struct world_struct {
     float *light_start;
     float *light_source;
     void (*destroy)(struct world_struct *world);
+    int s_br;
 } world_t;
+
+typedef struct tmp_struct {
+    world_t *world;
+    size_t size;
+    long line;
+    long col;
+    size_t end;
+    size_t start;
+} tmp_t;
 
 void move(mat4x4 **mat_world);
 void radix_sort(void *toSort2, size_t sizes[2],
@@ -84,5 +94,8 @@ world_t *world, win_t *win);
 void params(win_t *win, world_t *world);
 void rota_right(world_t *world, win_t *win);
 void rota_left(world_t *world, win_t *win);
+void change_color(mesh_t *mesh, size_t size, size_t i, size_t j);
+void smooth(mesh_t *mesh, size_t size);
+void smooth_shadow(world_t *world, win_t *win);
 
 #endif
