@@ -52,7 +52,6 @@ void add_map_trig(mesh_t *mesh, size_t size, triangle_t trig)
             trig.ptrs[1] = &mesh->vertxs[size * i + j + 1];
             trig.ptrs[2] = &mesh->vertxs[ size * (i + 1) + j + 1];
             mesh->trig[((size - 1) * i + j) + mesh->trig_size / 2] = trig;
-            change_color(mesh, size, i, j);
         }
     }
 }
@@ -89,5 +88,6 @@ void create_map(world_t *world, size_t size)
         }
     }
     add_map_trig(mesh, size, trig);
+    smooth(mesh, size);
     add_mesh(world, mesh);
 }

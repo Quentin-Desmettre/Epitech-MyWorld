@@ -39,6 +39,7 @@ int main(int ac, char **av)
     world->sortBuffer = malloc(sizeof(vecsort_t) * world->nb_trig);
     world->sortBuffer2 = malloc(sizeof(vecsort_t) * world->nb_trig);
     win = win_create(world->nb_trig);
+    win->map_size = size;
     while (win->is_open(win)) {
         move(&world->matrix);
         draw_meshes(world, win);

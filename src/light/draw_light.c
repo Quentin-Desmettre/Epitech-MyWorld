@@ -30,6 +30,7 @@ void rota_left(world_t *world, win_t *win)
         world->light_source = tmp2;
     } else
         free(tmp2);
+    smooth_shadow(world, win);
     free(mat_mov);
 }
 
@@ -49,6 +50,7 @@ void rota_right(world_t *world, win_t *win)
         win->params->day = !win->params->day;
         win->params->hour = 0;
     }
+    smooth_shadow(world, win);
     free(mat_mov);
 }
 
@@ -71,6 +73,7 @@ void move_light(world_t *world, win_t *win)
         win->params->day = !win->params->day;
         win->params->hour = 0;
     }
+    smooth_shadow(world, win);
     free(mat_mov);
 }
 
