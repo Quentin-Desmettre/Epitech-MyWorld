@@ -5,6 +5,8 @@ my_world
 
 *.o
 
+.vscode
+
 # Compiled Object files
 *.slo
 *.lo
