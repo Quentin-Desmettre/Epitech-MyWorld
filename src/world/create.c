@@ -83,7 +83,7 @@ world_t *create_world()
     world->matrix = mat4x4_ry(PI);
     world->clock = sfClock_create();
     world->destroy = destroy_world;
-    world->size_brush = 1;
+    world->s_br = 1;
     if (world->matrix == NULL)
         return NULL;
     return world;

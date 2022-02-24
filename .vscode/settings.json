@@ -2,6 +2,7 @@
     "files.associations": {
         "world.h": "c",
         "sstream": "c",
-        "cmath": "c"
+        "cmath": "c",
+        "keyboard.h": "c"
     }
 }

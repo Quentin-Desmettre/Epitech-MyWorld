@@ -55,7 +55,7 @@ typedef struct world_struct {
     float *light_start;
     float *light_source;
     void (*destroy)(struct world_struct *world);
-    int size_brush;
+    int s_br;
 } world_t;
 
 void move(mat4x4 **mat_world);

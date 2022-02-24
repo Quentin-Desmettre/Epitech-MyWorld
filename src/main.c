@@ -11,9 +11,9 @@ int poll_window_ev(win_t *win, world_t *world)
 {
     while (win->poll_event(win)) {
         if (sfKeyboard_isKeyPressed(sfKeyAdd))
-            world->size_brush++;
-        if (sfKeyboard_isKeyPressed(sfKeySubtract) && world->size_brush > 0)
-            world->size_brush--;
+            world->s_br++;
+        if (sfKeyboard_isKeyPressed(sfKeySubtract) && world->s_br > 0)
+            world->s_br--;
         if (win->event.type == sfEvtClosed) {
             win->destroy(win);
             world->destroy(world);
@@ -43,7 +43,7 @@ int main(int ac, char **av)
     while (win->is_open(win)) {
         move(&world->matrix);
         draw_meshes(world, win);
-        create_minimap(world, win, size);
+        create_minimap(world, win, size - 1);
         win->display(win);
         if (!poll_window_ev(win, world))
             return 0;
