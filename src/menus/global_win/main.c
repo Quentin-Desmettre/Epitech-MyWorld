@@ -10,9 +10,8 @@
 void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
-    // destroy map sekect, create level, game
-
     destroy_home(win->menus[0]);
+    save_settings(win->menus[2]);
     destroy_settings(win->menus[2]);
     sfClock_destroy(win->lum_clock);
     free(win);

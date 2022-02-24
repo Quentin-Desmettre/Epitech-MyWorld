@@ -25,6 +25,7 @@
 
     #define GROW_FACTOR 1.05
     #define MAIN_MENU_TXT_FACTOR 0.7
+    #define SETTINGS_FILE ".settings.conf"
 
 typedef struct {
     sfSprite *box;
@@ -202,6 +203,9 @@ void check_sound_repeat(window_t *win, sfEvent *ev);
 void scale_main_menu(main_menu_t *m, window_t *win);
 void destroy_settings(settings_t *se);
 void destroy_button(button_t *b);
+void save_settings(settings_t *se);
+void load_settings(settings_t *se);
+void apply_settings(settings_t *se, window_t *win);
 
 static const sfIntRect settings_rects[10] = {
     {0, 0, 1, 1},
