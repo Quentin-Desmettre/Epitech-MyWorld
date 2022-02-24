@@ -61,6 +61,7 @@ void move_light(world_t *world, win_t *win)
 
     if (sfClock_getElapsedTime(world->clock).microseconds / 1000000.0 > 1.0) {
         mat4x4_multiplyvector3(mat_mov, world->light_source, tmp);
+        smooth_shadow(world, win);
         sfClock_restart(world->clock);
         free(world->light_source);
         world->light_source = tmp;
@@ -73,7 +74,6 @@ void move_light(world_t *world, win_t *win)
         win->params->day = !win->params->day;
         win->params->hour = 0;
     }
-    smooth_shadow(world, win);
     free(mat_mov);
 }
 
