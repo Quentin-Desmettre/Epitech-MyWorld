@@ -6,27 +6,10 @@
 */
 
 #include "menus.h"
-#define REPEAT_DELAY 500000
+
 sfFloatRect bounds(sfSprite *s)
 {
     return sfSprite_getGlobalBounds(s);
-}
-
-void check_sound_repeat(window_t *win, sfEvent *ev)
-{
-    if (sfMouse_isButtonPressed(sfMouseLeft) && win->state == SETTINGS &&
-    sfClock_getElapsedTime(win->lum_clock).microseconds > 1000000 / 25.0 &&
-    sfClock_getElapsedTime(
-    ((settings_t *)win->menus[2])->repeat_clock).microseconds > REPEAT_DELAY) {
-        ev->mouseButton.x = sfMouse_getPositionRenderWindow(win->win).x;
-        ev->mouseButton.y = sfMouse_getPositionRenderWindow(win->win).y;
-        ev->type = sfEvtResized;
-        if (get_set_button_at(win->menus[2], ev) <= 4)
-            return;
-        manage_settings_press(ev, win);
-        update_all_texts(win->menus[2]);
-        sfClock_restart(win->lum_clock);
-    }
 }
 
 int get_set_button_at(settings_t *se, sfEvent *ev)

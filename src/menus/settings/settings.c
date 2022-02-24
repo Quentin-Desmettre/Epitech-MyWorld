@@ -28,9 +28,6 @@ button_t *init_set_button(const sfIntRect rect)
     return b;
 }
 
-#define BACKGROUND_SETTINGS 0
-#define BACK_SETTINGS 0
-
 void init_all_settings_button(settings_t *se)
 {
     se->framerate_button = init_set_button(settings_rects[3]);
