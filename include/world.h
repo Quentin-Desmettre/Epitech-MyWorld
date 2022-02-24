@@ -58,6 +58,15 @@ typedef struct world_struct {
     int s_br;
 } world_t;
 
+typedef struct tmp_struct {
+    world_t *world;
+    size_t size;
+    long line;
+    long col;
+    size_t end;
+    size_t start;
+} tmp_t;
+
 void move(mat4x4 **mat_world);
 void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);

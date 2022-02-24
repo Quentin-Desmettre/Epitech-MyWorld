@@ -42,8 +42,13 @@ void smooth(mesh_t *mesh, size_t size)
     }
 }
 
-void smooth_trig(world_t *world, size_t size, long line, long col)
+void smooth_trig(void *param)
 {
+    tmp_t *tmp = param;
+    world_t *world = tmp->world;
+    size_t size = tmp->size;
+    long line = tmp->line;
+    long col = tmp->col;
     triangle_t *trig = world->a_triangles[(size - 1) * line + col];
     float mid = trig->direction * 3;
     size_t count = 3;
@@ -65,22 +70,50 @@ void smooth_trig(world_t *world, size_t size, long line, long col)
 
 }
 
+void for_loop(void *param)
+{
+    tmp_t *tmp = param;
+
+    for (size_t i = tmp->start; i < tmp->end; i++) {
+        for (size_t j = 0; j < tmp->size - 1; j++) {
+            tmp->line = i;
+            tmp->col = j;
+            smooth_trig(tmp);
+            tmp->col = j + tmp->world->nb_trig / 2;
+            smooth_trig(tmp);
+        }
+    }
+}
+
 void smooth_shadow(world_t *world, win_t *win)
 {
+    tmp_t *tmp = malloc(sizeof(tmp_t));
+    tmp_t *tmp2 = malloc(sizeof(tmp_t));
+    sfThread *thread1 = sfThread_create(for_loop, tmp);
+    sfThread *thread2 = sfThread_create(for_loop, tmp2);
     float direction;
     size_t size = win->map_size;
     const float *time = win->params->day ? day_light : night_light;
 
+    tmp->world = world;
+    tmp->size = size;
+    tmp2->world = world;
+    tmp2->size = size;
     for (size_t i = 0; i < world->nb_trig; i++) {
-        direction = apply_shades(world, world->a_triangles[i]) * time[win->params->hour] + 0.1;
+        direction = apply_shades(world, world->a_triangles[i]) *
+        time[win->params->hour] + 0.1;
         world->a_triangles[i]->direction = direction;
     }
-    for (size_t i = 0; i < size - 1; i++) {
-        for (size_t j = 0; j < size - 1; j++) {
-            smooth_trig(world, size, i, j);
-            smooth_trig(world, size, i, j);
-            smooth_trig(world, size, i, j + world->nb_trig / 2);
-            smooth_trig(world, size, i, j + world->nb_trig / 2);
-        }
-    }
+    tmp->start = 0;
+    tmp->end = (size - 1) / 2;
+    tmp2->start = (size - 1) / 2;
+    tmp2->end = size - 1;
+    sfThread_launch(thread1);
+    sfThread_launch(thread2);
+    sfThread_wait(thread1);
+    sfThread_wait(thread2);
+    sfThread_destroy(thread1);
+    sfThread_destroy(thread2);
+    free(tmp2);
+    free(tmp);
 }
