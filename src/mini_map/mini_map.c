@@ -37,15 +37,10 @@ void where_minimap(world_t *world, win_t *win, long long size)
     sfVertexArray_clear(win->array);
 }
 
-float add_color(int i, win_t *win, world_t *world)
+void add_color(int i, win_t *win, world_t *world, const float *time)
 {
     float direction = apply_shades(world, world->a_triangles[i]);
     win->tmp->color = world->a_triangles[i]->color;
-    return direction;
-}
-
-void get_color_mini(win_t *win, float direction, const float *time)
-{
     win->tmp->color.r *= (direction * time[win->params->hour] + 0.1);
     win->tmp->color.g *= (direction * time[win->params->hour] + 0.1);
     win->tmp->color.b *= (direction * time[win->params->hour] + 0.1);
@@ -58,12 +53,11 @@ void create_minimap(world_t *world, win_t *win, long long size)
     sfBool day = win->params->day;
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            get_color_mini(win, add_color(i * size + j, win, world), time);
+            add_color(i * size + j, win, world, time);
             app_point(nb * i, nb * (size - j - 1), win);
             app_point(nb * (i + 1), nb * (size - j - 1), win);
             app_point(nb * i, nb * (size - j), win);
-            get_color_mini(win, add_color(i * size + j + size * size
-            , win, world), time);
+            add_color(i * size + j + size * size, win, world, time);
             app_point(nb * (i + 1), nb * (size - j), win);
             app_point(nb * (i + 1), nb * (size - j - 1), win);
             app_point(nb * i, nb * (size - j), win);
