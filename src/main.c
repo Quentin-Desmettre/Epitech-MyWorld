@@ -10,6 +10,10 @@
 int poll_window_ev(win_t *win, world_t *world)
 {
     while (win->poll_event(win)) {
+        if (sfKeyboard_isKeyPressed(sfKeyAdd))
+            world->size_brush++;
+        if (sfKeyboard_isKeyPressed(sfKeySubtract) && world->size_brush > 0)
+            world->size_brush--;
         if (win->event.type == sfEvtClosed) {
             win->destroy(win);
             world->destroy(world);
