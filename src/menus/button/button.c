@@ -7,6 +7,13 @@
 
 #include "menus.h"
 
+void destroy_button(button_t *b)
+{
+    sfSprite_destroy(b->sprite);
+    sfText_destroy(b->text);
+    free(b);
+}
+
 void factor_color(sfSprite *s, float factor)
 {
     sfColor c = sfSprite_getColor(s);

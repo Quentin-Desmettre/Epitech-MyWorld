@@ -7,15 +7,22 @@
 
 #include "menus.h"
 #include "my.h"
+#include <math.h>
 
 void update_all_texts(settings_t *se)
 {
+    char *str;
+
     sfSprite_setTextureRect(se->res_button->sprite,
     settings_rects[se->resolution + 7]);
     sfSprite_setTextureRect(se->framerate_button->sprite,
     settings_rects[se->framerate + 2]);
-    sfText_setString(se->sfx_vol_text, long_to_str(se->sfx_vol));
-    sfText_setString(se->music_vol_text, long_to_str(se->music_vol));
+    str = long_to_str(se->sfx_vol);
+    sfText_setString(se->sfx_vol_text, str);
+    free(str);
+    str = long_to_str(se->music_vol);
+    sfText_setString(se->music_vol_text, str);
+    free(str);
 }
 
 void reset_set_buttons(settings_t *se)

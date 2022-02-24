@@ -200,6 +200,8 @@ const sfTexture *draw_settings(void *se);
 settings_t *init_settings(window_t *win);
 void check_sound_repeat(window_t *win, sfEvent *ev);
 void scale_main_menu(main_menu_t *m, window_t *win);
+void destroy_settings(settings_t *se);
+void destroy_button(button_t *b);
 
 static const sfIntRect settings_rects[10] = {
     {0, 0, 1, 1},

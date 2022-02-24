@@ -10,8 +10,11 @@
 void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
-    // destroy map sekect, settings, create level, how to play, game
+    // destroy map sekect, create level, game
+
     destroy_home(win->menus[0]);
+    destroy_settings(win->menus[2]);
+    sfClock_destroy(win->lum_clock);
     free(win);
 }
 
@@ -25,6 +28,7 @@ void draw(window_t *win)
     sfRenderWindow_clear(win->win, sfBlack);
     sfRenderWindow_drawSprite(win->win, s, NULL);
     sfRenderWindow_display(win->win);
+    sfSprite_destroy(s);
 }
 
 void set_next_win_state(window_t *win, int next)
@@ -59,15 +63,4 @@ int main(void)
     sfFont_destroy(global_font());
     sfTexture_destroy(global_texture());
     return 0;
-    // draw win:
-
-    // win has a field 'state', which is the current drawing state, amongst:
-    //  - map select
-    //  - game
-    //  - settings
-    //  - create level
-    //  - exit
-
-    // so when we want to draw the win, we use the appropriate function pointer designated by the state
-    // and same for the updates and events: we use the function pointer
 }

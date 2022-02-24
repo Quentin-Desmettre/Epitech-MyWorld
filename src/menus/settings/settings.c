@@ -6,6 +6,7 @@
 */
 
 #include "menus.h"
+#include "my.h"
 
 sfVector2f conv(sfVector2f c, window_t *win)
 {
@@ -21,6 +22,7 @@ button_t *init_set_button(const sfIntRect rect)
 
     b->is_hover = 0;
     b->is_press = 0;
+    b->text = init_text("", 0);
     b->sprite = init_sprite(global_texture(), rect, (sfVector2f){1, 1});
     center_sprite(b->sprite);
     return b;
