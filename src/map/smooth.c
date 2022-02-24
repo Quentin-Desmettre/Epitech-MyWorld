@@ -101,7 +101,7 @@ void smooth_shadow(world_t *world, win_t *win)
     tmp2->size = size;
     for (size_t i = 0; i < world->nb_trig; i++) {
         direction = apply_shades(world, world->a_triangles[i]) *
-        time[win->params->hour] + 0.1;
+        (win->params->day ? 0.8 : 0.2) + 0.1;
         world->a_triangles[i]->direction = direction;
     }
     tmp->start = 0;
