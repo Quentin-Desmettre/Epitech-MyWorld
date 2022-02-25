@@ -6,11 +6,12 @@
 */
 
 #include "menus.h"
+#include "my.h"
 
 #define DEFAULT_2F (sfVector2f){1, 1}
 
 static const float mc_pos_fac[4][2] = {
-    {0.11, 0.65}, {0.755, 0.65}, {0.55, 0.85}, {0.78, 0.85}
+    {0.15, 0.69}, {0.805, 0.69}, {0.64, 0.9}, {0.87, 0.9}
 };
 
 static const float mc_size_fac[4][2] = {
@@ -28,7 +29,7 @@ void scale_map_create(map_create_t *mc, sfVector2f win_size)
     scale_line_edit(mc->name,
     (sfVector2f){win_size.x * 0.9, win_size.y * 0.2});
     rescale_slider(mc->size_slider,
-    (sfVector2f){win_size.x * 0.5, win_size.y * 0.1},
+    (sfVector2f){win_size.x * 0.55, win_size.y * 0.1},
     (sfVector2f){win_size.x * 0.205, win_size.y * 0.64});
     for (int i = 0; i < 4; i++) {
         new_size = (sfVector2f)
@@ -37,6 +38,7 @@ void scale_map_create(map_create_t *mc, sfVector2f win_size)
             new_size.y = new_size.x;
         set_sprite_size(mc->buttons[i]->sprite, new_size);
         mc->buttons[i]->size = new_size;
+        center_sprite(mc->buttons[i]->sprite);
     }
 }
 
@@ -56,8 +58,19 @@ void move_mc(map_create_t *mc, sfVector2f ws)
 
 void scale_mc(map_create_t *mc, sfVector2f win_size)
 {
-    move_mc(mc, win_size);
     scale_map_create(mc, win_size);
+    move_mc(mc, win_size);
+}
+
+void update_size_text(sfText *size, slider_t *slider)
+{
+    int value = slider->value;
+    char *str = long_to_str(value);
+    char *final = str_concat(3, str, "x", str);
+
+    free(str);
+    sfText_setString(size, final);
+    free(final);
 }
 
 const sfTexture *draw_mc(map_create_t *mc, sfVector2f ws)
@@ -69,6 +82,7 @@ const sfTexture *draw_mc(map_create_t *mc, sfVector2f ws)
     s = draw_line_edit(mc->name, (sfVector2f){ws.x * 0.04, ws.y * 0.23});
     sfRenderTexture_drawSprite(mc->rtex, s, NULL);
     sfSprite_destroy(s);
+    update_size_text(mc->size, mc->size_slider);
     sfRenderTexture_drawText(mc->rtex, mc->size, NULL);
     s = draw_slider(mc->size_slider);
     sfRenderTexture_drawSprite(mc->rtex, s, NULL);
@@ -84,7 +98,7 @@ map_create_t *create_map_create(sfVector2f win_size)
     map_create_t *mc = malloc(sizeof(map_create_t));
 
     void (*ptrs[4])(void *) = {
-        increase_size, decrease_size, launch_size, mc_go_back
+        increase_size, decrease_size, mc_go_back, launch_size
     };
 
     mc->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
