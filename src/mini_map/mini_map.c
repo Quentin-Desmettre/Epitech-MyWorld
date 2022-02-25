@@ -7,8 +7,6 @@
 
 #include "world.h"
 
-static float height = 800.0;
-
 void app_point(float x, float y, win_t *win)
 {
     win->tmp->position = (sfVector2f){x, y};
@@ -35,6 +33,7 @@ void where_minimap(world_t *world, win_t *win, long long size)
     sfVertexArray_setPrimitiveType(win->array, sfLinesStrip);
     sfRenderWindow_drawVertexArray(win->window, win->array, 0);
     sfVertexArray_clear(win->array);
+    // up_br(world, win, sfMouse_getPositionRenderWindow(win->window));
 }
 
 void add_color(int i, win_t *win, world_t *world, const float *time)

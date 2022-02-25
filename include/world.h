@@ -68,6 +68,8 @@ typedef struct tmp_struct {
     sfBool turn;
 } tmp_t;
 
+static const float height = 800.0;
+
 void move(mat4x4 **mat_world);
 void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);
@@ -99,5 +101,7 @@ void change_color(mesh_t *mesh, size_t size, size_t i, size_t j);
 void smooth(mesh_t *mesh, size_t size);
 void smooth_shadow(world_t *world, win_t *win);
 sfBool is_out(size_t max, size_t size, long i, long j);
+void up_br(world_t *world, win_t *win, sfVector2i pos);
+void down_br(world_t *world, win_t *win, sfVector2i pos);
 
 #endif
