@@ -33,7 +33,7 @@ void where_minimap(world_t *world, win_t *win, long long size)
     sfVertexArray_setPrimitiveType(win->array, sfLinesStrip);
     sfRenderWindow_drawVertexArray(win->window, win->array, 0);
     sfVertexArray_clear(win->array);
-    // click_minimap(world, win, sfMouse_getPositionRenderWindow(win->window));
+    // up_br(world, win, sfMouse_getPositionRenderWindow(win->window));
 }
 
 void add_color(int i, win_t *win, world_t *world, const float *time)

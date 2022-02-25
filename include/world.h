@@ -101,6 +101,7 @@ void change_color(mesh_t *mesh, size_t size, size_t i, size_t j);
 void smooth(mesh_t *mesh, size_t size);
 void smooth_shadow(world_t *world, win_t *win);
 sfBool is_out(size_t max, size_t size, long i, long j);
-void click_minimap(world_t *world, win_t *win, sfVector2i pos);
+void up_br(world_t *world, win_t *win, sfVector2i pos);
+void down_br(world_t *world, win_t *win, sfVector2i pos);
 
 #endif
