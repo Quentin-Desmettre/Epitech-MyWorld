@@ -44,6 +44,7 @@ window_t *win_create(void)
 {
     window_t *win = malloc(sizeof(window_t));
 
+    create_pointers(win);
     create_basics(win);
     win->menus[0] = init_main_menu(global_texture(), (sfVector2f){800, 600});
     create_settings(win);

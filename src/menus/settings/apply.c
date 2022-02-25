@@ -47,8 +47,6 @@ void apply_musics(window_t *win, settings_t *se)
 
 void apply_settings(settings_t *se, window_t *win)
 {
-    sfVector2f size = {win->mode.width, win->mode.height};
-
     apply_mode(se, win);
     sfRenderWindow_setFramerateLimit(win->win,
     available_framerates[se->framerate]);

@@ -24,7 +24,6 @@ void main_menu_release(main_menu_t *m, sfEvent ev, window_t *win)
     int action = button_at(m->buttons, 4, ev);
     if (action < 0)
         return;
-    // set_next_win_state(win, HOME);
     set_next_win_state(win, win_act[action]);
 }
 
@@ -32,9 +31,9 @@ void main_menu_event(window_t *win, sfEvent ev)
 {
     main_menu_t *m = win->menus[0];
     if (ev.type == sfEvtMouseMoved)
-        check_button_move(m->buttons, 5, ev);
+        check_button_move(m->buttons, 4, ev);
     if (ev.type == sfEvtMouseButtonPressed)
-        check_button_press(m->buttons, 5, ev);
+        check_button_press(m->buttons, 4, ev);
     if (ev.type == sfEvtMouseButtonReleased)
         main_menu_release(m, ev, win);
 }
