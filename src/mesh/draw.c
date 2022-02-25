@@ -30,37 +30,31 @@ win_t *win, world_t *world)
         draw_line(vertxs, win);
 }
 
-void fill_pts(vertex_t pts[3], vertex_t *vertxs, triangle_t *tri)
+void fill_pts(vertex_t pts[3], vertex_t *vertxs, int *index)
 {
-    pts[0].pos[0] = vertxs[tri->vertxs[0]].pos[0];
-    pts[0].pos[1] = vertxs[tri->vertxs[0]].pos[1];
-    pts[0].pos[2] = vertxs[tri->vertxs[0]].pos[2];
-    pts[1].pos[0] = vertxs[tri->vertxs[1]].pos[0];
-    pts[1].pos[1] = vertxs[tri->vertxs[1]].pos[1];
-    pts[1].pos[2] = vertxs[tri->vertxs[1]].pos[2];
-    pts[2].pos[0] = vertxs[tri->vertxs[2]].pos[0];
-    pts[2].pos[1] = vertxs[tri->vertxs[2]].pos[1];
-    pts[2].pos[2] = vertxs[tri->vertxs[2]].pos[2];
+    pts[0] = vertxs[index[0]];
+    pts[1] = vertxs[index[1]];
+    pts[2] = vertxs[index[2]];
 }
 
 void draw_meshes(world_t *world, win_t *win)
 {
+    size_t i = -1;
     vertex_t pts[3];
-    triangle_t *tri;
     vertex_t *vertxs = project_meshes(world);
     vecsort_t *sortBuffer = sort_vertxs(world, vertxs);
 
-    if (!win->params->pause)
+    if (!win->params->pause && sfClock_getElapsedTime(world->clock)
+    .microseconds / 1000000.0 > 1.0)
         move_light(world, win);
     if (world->light_source[2] > 0)
         draw_light(world, win);
-    for (size_t i = 0; i < world->nb_trig; i++) {
-        tri = sortBuffer[i].data;
-        fill_pts(pts, vertxs, tri);
+    while ((i += 1) < world->nb_trig) {
+        fill_pts(pts, vertxs, ((triangle_t *)sortBuffer[i].data)->vertxs);
         if (pts[0].pos[2] > 0 || pts[1].pos[2] > 0 || pts[2].pos[2] > 0)
             continue;
         if (get_direction(pts) >= 0)
-            draw_triangle(pts, tri, win, world);
+            draw_triangle(pts, sortBuffer[i].data, win, world);
     }
     sfVertexArray_setPrimitiveType(win->array, win->params->is_outline ?
     sfLines : sfTriangles);

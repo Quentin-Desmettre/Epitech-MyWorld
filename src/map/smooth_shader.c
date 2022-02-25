@@ -7,7 +7,7 @@
 
 #include "world.h"
 
-size_t add_mid(world_t *world, tmp_t *tmp, float *mid, long *index)
+size_t add_mid(world_t *world, tmp_shadow_t *tmp, float *mid, long *index)
 {
     size_t size = tmp->size;
     long line = tmp->line;
@@ -29,7 +29,7 @@ size_t add_mid(world_t *world, tmp_t *tmp, float *mid, long *index)
 
 void smooth_trig(void *param)
 {
-    tmp_t *tmp = param;
+    tmp_shadow_t *tmp = param;
     world_t *world = tmp->world;
     size_t size = tmp->size;
     long line = tmp->line;
@@ -53,7 +53,7 @@ void smooth_trig(void *param)
 
 void for_loop(void *param)
 {
-    tmp_t *tmp = param;
+    tmp_shadow_t *tmp = param;
     sfBool turn = tmp->turn;
 
     for (size_t i = (turn ? 0 : tmp->start);
@@ -69,16 +69,17 @@ void for_loop(void *param)
     }
 }
 
-void launch_thread(tmp_t *tmp, tmp_t *tmp2, win_t *win, sfBool start)
+void launch_thread(tmp_shadow_t *tmp, tmp_shadow_t *tmp2
+, win_t *win, sfBool start)
 {
     sfThread *thread1 = sfThread_create(for_loop, tmp);
     sfThread *thread2 = sfThread_create(for_loop, tmp2);
 
     if (start) {
         tmp->start = 0;
-        tmp->end = (win->map_size - 1) / 2;
+        tmp->end = (win->map_size - 1)  * 0.5;
         tmp->turn = 0;
-        tmp2->start = (win->map_size - 1) / 2;
+        tmp2->start = (win->map_size - 1)  * 0.5;
         tmp2->end = win->map_size - 1;
         tmp2->turn = 0;
     }
@@ -92,22 +93,19 @@ void launch_thread(tmp_t *tmp, tmp_t *tmp2, win_t *win, sfBool start)
 
 void smooth_shadow(world_t *world, win_t *win)
 {
-    tmp_t *tmp = malloc(sizeof(tmp_t));
-    tmp_t *tmp2 = malloc(sizeof(tmp_t));
+    tmp_shadow_t *tmp = malloc(sizeof(tmp_shadow_t));
+    tmp_shadow_t *tmp2 = malloc(sizeof(tmp_shadow_t));
 
     tmp->world = world;
     tmp->size = win->map_size;
     tmp2->world = world;
     tmp2->size = win->map_size;
-    for (size_t i = 0; i < world->nb_trig; i++) {
-        world->a_triangles[i]->direction = apply_shades(world,
-        world->a_triangles[i]);
-    }
+    for (size_t i = 0; i < world->nb_trig; i++)
+        apply_shades(world, world->a_triangles[i]);
     launch_thread(tmp, tmp2, win, 1);
     launch_thread(tmp, tmp2, win, 0);
     free(tmp2);
     free(tmp);
     for (size_t i = 0; i < world->nb_trig; i++)
-        world->a_triangles[i]->direction *=
-        (win->params->day ? 0.8 : 0.2) + 0.1;
+        world->a_triangles[i]->direction *= win->params->day ? 0.9 : 0.3;
 }

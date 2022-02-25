@@ -66,7 +66,7 @@ typedef struct tmp_struct {
     size_t end;
     size_t start;
     sfBool turn;
-} tmp_t;
+} tmp_shadow_t;
 
 static const float height = 800.0;
 
@@ -103,5 +103,9 @@ void smooth_shadow(world_t *world, win_t *win);
 sfBool is_out(size_t max, size_t size, long i, long j);
 void up_br(world_t *world, win_t *win, sfVector2i pos);
 void down_br(world_t *world, win_t *win, sfVector2i pos);
+void free_mesh(void *value);
+void average_br(world_t *world, win_t *win, sfVector2i pos);
+void average_w_br(world_t *world, win_t *win, sfVector2i pos);
+void average_d_br(world_t *world, win_t *win, sfVector2i pos);
 
 #endif

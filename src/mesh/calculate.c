@@ -27,19 +27,11 @@ world_t *world, win_t *win)
 
 float get_direction(vertex_t *pts)
 {
-    float normal[3];
-    float vectors[2][3] = {
-    {pts[0].pos[0] - pts[1].pos[0], pts[0].pos[1] -
-    pts[1].pos[1], pts[0].pos[2] - pts[1].pos[2]},
-    {pts[0].pos[0] - pts[2].pos[0], pts[0].pos[1] -
-    pts[2].pos[1], pts[0].pos[2] - pts[2].pos[2]}};
-    float cameraDirection[3] = {0, 0, 1};
+    float vectors[2][2] = {
+    {pts[0].pos[0] - pts[1].pos[0], pts[0].pos[1] - pts[1].pos[1]},
+    {pts[0].pos[0] - pts[2].pos[0], pts[0].pos[1] - pts[2].pos[1]}};
 
-    normalize(vectors[0]);
-    normalize(vectors[1]);
-    crossproduct3(normal, vectors[0], vectors[1]);
-    normalize(normal);
-    return dotproduct3(normal, cameraDirection);
+    return vectors[0][0] * vectors[1][1] - vectors[0][1] * vectors[1][0];
 }
 
 void for_content(world_t *world, vertex_t *vertxs, int i)
@@ -68,18 +60,14 @@ vecsort_t *sort_vertxs(world_t *world, vertex_t *vertxs)
 
 vertex_t *project_meshes(world_t *world)
 {
-    float *tmp = malloc(sizeof(float) * 3);
+    size_t i = -1;
     vertex_t *vertxs = malloc(sizeof(vertex_t) * world->nb_vertxs);
 
-    for (size_t i = 0; i < world->nb_vertxs; i++) {
+    while ((i += 1) < world->nb_vertxs) {
         mat4x4_multiplyvector3
-        (world->matrix, (float *)world->a_vertxs[i], tmp);
-        tmp[0] /= tmp[2];
-        tmp[1] /= tmp[2];
-        vertxs[i].pos[0] = tmp[0];
-        vertxs[i].pos[1] = tmp[1];
-        vertxs[i].pos[2] = tmp[2];
+        (world->matrix, world->a_vertxs[i]->pos, vertxs[i].pos);
+        vertxs[i].pos[0] /= vertxs[i].pos[2];
+        vertxs[i].pos[1] /= vertxs[i].pos[2];
     }
-    free(tmp);
     return vertxs;
 }
