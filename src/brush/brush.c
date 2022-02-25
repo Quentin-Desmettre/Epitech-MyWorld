@@ -20,8 +20,8 @@ void click_minimap(world_t *world, win_t *win, sfVector2i pos)
             continue;
         for (int j = y - world->s_br; j < y + world->s_br; j++) {
             printf("%i %i\n",y , y - world->s_br);
-            if ((win->map_size - j) < 0 || (win->map_size - j) >=
-            (int)win->map_size || world->a_vertxs
+            if ((win->map_size - j) < 0 || (int)(win->map_size - j) >=
+            (int)(win->map_size) || world->a_vertxs
             [i * (win->map_size) + (win->map_size - j)]->pos[1] > 40)
                 continue;
             world->a_vertxs[i * (win->map_size) + (win->map_size - j)]->
