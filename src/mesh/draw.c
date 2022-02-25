@@ -30,21 +30,16 @@ win_t *win, world_t *world)
         draw_line(vertxs, win);
 }
 
-void fill_pts(vertex_t pts[3], vertex_t *vertxs, triangle_t *tri)
+void fill_pts(vertex_t pts[3], vertex_t *vertxs, int *index)
 {
-    pts[0].pos[0] = vertxs[tri->vertxs[0]].pos[0];
-    pts[0].pos[1] = vertxs[tri->vertxs[0]].pos[1];
-    pts[0].pos[2] = vertxs[tri->vertxs[0]].pos[2];
-    pts[1].pos[0] = vertxs[tri->vertxs[1]].pos[0];
-    pts[1].pos[1] = vertxs[tri->vertxs[1]].pos[1];
-    pts[1].pos[2] = vertxs[tri->vertxs[1]].pos[2];
-    pts[2].pos[0] = vertxs[tri->vertxs[2]].pos[0];
-    pts[2].pos[1] = vertxs[tri->vertxs[2]].pos[1];
-    pts[2].pos[2] = vertxs[tri->vertxs[2]].pos[2];
+    pts[0] = vertxs[index[0]];
+    pts[1] = vertxs[index[1]];
+    pts[2] = vertxs[index[2]];
 }
 
 void draw_meshes(world_t *world, win_t *win)
 {
+    size_t i = -1;
     vertex_t pts[3];
     triangle_t *tri;
     vertex_t *vertxs = project_meshes(world);
@@ -54,9 +49,9 @@ void draw_meshes(world_t *world, win_t *win)
         move_light(world, win);
     if (world->light_source[2] > 0)
         draw_light(world, win);
-    for (size_t i = 0; i < world->nb_trig; i++) {
+    while ((i += 1) < world->nb_trig) {
         tri = sortBuffer[i].data;
-        fill_pts(pts, vertxs, tri);
+        fill_pts(pts, vertxs, tri->vertxs);
         if (pts[0].pos[2] > 0 || pts[1].pos[2] > 0 || pts[2].pos[2] > 0)
             continue;
         if (get_direction(pts) >= 0)

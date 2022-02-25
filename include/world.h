@@ -66,7 +66,7 @@ typedef struct tmp_struct {
     size_t end;
     size_t start;
     sfBool turn;
-} tmp_t;
+} tmp_shadow_t;
 
 static const float height = 800.0;
 
