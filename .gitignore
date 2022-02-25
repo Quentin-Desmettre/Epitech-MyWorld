@@ -5,7 +5,7 @@ my_world
 
 *.o
 
-.settings.conf
+.conf
 
 my.h
 
