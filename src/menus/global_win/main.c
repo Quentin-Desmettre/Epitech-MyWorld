@@ -14,12 +14,17 @@ void win_destroy(window_t *win)
     save_settings(win->menus[2]);
     destroy_settings(win->menus[2]);
     sfClock_destroy(win->lum_clock);
+    destroy_mc(win->menus[3]);
     free(win);
 }
 
 void draw(window_t *win)
 {
-    const sfTexture* tex = win->draw[win->state](win->menus[win->state]);
+    if (win->state == CREATE_MAP) {
+    }
+    const sfTexture* tex = (win->state == CREATE_MAP) ? draw_mc(win->menus[3],
+    (sfVector2f){win->mode.width, win->mode.height}) :
+    win->draw[win->state](win->menus[win->state]);
     sfSprite *s = init_sprite_from_texture(tex);
 
     if (win->is_transition)

@@ -13,7 +13,7 @@ void create_pointers(window_t *win)
         &draw_main_menu, NULL, &draw_settings, NULL, NULL, NULL
     };
     void (*ev[6])(window_t *, sfEvent) = {
-        &main_menu_event, NULL, &settings_ev, NULL, NULL, NULL
+        &main_menu_event, NULL, &settings_ev, &mc_event, NULL, NULL
     };
 
     for (int i = 0; i < 6; i++) {
@@ -47,6 +47,7 @@ window_t *win_create(void)
     create_pointers(win);
     create_basics(win);
     win->menus[0] = init_main_menu(global_texture(), (sfVector2f){800, 600});
+    win->menus[3] = create_map_create((sfVector2f){800, 600});
     create_settings(win);
     return win;
 }

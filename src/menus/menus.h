@@ -20,12 +20,13 @@
     #define false 0
     #define bool int
 
-    #define FONT "pusab.otf"
+    #define FONT "minecraft.ttf"
     #define TEXTURE "truc.png"
 
     #define GROW_FACTOR 1.05
     #define MAIN_MENU_TXT_FACTOR 0.7
-    #define SETTINGS_FILE ".settings.conf"
+    #define SETTINGS_FILE ".conf"
+    #define ABS(x) ((x) < 0 ? -(x) : (x))
 
 typedef struct {
     sfSprite *box;
@@ -121,6 +122,21 @@ typedef enum {
     HOME, MAP_SELECT, SETTINGS, CREATE_MAP,
     HOW_TO_PLAY, EDIT_MAP, EXIT
 } state_t;
+
+typedef struct {
+    sfRenderTexture *rtex;
+
+    button_t *cursor;
+    sfRectangleShape *before_cursor;
+    sfRectangleShape *after_cursor;
+
+    int max;
+    int min;
+    int value;
+    sfVector2f size;
+    sfVector2f but_size;
+    sfVector2f pos;
+} slider_t;
 
 typedef struct {
     button_t *buttons[4];
@@ -230,24 +246,98 @@ static const int available_framerates[] = {
     30, 60, 90, 120, 144
 };
 
-// maps
-    #define MAP_X_FACTOR 0.5
-    #define MAP_Y_FACTOR 0.2
+//maps
+//     #define MAP_X_FACTOR 0.5
+//     #define MAP_Y_FACTOR 0.2
 
-void rescale_map(map_t *m, sfVector2f win_size);
-sfRectangleShape *map_sprite(map_t *m);
-map_t *create_map(sfVector2f win_size, char const *file);
+// void rescale_map(map_t *m, sfVector2f win_size);
+// sfRectangleShape *map_sprite(map_t *m);
+// map_t *create_map(sfVector2f win_size, char const *file);
 
-static const sfIntRect thumbnail_rect = {
-    0, 0, 1, 1
-};
+// static const sfIntRect thumbnail_rect = {
+//     0, 0, 1, 1
+// };
+
+// typedef struct {
+//     sfText *name;
+//     char *file;
+//     sfRenderTexture *rtex;
+//     sfSprite *thumbnail;
+// } map_t;
+
+// line edit
+typedef struct {
+    sfRenderTexture *rtex;
+    sfRectangleShape *background;
+    sfText *text;
+} line_edit_t;
+
+void scale_line_edit(line_edit_t *le, sfVector2f size);
+sfSprite *draw_line_edit(line_edit_t *le, sfVector2f pos);
+line_edit_t *create_line_edit(sfVector2f size, char const *def);
+
+// map select
+sfRectangleShape *rectangle_from_texture(sfTexture const *tex);
+
+// map create
 
 typedef struct {
-    sfText *name;
-    char *file;
-    sfRenderTexture *rtex;
-    sfSprite *thumbnail;
-} map_t;
+    // increase / decrease size, launch, cancel
+    button_t *buttons[4];
 
+    sfRenderTexture *rtex;
+
+    sfText *name_prompt;
+    line_edit_t *name;
+
+    sfText *size;
+    slider_t *size_slider;
+
+} map_create_t;
+
+map_create_t *create_map_create(sfVector2f win_size);
+void scale_mc(map_create_t *mc, sfVector2f win_size);
+const sfTexture *draw_mc(map_create_t *mc, sfVector2f ws);
+
+static const sfIntRect mc_rects[] = {
+    {0, 0, 1, 1},
+    {0, 0, 1, 1},
+    {1, 0, 1, 1},
+    {1, 0, 1, 1}
+};
+
+void increase_size(void *w);
+void decrease_size(void *w);
+void launch_size(void *w);
+void mc_go_back(void *w);
+
+// slider
+
+static const sfIntRect cursor_rect = {
+    1, 0, 1, 1
+};
+
+static const sfColor sfGrey = {128, 128, 128, 255};
+
+slider_t *create_slider(sfVector2f size,
+sfVector2f bounds, int value, sfVector2f pos);
+sfSprite *draw_slider(slider_t *s);
+void rescale_slider(slider_t *s, sfVector2f new_size, sfVector2f new_pos);
+void slider_event(slider_t *s, sfEvent ev);
+void update_positions(slider_t *s);
+void destroy_slider(slider_t *s);
+sfRectangleShape *create_rectangle(sfVector2f size,
+sfColor fill, sfTexture const *tex);
+
+char *str_concat(int nb_str, ...);
+void line_edit_event(line_edit_t *le, sfEvent ev);
+void mc_event(window_t *mc, sfEvent ev);
+void update_size_text(sfText *size, slider_t *slider);
+void scale_mc(map_create_t *mc, sfVector2f win_size);
+void destroy_line_edit(line_edit_t *le);
+void destroy_slider(slider_t *s);
+void release_mc(map_create_t *mc, int index, window_t *win);
+void destroy_check_box(check_box *c);
+void destroy_mc(map_create_t *mc);
 
 #endif

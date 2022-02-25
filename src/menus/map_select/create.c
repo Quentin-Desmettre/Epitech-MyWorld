@@ -8,11 +8,11 @@
 #include "menus.h"
 #include "list.h"
 
-typedef struct {
-    sfRenderTexture *rtex;
-    button_t *buttons[3];
-    map_t **maps;
-    int nb_map;
-    int hovered;
-    int selected;
-} map_select_t;
+// typedef struct {
+//     sfRenderTexture *rtex;
+//     button_t *buttons[3];
+//     map_t **maps;
+//     int nb_map;
+//     int hovered;
+//     int selected;
+// } map_select_t;
