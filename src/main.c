@@ -10,9 +10,9 @@
 int poll_window_ev(win_t *win, world_t *world)
 {
     while (win->poll_event(win)) {
-        if (sfKeyboard_isKeyPressed(sfKeyAdd))
+        if (win->event.mouseWheelScroll.wheel == 1)
             world->s_br++;
-        if (sfKeyboard_isKeyPressed(sfKeySubtract) && world->s_br > 0)
+        if ((int)(win->event.mouseWheelScroll.wheel) == -1 && world->s_br > 0)
             world->s_br--;
         if (win->event.type == sfEvtClosed) {
             win->destroy(win);
