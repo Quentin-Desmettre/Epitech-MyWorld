@@ -32,6 +32,7 @@ SRC = 	src/matrix/mat4x4.c 		\
 		src/map/smooth.c			\
 		src/load.c					\
 		src/mini_map/mini_map.c		\
+		src/brush/brush.c			\
 		$(RADIX)
 
 NAME = my_world
