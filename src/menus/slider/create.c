@@ -16,6 +16,7 @@ void update_positions(slider_t *s)
     sfRectangleShape_setSize(s->before_cursor, bef_size);
     sfRectangleShape_setSize(s->after_cursor, aft_size);
     sfRectangleShape_setPosition(s->after_cursor, (sfVector2f){bef_size.x, 0});
+    s->value = s->min + (s->max - s->min) * percent;
 }
 
 void rescale_slider(slider_t *s, sfVector2f new_size, sfVector2f new_pos)
