@@ -60,18 +60,14 @@ vecsort_t *sort_vertxs(world_t *world, vertex_t *vertxs)
 
 vertex_t *project_meshes(world_t *world)
 {
-    float *tmp = malloc(sizeof(float) * 3);
+    size_t i = -1;
     vertex_t *vertxs = malloc(sizeof(vertex_t) * world->nb_vertxs);
 
-    for (size_t i = 0; i < world->nb_vertxs; i++) {
+    while ((i += 1) < world->nb_vertxs) {
         mat4x4_multiplyvector3
-        (world->matrix, (float *)world->a_vertxs[i], tmp);
-        tmp[0] /= tmp[2];
-        tmp[1] /= tmp[2];
-        vertxs[i].pos[0] = tmp[0];
-        vertxs[i].pos[1] = tmp[1];
-        vertxs[i].pos[2] = tmp[2];
+        (world->matrix, world->a_vertxs[i]->pos, vertxs[i].pos);
+        vertxs[i].pos[0] /= vertxs[i].pos[2];
+        vertxs[i].pos[1] /= vertxs[i].pos[2];
     }
-    free(tmp);
     return vertxs;
 }

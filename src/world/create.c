@@ -20,15 +20,6 @@ void destroy_world(world_t *world)
 {
     free(world->matrix);
     sfClock_destroy(world->clock);
-    for (size_t i = 0; i < world->nb_meshes; i++)
-        remove_node(world->meshes, 0, free_mesh);
-    for (size_t i = 0; i < world->nb_vertxs; i++)
-        remove_node(world->vertxs, 0, 0);
-    for (size_t i = 0; i < world->nb_trig; i++)
-        remove_node(world->triangles, 0, 0);
-    free(world->meshes);
-    free(world->vertxs);
-    free(world->triangles);
     free(world->light_start);
     free(world->light_source);
     free(world);

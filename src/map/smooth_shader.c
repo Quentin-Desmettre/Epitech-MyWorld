@@ -77,9 +77,9 @@ void launch_thread(tmp_shadow_t *tmp, tmp_shadow_t *tmp2
 
     if (start) {
         tmp->start = 0;
-        tmp->end = (win->map_size - 1) / 2;
+        tmp->end = (win->map_size - 1)  * 0.5;
         tmp->turn = 0;
-        tmp2->start = (win->map_size - 1) / 2;
+        tmp2->start = (win->map_size - 1)  * 0.5;
         tmp2->end = win->map_size - 1;
         tmp2->turn = 0;
     }
@@ -107,6 +107,5 @@ void smooth_shadow(world_t *world, win_t *win)
     free(tmp2);
     free(tmp);
     for (size_t i = 0; i < world->nb_trig; i++)
-        world->a_triangles[i]->direction *=
-        (win->params->day ? 0.8 : 0.2) + 0.1;
+        world->a_triangles[i]->direction *= win->params->day ? 0.9 : 0.3;
 }

@@ -24,6 +24,19 @@ int poll_window_ev(win_t *win, world_t *world)
     return 1;
 }
 
+void free_lists(world_t *world)
+{
+    for (size_t i = 0; i < world->nb_meshes; i++)
+        remove_node(world->meshes, 0, 0);
+    for (size_t i = 0; i < world->nb_vertxs; i++)
+        remove_node(world->vertxs, 0, 0);
+    for (size_t i = 0; i < world->nb_trig; i++)
+        remove_node(world->triangles, 0, 0);
+    free(world->meshes);
+    free(world->vertxs);
+    free(world->triangles);
+}
+
 int main(int ac, char **av)
 {
     world_t *world = create_world();
@@ -40,6 +53,7 @@ int main(int ac, char **av)
     world->sortBuffer2 = malloc(sizeof(vecsort_t) * world->nb_trig);
     win = win_create(world->nb_trig);
     win->map_size = size;
+    free_lists(world);
     while (win->is_open(win)) {
         move(&world->matrix);
         draw_meshes(world, win);
