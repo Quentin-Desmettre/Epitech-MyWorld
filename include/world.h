@@ -104,5 +104,8 @@ sfBool is_out(size_t max, size_t size, long i, long j);
 void up_br(world_t *world, win_t *win, sfVector2i pos);
 void down_br(world_t *world, win_t *win, sfVector2i pos);
 void free_mesh(void *value);
+void average_br(world_t *world, win_t *win, sfVector2i pos);
+void average_w_br(world_t *world, win_t *win, sfVector2i pos);
+void average_d_br(world_t *world, win_t *win, sfVector2i pos);
 
 #endif

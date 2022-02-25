@@ -14,7 +14,8 @@ int poll_window_ev(win_t *win, world_t *world)
             world->s_br++;
         if ((int)(win->event.mouseWheelScroll.wheel) == -1 && world->s_br > 0)
             world->s_br--;
-        if (win->event.type == sfEvtClosed) {
+        if (win->event.type == sfEvtClosed ||
+        sfKeyboard_isKeyPressed(sfKeyEscape)) {
             win->destroy(win);
             world->destroy(world);
             return 0;
