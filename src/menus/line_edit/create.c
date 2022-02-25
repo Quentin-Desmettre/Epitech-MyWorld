@@ -7,6 +7,14 @@
 
 #include "menus.h"
 
+void destroy_line_edit(line_edit_t *le)
+{
+    sfRectangleShape_destroy(le->background);
+    sfText_destroy(le->text);
+    sfRenderTexture_destroy(le->rtex);
+    free(le);
+}
+
 sfSprite *draw_line_edit(line_edit_t *le, sfVector2f pos)
 {
     sfSprite *s;
