@@ -8,8 +8,8 @@
 #include "menus.h"
 
 static const char *button_texts[] = {
-    "Launch map",
-    "Create map",
+    "LAunch mAp",
+    "CreAte mAp",
     "Settings",
     "Quit"
 };

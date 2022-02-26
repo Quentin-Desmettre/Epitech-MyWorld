@@ -8,6 +8,9 @@
 RADIX = src/radix/utils.c \
 		src/fps.c
 
+MENUS = src/menus/*.c \
+		src/menus/*/*.c
+
 SRC = 	src/matrix/mat4x4.c 		\
 	 	src/matrix/mat_invert.c 	\
 		src/matrix/mat_create.c 	\

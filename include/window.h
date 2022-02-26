@@ -11,7 +11,7 @@
     #include "world.h"
 
     #define VSYNC 1
-    #define FPS 60
+    #define FPS 144
     #define ALIASING 8
 
 static const sfVideoMode mode = {1600, 800, 32};

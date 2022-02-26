@@ -18,8 +18,8 @@ int int_to_str(int x, char str[], int d)
     }
     while (i < d)
         str[i++] = '0';
-    my_revstr(str);
     str[i] = '\0';
+    my_revstr(str);
     return i;
 }
 
@@ -55,7 +55,7 @@ void init_graph(sfClock **c, sfText **t, win_t *w)
     if (!(*t)) {
         *c = sfClock_create();
         *t = sfText_create();
-        sfText_setFont(*t, sfFont_createFromFile("src/menus/minecraft.ttf"));
+        sfText_setFont(*t, sfFont_createFromFile("src/menus/pusab.otf"));
     }
     sfText_setCharacterSize(*t, 800 / 30.0);
     sfText_setPosition(*t, (sfVector2f){1600 * 0.8, 0});

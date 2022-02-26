@@ -73,26 +73,6 @@ void update_size_text(sfText *size, slider_t *slider)
     free(final);
 }
 
-const sfTexture *draw_mc(map_create_t *mc, sfVector2f ws)
-{
-    sfSprite *s;
-
-    sfRenderTexture_clear(mc->rtex, sfBlack);
-    sfRenderTexture_drawText(mc->rtex, mc->name_prompt, NULL);
-    s = draw_line_edit(mc->name, (sfVector2f){ws.x * 0.04, ws.y * 0.23});
-    sfRenderTexture_drawSprite(mc->rtex, s, NULL);
-    sfSprite_destroy(s);
-    update_size_text(mc->size, mc->size_slider);
-    sfRenderTexture_drawText(mc->rtex, mc->size, NULL);
-    s = draw_slider(mc->size_slider);
-    sfRenderTexture_drawSprite(mc->rtex, s, NULL);
-    sfSprite_destroy(s);
-    for (int i = 0; i < 4; i++)
-        draw_button_to_rtex(mc->buttons[i], mc->rtex);
-    sfRenderTexture_display(mc->rtex);
-    return (sfRenderTexture_getTexture(mc->rtex));
-}
-
 map_create_t *create_map_create(sfVector2f win_size)
 {
     map_create_t *mc = malloc(sizeof(map_create_t));
@@ -103,9 +83,9 @@ map_create_t *create_map_create(sfVector2f win_size)
 
     mc->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     mc->name_prompt =
-    init_text("Map name: ", win_size.y * MAIN_MENU_TXT_FACTOR);
+    init_text("MAp nAme", win_size.y * MAIN_MENU_TXT_FACTOR);
     mc->name = create_line_edit(
-    (sfVector2f){win_size.x * 0.8, win_size.y * 0.2}, "my map 0");
+    (sfVector2f){win_size.x * 0.8, win_size.y * 0.2}, "my_mAp-0");
     mc->size = init_text("64x64", win_size.y * MAIN_MENU_TXT_FACTOR);
     mc->size_slider = create_slider(
     (sfVector2f){win_size.x * 0.8, win_size.y * 0.2},
