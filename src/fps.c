@@ -18,8 +18,8 @@ int int_to_str(int x, char str[], int d)
     }
     while (i < d)
         str[i++] = '0';
-    my_revstr(str);
     str[i] = '\0';
+    my_revstr(str);
     return i;
 }
 
