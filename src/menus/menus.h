@@ -169,7 +169,7 @@ void move_main_buttons(button_t *buttons[4], sfVector2f winSize);
 main_menu_t *init_main_menu(sfTexture *t, sfVector2f winSize);
 void draw_button_to_rtex(button_t *b, sfRenderTexture *rtex);
 const sfTexture *draw_main_menu(void *menu);
-window_t *win_create(void);
+window_t *window_create(void);
 void destroy_home(main_menu_t *menu);
 void win_destroy(window_t *win);
 void switch_color_dir(window_t *win, int *dir);

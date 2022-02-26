@@ -57,7 +57,7 @@ void poll_events(window_t *win)
 
 int main(void)
 {
-    window_t *win = win_create();
+    window_t *win = window_create();
 
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
