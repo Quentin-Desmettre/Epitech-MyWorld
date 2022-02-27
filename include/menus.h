@@ -15,6 +15,7 @@
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
     #include <SFML/System.h>
+    #include "world.h"
 
     #define true 1
     #define false 0
@@ -26,7 +27,7 @@
     #define GROW_FACTOR 1.05
     #define MAIN_MENU_TXT_FACTOR 0.7
     #define SETTINGS_FILE ".conf"
-    #define ABS(x) ((x) < 0 ? -(x) : (x))
+    #define PART_OF_MINIMAP 0.6
 
 typedef struct {
     sfSprite *box;
@@ -339,5 +340,19 @@ void destroy_slider(slider_t *s);
 void release_mc(map_create_t *mc, int index, window_t *win);
 void destroy_check_box(check_box *c);
 void destroy_mc(map_create_t *mc);
+
+// game
+typedef struct {
+    sfRenderTexture *rtex;
+    world_t *world;
+    win_t *win;
+    sfVector2f size;
+    minimap_t *minimap;
+    int dimension;
+} game_t;
+
+game_t *create_game(unsigned size, sfVector2f win_size);
+const sfTexture *draw_game(void *game);
+void game_events(window_t *win, sfEvent ev);
 
 #endif

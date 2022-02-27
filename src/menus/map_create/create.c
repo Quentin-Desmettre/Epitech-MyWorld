@@ -76,7 +76,6 @@ void update_size_text(sfText *size, slider_t *slider)
 map_create_t *create_map_create(sfVector2f win_size)
 {
     map_create_t *mc = malloc(sizeof(map_create_t));
-
     void (*ptrs[4])(void *) = {
         increase_size, decrease_size, mc_go_back, launch_size
     };

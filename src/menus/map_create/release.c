@@ -41,7 +41,7 @@ void destroy_mc(map_create_t *mc)
 
 void release_mc(map_create_t *mc, int index, window_t *win)
 {
-    bool cont = mc->buttons[index]->is_press;
+    bool cont = index >= 0 ? mc->buttons[index]->is_press : false;
 
     for (int i = 0; i < 4; i++)
         press_button(mc->buttons[i], false);

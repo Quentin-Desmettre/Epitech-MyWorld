@@ -9,11 +9,12 @@
 
 void create_pointers(window_t *win)
 {
+    EDIT_MAP;
     const sfTexture* (*dr[6])(void *) = {
-        &draw_main_menu, NULL, &draw_settings, NULL, NULL, NULL
+        &draw_main_menu, NULL, &draw_settings, NULL, NULL, &draw_game
     };
     void (*ev[6])(window_t *, sfEvent) = {
-        &main_menu_event, NULL, &settings_ev, &mc_event, NULL, NULL
+        &main_menu_event, NULL, &settings_ev, &mc_event, NULL, &game_events
     };
 
     for (int i = 0; i < 6; i++) {
@@ -40,7 +41,7 @@ void create_settings(window_t *win)
     apply_settings(win->menus[2], win);
 }
 
-window_t *win_create(void)
+window_t *window_create(void)
 {
     window_t *win = malloc(sizeof(window_t));
 

@@ -80,5 +80,5 @@ void draw_fps(win_t *w)
         sfClock_restart(c);
     } else
         free(0);
-    sfRenderWindow_drawText(w->window, t, NULL);
+    //sfRenderWindow_drawText(w->window, t, NULL);
 }

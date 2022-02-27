@@ -7,6 +7,8 @@
 
 #include "menus.h"
 
+void world_events(game_t *g, sfEvent ev, window_t *win);
+
 void win_destroy(window_t *win)
 {
     sfRenderWindow_destroy(win->win);
@@ -20,8 +22,6 @@ void win_destroy(window_t *win)
 
 void draw(window_t *win)
 {
-    if (win->state == CREATE_MAP) {
-    }
     const sfTexture* tex = (win->state == CREATE_MAP) ? draw_mc(win->menus[3],
     (sfVector2f){win->mode.width, win->mode.height}) :
     win->draw[win->state](win->menus[win->state]);
@@ -53,12 +53,15 @@ void poll_events(window_t *win)
     }
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
+    if (win->state == EDIT_MAP)
+        move(&(((game_t *)win->menus[EDIT_MAP])->world->matrix));
 }
 
 int main(void)
 {
     window_t *win = window_create();
 
+    srand((unsigned)(unsigned long)(&win));
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         draw(win);
