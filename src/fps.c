@@ -52,13 +52,14 @@ void append(char **str, char *buf, int is_free)
 
 void init_graph(sfClock **c, sfText **t, win_t *w)
 {
+    sfVector2u size = sfRenderTexture_getSize(w->r_tex);
     if (!(*t)) {
         *c = sfClock_create();
         *t = sfText_create();
-        sfText_setFont(*t, sfFont_createFromFile("src/menus/pusab.otf"));
+        sfText_setFont(*t, sfFont_createFromFile("pusab.otf"));
     }
-    sfText_setCharacterSize(*t, 800 / 30.0);
-    sfText_setPosition(*t, (sfVector2f){1600 * 0.8, 0});
+    sfText_setCharacterSize(*t, size.x / 30.0);
+    sfText_setPosition(*t, (sfVector2f){size.x * 0.8, 0});
 }
 
 void draw_fps(win_t *w)
@@ -78,7 +79,6 @@ void draw_fps(win_t *w)
     if (sfClock_getElapsedTime(c).microseconds > 500000) {
         sfText_setString(t, fps_str);
         sfClock_restart(c);
-    } else
-        free(0);
+    }
     sfRenderTexture_drawText(w->r_tex, t, NULL);
 }

@@ -12,6 +12,7 @@ void draw_world(game_t *g)
     sfSprite *s;
 
     draw_meshes(g->world, g->win);
+    draw_fps(g->win);
     sfRenderTexture_display(g->win->r_tex);
     s = init_sprite_from_texture(sfRenderTexture_getTexture(g->win->r_tex));
     sfSprite_setPosition(s, (sfVector2f){g->size.y * PART_OF_MINIMAP, 0});

@@ -122,5 +122,6 @@ void average_br(world_t *world, minimap_t *map);
 void average_w_br(world_t *world, minimap_t *map);
 void average_d_br(world_t *world, minimap_t *map);
 void free_lists(world_t *world);
+void draw_fps(win_t *w);
 
 #endif
