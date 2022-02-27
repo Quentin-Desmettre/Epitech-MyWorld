@@ -69,8 +69,8 @@ typedef struct tmp_struct {
 
 typedef struct {
     sfRenderTexture *rtex;
-    sfVertexArray *points;
-    sfVertex *next_vertex;
+    sfVertexArray *array;
+    sfVertex *tmp;
     sfVector2f size;
     sfVector2f mouse_pos;
     int s_br;
@@ -100,7 +100,7 @@ void draw_light(world_t *world, win_t *win);
 void convert_to_array(world_t *world);
 void create_map(world_t *world, size_t size);
 float apply_perlin(float x, float y);
-void draw_minimap(minimap_t *map, world_t *world, win_t *win, int size);
+void draw_minimap(minimap_t *map, world_t *world, sfBool day, int size);
 minimap_t *create_minimap(sfVector2f size, int map_size);
 sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri,
 world_t *world, win_t *win);

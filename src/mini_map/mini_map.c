@@ -7,13 +7,13 @@
 
 #include "world.h"
 
-void app_point(float x, float y, win_t *win)
+void app_point(float x, float y, minimap_t *map)
 {
-    win->tmp->position = (sfVector2f){x, y};
-    sfVertexArray_append(win->array, *win->tmp);
+    map->tmp->position = (sfVector2f){x, y};
+    sfVertexArray_append(map->array, *map->tmp);
 }
 
-void where_minimap(world_t *world, win_t *win, long long size, minimap_t *map)
+void where_minimap(world_t *world, minimap_t *map, long long size)
 {
     float nb = height / (float)(size);
     int x = (int)(round(map->mouse_pos.x / nb));
@@ -24,48 +24,48 @@ void where_minimap(world_t *world, win_t *win, long long size, minimap_t *map)
         return;
     xx = world->a_vertxs[x * (size + 1) + y]->pos[0] / 1.5;
     yy = world->a_vertxs[x * (size + 1) + y]->pos[2] / 1.5;
-    win->tmp->color = sfWhite;
-    app_point((xx - map->s_br) * nb, (yy + map->s_br) * nb, win);
-    app_point((xx - map->s_br) * nb, (yy - map->s_br) * nb, win);
-    app_point((xx + map->s_br) * nb, (yy - map->s_br) * nb, win);
-    app_point((xx + map->s_br) * nb, (yy + map->s_br) * nb, win);
-    app_point((xx - map->s_br) * nb, (yy + map->s_br) * nb, win);
-    sfVertexArray_setPrimitiveType(win->array, sfLinesStrip);
-    sfRenderTexture_drawVertexArray(map->rtex, win->array, 0);
-    sfVertexArray_clear(win->array);
+    map->tmp->color = sfWhite;
+    app_point((xx - map->s_br) * nb, (yy + map->s_br) * nb, map);
+    app_point((xx - map->s_br) * nb, (yy - map->s_br) * nb, map);
+    app_point((xx + map->s_br) * nb, (yy - map->s_br) * nb, map);
+    app_point((xx + map->s_br) * nb, (yy + map->s_br) * nb, map);
+    app_point((xx - map->s_br) * nb, (yy + map->s_br) * nb, map);
+    sfVertexArray_setPrimitiveType(map->array, sfLinesStrip);
+    sfRenderTexture_drawVertexArray(map->rtex, map->array, 0);
+    sfVertexArray_clear(map->array);
 }
 
-void add_color(int i, win_t *win, world_t *world, const float *time)
+void add_color(int i, minimap_t *map, world_t *world, const float *time)
 {
     float direction = world->a_triangles[i]->direction;
-    win->tmp->color = world->a_triangles[i]->color;
-    win->tmp->color.r *= direction;
-    win->tmp->color.g *= direction;
-    win->tmp->color.b *= direction;
+
+    map->tmp->color = world->a_triangles[i]->color;
+    map->tmp->color.r *= direction;
+    map->tmp->color.g *= direction;
+    map->tmp->color.b *= direction;
 }
 
-void draw_minimap(minimap_t *map, world_t *world, win_t *win, int size)
+void draw_minimap(minimap_t *map, world_t *world, sfBool day, int size)
 {
-    const float *time = win->params->day ? day_light : night_light;
+    const float *time = day ? day_light : night_light;
     float nb = map->size.y / (float)(size);
-    sfBool day = win->params->day;
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            add_color(i * size + j, win, world, time);
-            app_point(nb * i, nb * (size - j - 1), win);
-            app_point(nb * (i + 1), nb * (size - j - 1), win);
-            app_point(nb * i, nb * (size - j), win);
-            add_color(i * size + j + size * size, win, world, time);
-            app_point(nb * (i + 1), nb * (size - j), win);
-            app_point(nb * (i + 1), nb * (size - j - 1), win);
-            app_point(nb * i, nb * (size - j), win);
+            add_color(i * size + j, map, world, time);
+            app_point(nb * i, nb * (size - j - 1), map);
+            app_point(nb * (i + 1), nb * (size - j - 1), map);
+            app_point(nb * i, nb * (size - j), map);
+            add_color(i * size + j + size * size, map, world, time);
+            app_point(nb * (i + 1), nb * (size - j), map);
+            app_point(nb * (i + 1), nb * (size - j - 1), map);
+            app_point(nb * i, nb * (size - j), map);
         }
     }
-    sfVertexArray_setPrimitiveType(win->array, sfTriangles);
-    sfRenderTexture_drawVertexArray(map->rtex, win->array, 0);
-    sfVertexArray_clear(win->array);
-    where_minimap(world, win, size, map);
+    sfVertexArray_setPrimitiveType(map->array, sfTriangles);
+    sfRenderTexture_drawVertexArray(map->rtex, map->array, 0);
+    sfVertexArray_clear(map->array);
+    where_minimap(world, map, size);
 }
 
 minimap_t *create_minimap(sfVector2f size, int map_size)
@@ -73,11 +73,11 @@ minimap_t *create_minimap(sfVector2f size, int map_size)
     minimap_t *m = malloc(sizeof(minimap_t));
 
     m->rtex = sfRenderTexture_create(size.x, size.y, 0);
-    m->points = sfVertexArray_create();
-    sfVertexArray_resize(m->points, map_size);
-    m->next_vertex = malloc(sizeof(sfVertex));
+    m->array = sfVertexArray_create();
+    sfVertexArray_resize(m->array, map_size);
+    m->tmp = malloc(sizeof(sfVertex));
     for (size_t i = 0; i < sizeof(sfVertex); i++)
-        ((char *)(m->next_vertex))[i] = 0;
+        ((char *)(m->tmp))[i] = 0;
     m->size = size;
     m->s_br = 1;
     m->mouse_pos = (sfVector2f){10, 10};
