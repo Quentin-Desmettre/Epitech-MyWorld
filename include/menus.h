@@ -119,6 +119,8 @@ typedef struct win {
     sfRenderWindow *win;
 } window_t;
 
+typedef enum {WORLD, MINIMAP, BUTTONS} mouse_pos_t;
+
 typedef enum {
     HOME, MAP_SELECT, SETTINGS, CREATE_MAP,
     HOW_TO_PLAY, EDIT_MAP, EXIT
@@ -354,5 +356,7 @@ typedef struct {
 game_t *create_game(unsigned size, sfVector2f win_size);
 const sfTexture *draw_game(void *game);
 void game_events(window_t *win, sfEvent ev);
+void minimap_clicks(game_t *g);
+mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
 
 #endif

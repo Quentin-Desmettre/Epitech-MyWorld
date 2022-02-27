@@ -7,8 +7,6 @@
 
 #include "menus.h"
 
-typedef enum {WORLD, MINIMAP, BUTTONS} mouse_pos_t;
-
 void world_events(game_t *g, sfEvent ev, window_t *win)
 {
     g->win->event = ev;
@@ -22,18 +20,18 @@ void world_events(game_t *g, sfEvent ev, window_t *win)
 
 void minimap_clicks(game_t *g)
 {
+    if (sfMouse_isButtonPressed(sfMouseLeft))
+        g->minimap->actions[g->minimap->state](g->world, g->minimap);
 }
 
 void minimap_events(game_t *g, sfEvent ev, window_t *win)
 {
     if (ev.type == sfEvtMouseWheelScrolled) {
-        if (ev.mouseWheelScroll.wheel == 1)
+        if (ev.mouseWheelScroll.delta == 1)
             g->minimap->s_br++;
-        if ((int)(ev.mouseWheelScroll.wheel) == -1 && g->minimap->s_br > 0)
+        if (ev.mouseWheelScroll.delta == -1 && g->minimap->s_br > 0)
             g->minimap->s_br--;
     }
-    if (ev.type == sfEvtMouseMoved)
-        g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
 }
 
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win)
@@ -54,8 +52,9 @@ void game_events(window_t *win, sfEvent ev)
     game_t *g = win->menus[EDIT_MAP];
     int mouse = mouse_pos(g->size, win);
 
-    if (mouse == WORLD)
-        world_events(g, ev, win);
-    else if (mouse == MINIMAP)
+    world_events(g, ev, win);
+    if (mouse == MINIMAP)
         minimap_events(g, ev, win);
+    if (ev.type == sfEvtMouseMoved)
+        g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
 }

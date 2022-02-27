@@ -67,7 +67,9 @@ typedef struct tmp_struct {
     sfBool turn;
 } tmp_shadow_t;
 
-typedef struct {
+    #define NB_ACTIONS 5
+
+typedef struct minimap {
     sfRenderTexture *rtex;
     sfVertexArray *array;
     sfVertex *tmp;
@@ -75,6 +77,8 @@ typedef struct {
     sfVector2f mouse_pos;
     int s_br;
     int state;
+    int map_size;
+    void (*actions[NB_ACTIONS])(world_t *, struct minimap *);
 } minimap_t;
 
 static const float height = 800.0;
@@ -111,11 +115,11 @@ void change_color(mesh_t *mesh, size_t size, size_t i, size_t j);
 void smooth(mesh_t *mesh, size_t size);
 void smooth_shadow(world_t *world, win_t *win);
 sfBool is_out(size_t max, size_t size, long i, long j);
-void up_br(world_t *world, win_t *win, sfVector2i pos);
-void down_br(world_t *world, win_t *win, sfVector2i pos);
+void up_br(world_t *world, minimap_t *map);
+void down_br(world_t *world, minimap_t *map);
 void free_mesh(void *value);
-void average_br(world_t *world, win_t *win, sfVector2i pos);
-void average_w_br(world_t *world, win_t *win, sfVector2i pos);
-void average_d_br(minimap_t *map, world_t *world, sfVector2i pos, int size);
+void average_br(world_t *world, minimap_t *map);
+void average_w_br(world_t *world, minimap_t *map);
+void average_d_br(world_t *world, minimap_t *map);
 
 #endif
