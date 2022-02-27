@@ -121,5 +121,6 @@ void free_mesh(void *value);
 void average_br(world_t *world, minimap_t *map);
 void average_w_br(world_t *world, minimap_t *map);
 void average_d_br(world_t *world, minimap_t *map);
+void free_lists(world_t *world);
 
 #endif

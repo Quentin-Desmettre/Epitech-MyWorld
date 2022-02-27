@@ -36,7 +36,8 @@ SRC = 	src/matrix/mat4x4.c 		\
 		src/load.c					\
 		src/mini_map/mini_map.c		\
 		src/brush/brush.c			\
-		$(RADIX) \
+		$(RADIX) 					\
+		src/mini_map/draw.c 		\
 		$(MENUS)
 
 NAME = my_world
@@ -46,8 +47,8 @@ CC = cc -Iinclude
 OBJ = $(SRC:.c=.o)
 
 FLAGS = -g -lm -lcsfml-graphics -lcsfml-audio -lcsfml-system -lcsfml-window \
-		-Wparentheses -Wsign-compare -Wpointer-sign -Wuninitialized \
-		-Wunused-but-set-variable -lstdc++
+		-Wparentheses -Wsign-compare -Wpointer-sign -Wuninitialized 		\
+		-Wunused-but-set-variable
 
 MY	=	my.h
 
