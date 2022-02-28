@@ -20,10 +20,9 @@ void draw_line(vertex_t vertxs[3], win_t *win)
 void draw_triangle(vertex_t vertxs[3], triangle_t *tri,
 win_t *win, world_t *world)
 {
-    win->tmp->color = center_vertxs(vertxs, tri, world, win);
+    win->tmp->color = center_vertxs(vertxs, tri);
     for (int i = 0; i < 3; i++) {
-        win->tmp->position = (sfVector2f)
-        {vertxs[i].pos[0], vertxs[i].pos[1]};
+        win->tmp->position = (sfVector2f) {vertxs[i].pos[0], vertxs[i].pos[1]};
         sfVertexArray_append(win->array, *win->tmp);
     }
     if (win->params->is_outline)
@@ -41,24 +40,23 @@ void draw_meshes(world_t *world, win_t *win)
 {
     size_t i = -1;
     vertex_t pts[3];
-    vertex_t *vertxs = project_meshes(world);
-    vecsort_t *sortBuffer = sort_vertxs(world, vertxs);
 
+    project_meshes(world);
+    sort_vertxs(world);
     if (!win->params->pause && sfClock_getElapsedTime(world->clock)
     .microseconds / 1000000.0 > 1.0)
         move_light(world, win);
     if (world->light_source[2] > 0)
         draw_light(world, win);
     while ((i += 1) < world->nb_trig) {
-        fill_pts(pts, vertxs, ((triangle_t *)sortBuffer[i].data)->vertxs);
+        fill_pts(pts, world->projected, world->sortBuffer[i].data->vertxs);
         if (pts[0].pos[2] > 0 || pts[1].pos[2] > 0 || pts[2].pos[2] > 0)
             continue;
         if (get_direction(pts) >= 0)
-            draw_triangle(pts, sortBuffer[i].data, win, world);
+            draw_triangle(pts, world->sortBuffer[i].data, win, world);
     }
     sfVertexArray_setPrimitiveType(win->array, win->params->is_outline ?
     sfLines : sfTriangles);
     sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
     sfVertexArray_clear(win->array);
-    free(vertxs);
 }

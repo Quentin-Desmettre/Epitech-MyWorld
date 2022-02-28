@@ -22,8 +22,8 @@ void where_minimap(world_t *world, minimap_t *map, long long size)
     float yy;
     if (x < 0 || y < 0 || x > size || y > size)
         return;
-    xx = world->a_vertxs[x * (size + 1) + y]->pos[0] / 1.5;
-    yy = world->a_vertxs[x * (size + 1) + y]->pos[2] / 1.5;
+    xx = world->a_vertxs[x * (size + 1) + y].pos[0] / 1.5;
+    yy = world->a_vertxs[x * (size + 1) + y].pos[2] / 1.5;
     map->tmp->color = sfWhite;
     app_point((xx - map->s_br) * nb, (yy + map->s_br) * nb, map);
     app_point((xx - map->s_br) * nb, (yy - map->s_br) * nb, map);
@@ -37,9 +37,9 @@ void where_minimap(world_t *world, minimap_t *map, long long size)
 
 void add_color(int i, minimap_t *map, world_t *world, const float *time)
 {
-    float direction = world->a_triangles[i]->direction;
+    float direction = world->a_triangles[i].direction;
 
-    map->tmp->color = world->a_triangles[i]->color;
+    map->tmp->color = world->a_triangles[i].color;
     map->tmp->color.r *= direction;
     map->tmp->color.g *= direction;
     map->tmp->color.b *= direction;

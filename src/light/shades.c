@@ -7,21 +7,6 @@
 
 #include "world.h"
 
-float get_time(world_t *world, win_t *win, float direction)
-{
-    
-}
-
-vertex_t *get_vertxs(world_t *world, triangle_t *tri)
-{
-    vertex_t *vertxs = malloc(sizeof(vertex_t) * 3);
-
-    vertxs[0] = *tri->ptrs[0];
-    vertxs[1] = *tri->ptrs[1];
-    vertxs[2] = *tri->ptrs[2];
-    return vertxs;
-}
-
 float calculate_shades(float vecs[2][3], float *light, vertex_t *vertxs)
 {
     float direction;
@@ -37,13 +22,12 @@ float calculate_shades(float vecs[2][3], float *light, vertex_t *vertxs)
     direction = dotproduct3(normale, light_dir);
     if (direction < 0)
         direction = 0;
-    free(vertxs);
     return direction;
 }
 
 float apply_shades(world_t *world, triangle_t *tri)
 {
-    vertex_t *vertxs = get_vertxs(world, tri);
+    vertex_t vertxs[3] = {*tri->ptrs[0], *tri->ptrs[1], *tri->ptrs[2]};
     float vecs[2][3] = {
     {vertxs[0].pos[0] - vertxs[1].pos[0],
     vertxs[0].pos[1] - vertxs[1].pos[1],

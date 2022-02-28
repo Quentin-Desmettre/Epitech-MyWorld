@@ -10,11 +10,6 @@
 
     #include "world.h"
 
-typedef struct vecsort {
-    void *data;
-    int id;
-} vecsort_t;
-
 typedef struct vertex {
     float pos[3];
 } vertex_t;
@@ -26,6 +21,11 @@ typedef struct triangle {
     vertex_t *ptrs[3];
     void *mesh_ptr;
 } triangle_t;
+
+typedef struct vecsort {
+    triangle_t *data;
+    int id;
+} vecsort_t;
 
 typedef struct mesh {
     triangle_t *trig;

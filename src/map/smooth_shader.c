@@ -10,20 +10,19 @@
 size_t add_mid(world_t *world, tmp_shadow_t *tmp, float *mid, long *index)
 {
     size_t size = tmp->size;
-    long line = tmp->line;
     long col = tmp->col;
     size_t count = 0;
 
     !is_out(world->nb_trig, size - 1, index[0], index[1]) ? *mid += world->
-    a_triangles[(size - 1) * index[0] + index[1]]->direction, count++ : 0;
+    a_triangles[(size - 1) * index[0] + index[1]].direction, count++ : 0;
     !is_out(world->nb_trig, size - 1, index[0], index[1] +
     (long)(world->nb_trig / 2)) && col < (long)(world->nb_trig / 2) ? *mid
     += world->a_triangles[(size - 1) * index[0] + index[1] +
-    (long)(world->nb_trig / 2)]->direction, count++ : 0;
+    (long)(world->nb_trig / 2)].direction, count++ : 0;
     !is_out(world->nb_trig, size - 1, index[0], index[1] -
     (long)(world->nb_trig / 2)) && col >= (long)(world->nb_trig / 2) ? *mid
     += world->a_triangles[(size - 1) * index[0] + index[1] -
-    (long)(world->nb_trig / 2)]->direction, count++ : 0;
+    (long)(world->nb_trig / 2)].direction, count++ : 0;
     return count;
 }
 
@@ -34,7 +33,7 @@ void smooth_trig(void *param)
     size_t size = tmp->size;
     long line = tmp->line;
     long col = tmp->col;
-    triangle_t *trig = world->a_triangles[(size - 1) * line + col];
+    triangle_t *trig = &world->a_triangles[(size - 1) * line + col];
     float mid = trig->direction * 4;
     size_t count = 4;
     long index[2];
@@ -101,11 +100,11 @@ void smooth_shadow(world_t *world, win_t *win)
     tmp2->world = world;
     tmp2->size = win->map_size;
     for (size_t i = 0; i < world->nb_trig; i++)
-        apply_shades(world, world->a_triangles[i]);
+        apply_shades(world, &world->a_triangles[i]);
     launch_thread(tmp, tmp2, win, 1);
     launch_thread(tmp, tmp2, win, 0);
     free(tmp2);
     free(tmp);
     for (size_t i = 0; i < world->nb_trig; i++)
-        world->a_triangles[i]->direction *= win->params->day ? 0.9 : 0.3;
+        world->a_triangles[i].direction *= win->params->day ? 0.9 : 0.3;
 }

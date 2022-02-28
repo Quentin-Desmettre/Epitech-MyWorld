@@ -20,8 +20,8 @@ void up_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && world->a_vertxs
-            [i * (size) + (size - j)]->pos[1] < 40) ?
-            world->a_vertxs[i * (size) + (size - j)]->
+            [i * (size) + (size - j)].pos[1] < 40) ?
+            world->a_vertxs[i * (size) + (size - j)].
             pos[1] += 1 : 0;
         }
     }
@@ -40,8 +40,8 @@ void down_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && world->a_vertxs
-            [i * (size) + (size - j)]->pos[1] > -10) ?
-            world->a_vertxs[i * (size) + (size - j)]->
+            [i * (size) + (size - j)].pos[1] > -10) ?
+            world->a_vertxs[i * (size) + (size - j)].
             pos[1] -= 1 : 0;
         }
     }
@@ -62,8 +62,8 @@ void average_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && world->a_vertxs
-            [i * (size) + (size - j)]->pos[1] > -10) ?
-            tmp += world->a_vertxs[i * (size) + (size - j)]->
+            [i * (size) + (size - j)].pos[1] > -10) ?
+            tmp += world->a_vertxs[i * (size) + (size - j)].
             pos[1], count++: 0;
         }
     }
@@ -75,9 +75,9 @@ void average_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && world->a_vertxs
-            [i * (size) + (size - j)]->pos[1] > -10) ?
-            (world->a_vertxs[i * (size) + (size - j)]->
-            pos[1] = (world->a_vertxs[i * (size) + (size - j)]->
+            [i * (size) + (size - j)].pos[1] > -10) ?
+            (world->a_vertxs[i * (size) + (size - j)].
+            pos[1] = (world->a_vertxs[i * (size) + (size - j)].
             pos[1] + tmp) / 2): 0;
         }
     }
@@ -98,7 +98,7 @@ void average_w_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size)) ?
-            tmp += world->a_vertxs[i * (size) + (size - j)]->
+            tmp += world->a_vertxs[i * (size) + (size - j)].
             pos[1], count++ : 0;
         }
     }
@@ -110,8 +110,8 @@ void average_w_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size)) ?
-            (world->a_vertxs[i * (size) + (size - j)]->
-            pos[1] = (world->a_vertxs[i * (size) + (size - j)]->
+            (world->a_vertxs[i * (size) + (size - j)].
+            pos[1] = (world->a_vertxs[i * (size) + (size - j)].
             pos[1] + tmp) / 2): 0;
         }
     }
@@ -133,9 +133,9 @@ void average_d_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && world->a_vertxs
-            [i * (size) + (size - j)]->pos[1] > -10 && world->a_vertxs
-            [i * (size) + (size - j)]->pos[1] < tmp) ?
-            tmp = world->a_vertxs[i * (size) + (size - j)]->
+            [i * (size) + (size - j)].pos[1] > -10 && world->a_vertxs
+            [i * (size) + (size - j)].pos[1] < tmp) ?
+            tmp = world->a_vertxs[i * (size) + (size - j)].
             pos[1]: 0;
         }
     }
@@ -144,9 +144,9 @@ void average_d_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && world->a_vertxs
-            [i * (size) + (size - j)]->pos[1] > -10) ?
-            (world->a_vertxs[i * (size) + (size - j)]->
-            pos[1] = (world->a_vertxs[i * (size) + (size - j)]->
+            [i * (size) + (size - j)].pos[1] > -10) ?
+            (world->a_vertxs[i * (size) + (size - j)].
+            pos[1] = (world->a_vertxs[i * (size) + (size - j)].
             pos[1] + tmp) / 2): 0;
         }
     }
