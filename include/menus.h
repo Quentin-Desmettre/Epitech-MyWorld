@@ -15,6 +15,7 @@
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
     #include <SFML/System.h>
+    #include "world.h"
 
     #define true 1
     #define false 0
@@ -26,7 +27,7 @@
     #define GROW_FACTOR 1.05
     #define MAIN_MENU_TXT_FACTOR 0.7
     #define SETTINGS_FILE ".conf"
-    #define ABS(x) ((x) < 0 ? -(x) : (x))
+    #define PART_OF_MINIMAP 0.6
 
 typedef struct {
     sfSprite *box;
@@ -118,6 +119,8 @@ typedef struct win {
     sfRenderWindow *win;
 } window_t;
 
+typedef enum {WORLD, MINIMAP, BUTTONS} mouse_pos_t;
+
 typedef enum {
     HOME, MAP_SELECT, SETTINGS, CREATE_MAP,
     HOW_TO_PLAY, EDIT_MAP, EXIT
@@ -169,7 +172,7 @@ void move_main_buttons(button_t *buttons[4], sfVector2f winSize);
 main_menu_t *init_main_menu(sfTexture *t, sfVector2f winSize);
 void draw_button_to_rtex(button_t *b, sfRenderTexture *rtex);
 const sfTexture *draw_main_menu(void *menu);
-window_t *win_create(void);
+window_t *window_create(void);
 void destroy_home(main_menu_t *menu);
 void win_destroy(window_t *win);
 void switch_color_dir(window_t *win, int *dir);
@@ -339,5 +342,21 @@ void destroy_slider(slider_t *s);
 void release_mc(map_create_t *mc, int index, window_t *win);
 void destroy_check_box(check_box *c);
 void destroy_mc(map_create_t *mc);
+
+// game
+typedef struct {
+    sfRenderTexture *rtex;
+    world_t *world;
+    win_t *win;
+    sfVector2f size;
+    minimap_t *minimap;
+    int dimension;
+} game_t;
+
+game_t *create_game(unsigned size, sfVector2f win_size);
+const sfTexture *draw_game(void *game);
+void game_events(window_t *win, sfEvent ev);
+void minimap_clicks(game_t *g);
+mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
 
 #endif

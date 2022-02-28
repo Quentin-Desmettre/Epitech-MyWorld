@@ -46,6 +46,11 @@ void decrease_size(void *w)
 void launch_size(void *w)
 {
     window_t *win = w;
+    map_create_t *mc = win->menus[CREATE_MAP];
+    sfVector2u s = sfRenderTexture_getSize(mc->rtex);
+    win->menus[EDIT_MAP] = create_game(mc->size_slider->value,
+    (sfVector2f){s.x, s.y});
+    set_next_win_state(win, EDIT_MAP);
 }
 
 void mc_go_back(void *w)

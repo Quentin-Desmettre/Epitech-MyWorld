@@ -55,7 +55,6 @@ typedef struct world_struct {
     float *light_start;
     float *light_source;
     void (*destroy)(struct world_struct *world);
-    int s_br;
 } world_t;
 
 typedef struct tmp_struct {
@@ -67,6 +66,20 @@ typedef struct tmp_struct {
     size_t start;
     sfBool turn;
 } tmp_shadow_t;
+
+    #define NB_ACTIONS 5
+
+typedef struct minimap {
+    sfRenderTexture *rtex;
+    sfVertexArray *array;
+    sfVertex *tmp;
+    sfVector2f size;
+    sfVector2f mouse_pos;
+    int s_br;
+    int state;
+    int map_size;
+    void (*actions[NB_ACTIONS])(world_t *, struct minimap *);
+} minimap_t;
 
 static const float height = 800.0;
 
@@ -91,7 +104,8 @@ void draw_light(world_t *world, win_t *win);
 void convert_to_array(world_t *world);
 void create_map(world_t *world, size_t size);
 float apply_perlin(float x, float y);
-void create_minimap(world_t *world, win_t *win, long long size);
+void draw_minimap(minimap_t *map, world_t *world, sfBool day, int size);
+minimap_t *create_minimap(sfVector2f size, int map_size);
 sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri,
 world_t *world, win_t *win);
 void params(win_t *win, world_t *world);
@@ -101,11 +115,13 @@ void change_color(mesh_t *mesh, size_t size, size_t i, size_t j);
 void smooth(mesh_t *mesh, size_t size);
 void smooth_shadow(world_t *world, win_t *win);
 sfBool is_out(size_t max, size_t size, long i, long j);
-void up_br(world_t *world, win_t *win, sfVector2i pos);
-void down_br(world_t *world, win_t *win, sfVector2i pos);
+void up_br(world_t *world, minimap_t *map);
+void down_br(world_t *world, minimap_t *map);
 void free_mesh(void *value);
-void average_br(world_t *world, win_t *win, sfVector2i pos);
-void average_w_br(world_t *world, win_t *win, sfVector2i pos);
-void average_d_br(world_t *world, win_t *win, sfVector2i pos);
+void average_br(world_t *world, minimap_t *map);
+void average_w_br(world_t *world, minimap_t *map);
+void average_d_br(world_t *world, minimap_t *map);
+void free_lists(world_t *world);
+void draw_fps(win_t *w);
 
 #endif

@@ -20,8 +20,6 @@ void win_destroy(window_t *win)
 
 void draw(window_t *win)
 {
-    if (win->state == CREATE_MAP) {
-    }
     const sfTexture* tex = (win->state == CREATE_MAP) ? draw_mc(win->menus[3],
     (sfVector2f){win->mode.width, win->mode.height}) :
     win->draw[win->state](win->menus[win->state]);
@@ -44,6 +42,7 @@ void set_next_win_state(window_t *win, int next)
 void poll_events(window_t *win)
 {
     sfEvent ev;
+    sfVector2f win_size = {win->mode.width, win->mode.height};
 
     while (sfRenderWindow_pollEvent(win->win, &ev)) {
         if (ev.type == sfEvtClosed)
@@ -53,12 +52,18 @@ void poll_events(window_t *win)
     }
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
+    if (win->state == EDIT_MAP) {
+        move(&(((game_t *)win->menus[EDIT_MAP])->world->matrix));
+        if (mouse_pos(win_size, win) == MINIMAP)
+            minimap_clicks(win->menus[EDIT_MAP]);
+    }
 }
 
 int main(void)
 {
-    window_t *win = win_create();
+    window_t *win = window_create();
 
+    srand((unsigned)(unsigned long)(&win));
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         draw(win);
