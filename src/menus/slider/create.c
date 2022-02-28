@@ -9,14 +9,15 @@
 
 void update_positions(slider_t *s)
 {
-    float percent = s->cursor->pos.x / s->size.x;
+    float percent = (s->value - s->min) / (float)(s->max - s->min);
     sfVector2f bef_size = {s->size.x * percent, s->size.y};
     sfVector2f aft_size = {s->size.x * (1 - percent), s->size.y};
 
     sfRectangleShape_setSize(s->before_cursor, bef_size);
     sfRectangleShape_setSize(s->after_cursor, aft_size);
     sfRectangleShape_setPosition(s->after_cursor, (sfVector2f){bef_size.x, 0});
-    s->value = s->min + (s->max - s->min) * percent;
+    s->cursor->pos = (sfVector2f){bef_size.x, s->size.y * 0.5};
+    sfSprite_setPosition(s->cursor->sprite, s->cursor->pos);
 }
 
 void rescale_slider(slider_t *s, sfVector2f new_size, sfVector2f new_pos)
@@ -75,9 +76,5 @@ sfVector2f bounds, int value, sfVector2f pos)
     s->after_cursor = create_rectangle((sfVector2f){1, 1}, sfGrey, NULL);
     s->pos = pos;
     rescale_slider(s, size, pos);
-    sfSprite_move(s->cursor->sprite,
-    (sfVector2f){(float)value / (s->max - s->min) * size.x, size.y * 0.5});
-    s->cursor->pos.x += (float)value / (s->max - s->min) * size.x;
-    s->cursor->pos.y += size.y * 0.5;
     return s;
 }

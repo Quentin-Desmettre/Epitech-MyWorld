@@ -17,6 +17,11 @@ void slider_pressed(slider_t *s, sfEvent ev)
         press_button(s->cursor, false);
 }
 
+int evalute_from_sprite(slider_t *s)
+{
+    return (s->max - s->min) * (s->cursor->pos.x / s->size.x) + s->min;
+}
+
 void slider_moved(slider_t *s, double pos)
 {
     float y = s->size.y * 0.5 + s->pos.y;
@@ -54,5 +59,6 @@ void slider_event(slider_t *s, sfEvent ev)
 
     s->cursor->pos.x -= s->pos.x;
     s->cursor->pos.y -= s->pos.y;
+    s->value = evalute_from_sprite(s);
     update_positions(s);
 }
