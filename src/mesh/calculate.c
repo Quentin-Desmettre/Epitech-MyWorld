@@ -48,11 +48,12 @@ float get_direction(vertex_t *pts)
 
 void for_content(world_t *world, int i)
 {
-    vertex_t **pts = world->a_triangles[i].ptrs;
+    int *pts = world->a_triangles[i].vertxs;
+    vertex_t *vertxs = world->projected;
     float v_mid[3] = {
-    pts[0]->pos[0] + pts[1]->pos[0] + pts[2]->pos[0],
-    pts[0]->pos[1] + pts[1]->pos[1] + pts[2]->pos[1],
-    pts[0]->pos[2] + pts[1]->pos[2] + pts[2]->pos[2]};
+    vertxs[pts[0]].pos[0] + vertxs[pts[1]].pos[0] + vertxs[pts[2]].pos[0],
+    vertxs[pts[0]].pos[1] + vertxs[pts[1]].pos[1] + vertxs[pts[2]].pos[1],
+    vertxs[pts[0]].pos[2] + vertxs[pts[1]].pos[2] + vertxs[pts[2]].pos[2]};
 
     world->sortBuffer[i].id = -(v_mid[0] * v_mid[0] + v_mid[1] *
     v_mid[1] + v_mid[2] * v_mid[2]);
