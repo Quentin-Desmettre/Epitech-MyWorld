@@ -79,8 +79,10 @@ NAME = my_world
 
 CFLAGS = -Wall -Wextra -I ./include/
 
-LDFLAGS += -L lib/my/ -lmy -g -lm \
-			-lcsfml-graphics -lcsfml-audio -lcsfml-system -lcsfml-window
+LDFLAGS += -L lib/my/ -lmy -g -lm 										\
+		-lcsfml-graphics -lcsfml-audio -lcsfml-system -lcsfml-window 	\
+		-Wparentheses -Wsign-compare -Wpointer-sign -Wuninitialized 	\
+		-Wunused-but-set-variable
 
 all: $(NAME)
 
