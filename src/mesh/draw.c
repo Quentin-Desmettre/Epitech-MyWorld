@@ -18,7 +18,7 @@ void draw_line(vertex_t vertxs[3], win_t *win)
 }
 
 void draw_triangle(vertex_t vertxs[3], triangle_t *tri,
-win_t *win, world_t *world)
+win_t *win)
 {
     win->tmp->color = center_vertxs(vertxs, tri, win);
     for (int i = 0; i < 3; i++) {
@@ -53,7 +53,7 @@ void draw_meshes(world_t *world, win_t *win)
         if (pts[0].pos[2] > 0 || pts[1].pos[2] > 0 || pts[2].pos[2] > 0)
             continue;
         if (get_direction(pts) >= 0)
-            draw_triangle(pts, world->sortBuffer[i].data, win, world);
+            draw_triangle(pts, world->sortBuffer[i].data, win);
     }
     sfVertexArray_setPrimitiveType(win->array, win->params->is_outline ?
     sfLines : sfTriangles);

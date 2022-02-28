@@ -7,8 +7,6 @@
 
 #include "menus.h"
 
-static const sfIntRect back_rect = {0, 0, 0, 0};
-
 static void move_buttons_se(settings_t *se, window_t *win)
 {
     set_box_pos(se->full_screen,

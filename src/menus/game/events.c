@@ -27,7 +27,7 @@ void minimap_clicks(game_t *g)
     }
 }
 
-void minimap_events(game_t *g, sfEvent ev, window_t *win)
+void minimap_events(game_t *g, sfEvent ev)
 {
     if (ev.type == sfEvtMouseWheelScrolled) {
         if (ev.mouseWheelScroll.delta == 1)
@@ -57,7 +57,7 @@ void game_events(window_t *win, sfEvent ev)
 
     world_events(g, ev, win);
     if (mouse == MINIMAP)
-        minimap_events(g, ev, win);
+        minimap_events(g, ev);
     if (ev.type == sfEvtMouseMoved)
         g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
 }

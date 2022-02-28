@@ -139,7 +139,6 @@ void average_d_br(world_t *world, minimap_t *map)
     int x = (int)(round(map->mouse_pos.x / nb));
     int y = (int)(round(map->mouse_pos.y / nb));
     int tmp = 41;
-    int count = 0;
 
     if (x < 0 || y < 0 || x > size || y > size)
         return;

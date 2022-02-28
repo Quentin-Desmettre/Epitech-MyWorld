@@ -9,7 +9,6 @@
 
 void create_pointers(window_t *win)
 {
-    EDIT_MAP;
     const sfTexture* (*dr[6])(void *) = {
         &draw_main_menu, NULL, &draw_settings, NULL, NULL, &draw_game
     };

@@ -9,22 +9,11 @@
 
 void destroy_win(win_t *win)
 {
-    // sfRenderWindow_close(win->window);
-    // sfRenderWindow_destroy(win->window);
+    sfRenderTexture_destroy(win->r_tex);
     sfConvexShape_destroy(win->convex);
     sfCircleShape_destroy(win->circle);
     free(win->params);
     free(win);
-}
-
-sfBool poll_event(win_t *win)
-{
-    return 1;//sfRenderWindow_pollEvent(win->window, &win->event);
-}
-
-sfBool is_open(win_t *win)
-{
-    return 1;//sfRenderWindow_isOpen(win->window);
 }
 
 void init_params(win_t *win, size_t size)
@@ -54,14 +43,7 @@ win_t *win_create(size_t nb_trig, sfVector2f size)
         return NULL;
     memset(win, 0, sizeof(win_t));
     win->settings.antialiasingLevel = ALIASING;
-    // win->window = sfRenderWindow_create(mode, "My World",
-    // STYLE, &win->settings);
-    // sfRenderWindow_setVerticalSyncEnabled(win->window, VSYNC);
-    // sfRenderWindow_setFramerateLimit(win->window, FPS);
-    win->is_open = is_open;
-    win->poll_event = poll_event;
     win->destroy = destroy_win;
-    //win->display = display;
     win->draw_shape = draw_shape;
     win->draw_circle = draw_circle;
     win->r_tex = sfRenderTexture_create(size.x, size.y, 0);
