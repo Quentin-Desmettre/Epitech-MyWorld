@@ -45,7 +45,7 @@ typedef struct world_struct {
     list_t **meshes;
     list_t **vertxs;
     list_t **triangles;
-    vertex_t *a_vertxs;
+    vertex_t **a_vertxs;
     vertex_t *projected;
     triangle_t *a_triangles;
     size_t nb_vertxs;

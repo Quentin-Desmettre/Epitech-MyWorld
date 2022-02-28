@@ -95,6 +95,12 @@ clean:
 
 fclean:    clean
 	rm -f $(NAME)
+	rm -f *.c~
+	rm -f *.out
+	rm -f vgcore*
+	rm -f *.gcda
+	rm -f *.gcno
+	rm -f unit_tests*
 
 re:        fclean all
 
