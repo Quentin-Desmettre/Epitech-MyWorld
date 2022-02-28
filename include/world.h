@@ -107,7 +107,7 @@ void create_map(world_t *world, size_t size);
 float apply_perlin(float x, float y);
 void draw_minimap(minimap_t *map, world_t *world, sfBool day, int size);
 minimap_t *create_minimap(sfVector2f size, int map_size);
-sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri);
+sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri, win_t *win);
 void params(win_t *win, world_t *world);
 void rota_right(world_t *world, win_t *win);
 void rota_left(world_t *world, win_t *win);

@@ -20,7 +20,7 @@ void draw_line(vertex_t vertxs[3], win_t *win)
 void draw_triangle(vertex_t vertxs[3], triangle_t *tri,
 win_t *win, world_t *world)
 {
-    win->tmp->color = center_vertxs(vertxs, tri);
+    win->tmp->color = center_vertxs(vertxs, tri, win);
     for (int i = 0; i < 3; i++) {
         win->tmp->position = (sfVector2f) {vertxs[i].pos[0], vertxs[i].pos[1]};
         sfVertexArray_append(win->array, *win->tmp);

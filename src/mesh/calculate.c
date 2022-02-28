@@ -7,16 +7,17 @@
 
 #include "world.h"
 
-sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri)
+sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri, win_t *win)
 {
     sfColor color = tri->color;
     float direction = tri->direction;
+    sfVector2u size = sfRenderTexture_getSize(win->r_tex);
 
     for (int i = 0; i < 3; i++) {
         vertxs[i].pos[0] += 1;
         vertxs[i].pos[1] += 1;
-        vertxs[i].pos[0] *= 400;
-        vertxs[i].pos[1] *= 400;
+        vertxs[i].pos[0] *= size.x * 0.5;
+        vertxs[i].pos[1] *= size.y * 0.5;
     }
     color.r *= direction;
     color.g *= direction;
