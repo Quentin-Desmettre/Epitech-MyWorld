@@ -73,7 +73,7 @@ void project_meshes(world_t *world)
 
     while ((i += 1) < world->nb_vertxs) {
         mat4x4_multiplyvector3
-        (world->matrix, world->a_vertxs[i].pos, world->projected[i].pos);
+        (world->matrix, world->a_vertxs[i]->pos, world->projected[i].pos);
         world->projected[i].pos[0] /= world->projected[i].pos[2];
         world->projected[i].pos[1] /= world->projected[i].pos[2];
     }

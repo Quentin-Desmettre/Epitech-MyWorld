@@ -24,6 +24,7 @@
     #define FONT "minecraft.ttf"
     #define TEXTURE "truc.png"
 
+    #define ALL_FLAGS S_IROTH | S_IRGRP | S_IRUSR | S_IWUSR | S_IWGRP | S_IWOTH
     #define GROW_FACTOR 1.05
     #define MAIN_MENU_TXT_FACTOR 0.7
     #define SETTINGS_FILE ".conf"
@@ -359,4 +360,5 @@ void game_events(window_t *win, sfEvent ev);
 void minimap_clicks(game_t *g);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
 
+void save_map(game_t *game, const char* filename, unsigned int size);
 #endif

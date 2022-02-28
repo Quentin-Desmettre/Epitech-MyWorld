@@ -20,8 +20,11 @@ void world_events(game_t *g, sfEvent ev, window_t *win)
 
 void minimap_clicks(game_t *g)
 {
-    if (sfMouse_isButtonPressed(sfMouseLeft))
+    if (sfMouse_isButtonPressed(sfMouseLeft)) {
         g->minimap->actions[g->minimap->state](g->world, g->minimap);
+        smooth_shadow(g->world, g->win);
+        update_color(g->world);
+    }
 }
 
 void minimap_events(game_t *g, sfEvent ev, window_t *win)

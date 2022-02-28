@@ -45,7 +45,7 @@ typedef struct world_struct {
     list_t **meshes;
     list_t **vertxs;
     list_t **triangles;
-    vertex_t *a_vertxs;
+    vertex_t **a_vertxs;
     vertex_t *projected;
     triangle_t *a_triangles;
     size_t nb_vertxs;
@@ -105,7 +105,7 @@ void draw_light(world_t *world, win_t *win);
 void convert_to_array(world_t *world);
 void create_map(world_t *world, size_t size);
 float apply_perlin(float x, float y);
-void draw_minimap(minimap_t *map, world_t *world, sfBool day, int size);
+void draw_minimap(minimap_t *map, world_t *world, int size);
 minimap_t *create_minimap(sfVector2f size, int map_size);
 sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri, win_t *win);
 void params(win_t *win, world_t *world);
@@ -123,5 +123,7 @@ void average_w_br(world_t *world, minimap_t *map);
 void average_d_br(world_t *world, minimap_t *map);
 void free_lists(world_t *world);
 void draw_fps(win_t *w);
+void update_color(world_t *world);
+float get_max_height(triangle_t trig);  
 
 #endif

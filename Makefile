@@ -71,7 +71,8 @@ SRC = \
 	./src/menus/settings/move_settings.c    \
 	./src/menus/settings/rendering_evt.c    \
 	./src/menus/settings/scale_settings.c   \
-	./src/menus/settings/set_evt_manager.c
+	./src/menus/settings/set_evt_manager.c	\
+	./src/save.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -95,6 +96,12 @@ clean:
 
 fclean:    clean
 	rm -f $(NAME)
+	rm -f *.c~
+	rm -f *.out
+	rm -f vgcore*
+	rm -f *.gcda
+	rm -f *.gcno
+	rm -f unit_tests*
 
 re:        fclean all
 

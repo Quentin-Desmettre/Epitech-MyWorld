@@ -43,7 +43,6 @@ void poll_events(window_t *win)
 {
     sfEvent ev;
     sfVector2f win_size = {win->mode.width, win->mode.height};
-
     while (sfRenderWindow_pollEvent(win->win, &ev)) {
         if (ev.type == sfEvtClosed)
             sfRenderWindow_close(win->win);
@@ -53,6 +52,11 @@ void poll_events(window_t *win)
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
     if (win->state == EDIT_MAP) {
+        if (sfKeyboard_isKeyPressed(sfKeyS) && (sfKeyboard_isKeyPressed
+        (sfKeyLControl) || sfKeyboard_isKeyPressed(sfKeyRControl)))
+            save_map(win->menus[EDIT_MAP], sfText_getString(((map_create_t *)
+            win->menus[CREATE_MAP])->name->text), ((game_t *)win->menus[EDIT_MAP])
+            ->win->map_size);
         move(&(((game_t *)win->menus[EDIT_MAP])->world->matrix));
         if (mouse_pos(win_size, win) == MINIMAP)
             minimap_clicks(win->menus[EDIT_MAP]);

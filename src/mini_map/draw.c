@@ -22,8 +22,8 @@ void where_minimap(world_t *world, minimap_t *map, long long size)
     float yy;
     if (x < 0 || y < 0 || x > size || y > size)
         return;
-    xx = world->a_vertxs[x * (size + 1) + y].pos[0] / 1.5;
-    yy = world->a_vertxs[x * (size + 1) + y].pos[2] / 1.5;
+    xx = world->a_vertxs[x * (size + 1) + y]->pos[0] / 1.5;
+    yy = world->a_vertxs[x * (size + 1) + y]->pos[2] / 1.5;
     map->tmp->color = sfWhite;
     app_point((xx - map->s_br) * nb, (yy + map->s_br) * nb, map);
     app_point((xx - map->s_br) * nb, (yy - map->s_br) * nb, map);
@@ -35,7 +35,7 @@ void where_minimap(world_t *world, minimap_t *map, long long size)
     sfVertexArray_clear(map->array);
 }
 
-void add_color(int i, minimap_t *map, world_t *world, const float *time)
+void add_color(int i, minimap_t *map, world_t *world)
 {
     float direction = world->a_triangles[i].direction;
 
@@ -45,18 +45,17 @@ void add_color(int i, minimap_t *map, world_t *world, const float *time)
     map->tmp->color.b *= direction;
 }
 
-void draw_minimap(minimap_t *map, world_t *world, sfBool day, int size)
+void draw_minimap(minimap_t *map, world_t *world, int size)
 {
-    const float *time = day ? day_light : night_light;
     float nb = map->size.y / (float)(size);
 
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
-            add_color(i * size + j, map, world, time);
+            add_color(i * size + j, map, world);
             app_point(nb * i, nb * (size - j - 1), map);
             app_point(nb * (i + 1), nb * (size - j - 1), map);
             app_point(nb * i, nb * (size - j), map);
-            add_color(i * size + j + size * size, map, world, time);
+            add_color(i * size + j + size * size, map, world);
             app_point(nb * (i + 1), nb * (size - j), map);
             app_point(nb * (i + 1), nb * (size - j - 1), map);
             app_point(nb * i, nb * (size - j), map);

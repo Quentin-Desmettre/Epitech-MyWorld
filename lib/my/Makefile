@@ -83,6 +83,5 @@ $(NAME):	$(OBJ)
 fclean: clean
 	rm -f ../$(NAME)
 	rm -f $(NAME)
-	rm -f ../../include/$(MY)
 
 re:	fclean all
