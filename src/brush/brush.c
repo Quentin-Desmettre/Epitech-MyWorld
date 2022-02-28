@@ -7,6 +7,21 @@
 
 #include "world.h"
 
+void update_color(world_t *world)
+{
+    float height;
+
+    for (size_t i = 0; i < world->nb_trig; i++) {
+        height = get_max_height(world->a_triangles[i]);
+        if (height > 12)
+            world->a_triangles[i].color = sfWhite;
+        else if (height < -10)
+            world->a_triangles[i].color = sfBlue;
+        else
+            world->a_triangles[i].color = sfGreen;
+    }
+}
+
 void up_br(world_t *world, minimap_t *map)
 {
     float nb = map->size.y / (float)(map->map_size);

@@ -123,5 +123,7 @@ void average_w_br(world_t *world, minimap_t *map);
 void average_d_br(world_t *world, minimap_t *map);
 void free_lists(world_t *world);
 void draw_fps(win_t *w);
+void update_color(world_t *world);
+float get_max_height(triangle_t trig);  
 
 #endif
