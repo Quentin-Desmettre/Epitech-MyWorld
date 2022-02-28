@@ -9,6 +9,8 @@ my_world
 
 .vscode
 
+vgcore.*
+
 # Compiled Object files
 *.slo
 *.lo
