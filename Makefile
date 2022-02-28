@@ -97,3 +97,24 @@ fclean:    clean
 	rm -f $(NAME)
 
 re:        fclean all
+
+run: re
+	./$(NAME)
+
+lib_fclean:
+		cd lib/my/ && make fclean
+
+push_fclean: fclean
+		cd lib/my/ && make fclean
+
+re:	fclean all
+
+valgrind: all
+	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite \
+	./$(NAME)
+
+tests_run: exec_lib
+	gcc -o unit_tests $(SRC) tests/*.c -Llib/ -lmy --coverage -lcriterion
+	./unit_tests
+	gcovr --exclude tests
+	gcovr -b --exclude tests
