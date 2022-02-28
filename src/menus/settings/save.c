@@ -10,8 +10,6 @@
 #include "menus.h"
 #include <sys/stat.h>
 
-#define ALL_FLAGS S_IROTH | S_IRGRP | S_IRUSR | S_IWUSR | S_IWGRP | S_IWOTH
-
 static void save_mode(int fd, settings_t *se)
 {
     char res = se->resolution;

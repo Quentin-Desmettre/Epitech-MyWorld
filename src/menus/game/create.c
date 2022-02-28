@@ -25,7 +25,7 @@ void draw_minimap_to_game(game_t *g)
 {
     sfSprite *s;
 
-    draw_minimap(g->minimap, g->world, g->win->params->day, g->dimension - 1);
+    draw_minimap(g->minimap, g->world, g->dimension - 1);
     s = init_sprite_from_texture(sfRenderTexture_getTexture(g->minimap->rtex));
     sfSprite_scale(s, (sfVector2f){1, -1});
     sfSprite_setPosition(s, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});
