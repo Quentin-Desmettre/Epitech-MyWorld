@@ -361,4 +361,5 @@ void minimap_clicks(game_t *g);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
 
 void save_map(game_t *game, const char* filename, unsigned int size);
+unsigned int read_map(game_t *game, const char* filename);
 #endif
