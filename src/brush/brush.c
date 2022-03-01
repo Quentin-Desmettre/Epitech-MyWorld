@@ -22,6 +22,7 @@ void update_color(world_t *world)
     }
 }
 
+// higher all the points
 void up_br(world_t *world, minimap_t *map)
 {
     float nb = map->size.y / (float)(map->map_size);
@@ -42,6 +43,7 @@ void up_br(world_t *world, minimap_t *map)
     }
 }
 
+// lower all the points
 void down_br(world_t *world, minimap_t *map)
 {
     float nb = map->size.y / (float)(map->map_size);
@@ -62,6 +64,7 @@ void down_br(world_t *world, minimap_t *map)
     }
 }
 
+// average all the points on the area
 void average_br(world_t *world, minimap_t *map)
 {
     float nb = map->size.y / (float)(map->map_size);
@@ -98,6 +101,7 @@ void average_br(world_t *world, minimap_t *map)
     }
 }
 
+// average all the points on the area, without counting water
 void average_w_br(world_t *world, minimap_t *map)
 {
     float nb = map->size.y / (float)(map->map_size);
@@ -132,6 +136,7 @@ void average_w_br(world_t *world, minimap_t *map)
     }
 }
 
+// average all the points in the area toward the lower points
 void average_d_br(world_t *world, minimap_t *map)
 {
     float nb = map->size.y / (float)(map->map_size);

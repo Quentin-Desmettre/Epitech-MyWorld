@@ -34,6 +34,15 @@ void draw_minimap_to_game(game_t *g)
     sfRenderTexture_clear(g->minimap->rtex, sfBlack);
 }
 
+void draw_gb_to_rtex(game_t *g)
+{
+    sfSprite *s = draw_gb(g->gb);
+
+    sfSprite_setPosition(s, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});
+    sfRenderTexture_drawSprite(g->rtex, s, NULL);
+    sfSprite_destroy(s);
+}
+
 const sfTexture *draw_game(void *game)
 {
     game_t *g = game;
@@ -41,6 +50,7 @@ const sfTexture *draw_game(void *game)
     sfRenderTexture_clear(g->rtex, sfBlack);
     draw_world(g);
     draw_minimap_to_game(g);
+    draw_gb_to_rtex(g);
     sfRenderTexture_display(g->rtex);
     return sfRenderTexture_getTexture(g->rtex);
 }
@@ -67,5 +77,7 @@ game_t *create_game(unsigned size, sfVector2f win_size)
     g->minimap = create_minimap((sfVector2f)
     {win_size.y * PART_OF_MINIMAP, win_size.y * PART_OF_MINIMAP}, size);
     g->dimension = size;
+    g->gb = create_buttons((sfVector2f)
+    {win_size.y * PART_OF_MINIMAP, win_size.y * (1 - PART_OF_MINIMAP)});
     return g;
 }

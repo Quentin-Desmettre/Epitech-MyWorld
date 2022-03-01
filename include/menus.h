@@ -346,11 +346,20 @@ void destroy_mc(map_create_t *mc);
 
 // game
 typedef struct {
+    button_t *buttons[10];
+    sfRenderTexture *rtex;
+    sfClock *tip_clock;
+    sfRectangleShape *border;
+    int selected;
+} game_buttons_t;
+
+typedef struct {
     sfRenderTexture *rtex;
     world_t *world;
     win_t *win;
     sfVector2f size;
     minimap_t *minimap;
+    game_buttons_t *gb;
     int dimension;
 } game_t;
 
@@ -362,4 +371,9 @@ mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
 
 void save_map(game_t *game, const char* filename, unsigned int size);
 unsigned int read_map(game_t *game, const char* filename);
+
+sfSprite *draw_gb(game_buttons_t *g);
+game_buttons_t *create_buttons(sfVector2f size);
+void gb_events(game_buttons_t *g, sfEvent ev, sfVector2f pos);
+
 #endif

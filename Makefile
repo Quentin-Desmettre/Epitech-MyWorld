@@ -6,6 +6,7 @@
 ##
 
 SRC = \
+	./src/menus/game/buttons/create.c		\
 	./src/fps.c                             \
 	./src/load.c                            \
 	./src/main.c                            \

@@ -61,6 +61,7 @@ sfVector2f pos, sfVector2f size, char const *str, void (*action)(void *))
     n->size = size;
     n->text = init_text(str, size.y * MAIN_MENU_TXT_FACTOR);
     n->sprite = init_sprite(t, rect, size);
+    sfSprite_setPosition(n->sprite, pos);
     n->action = action;
     return n;
 }
