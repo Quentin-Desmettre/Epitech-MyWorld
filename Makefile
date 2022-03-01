@@ -14,6 +14,7 @@ SRC = \
 	./src/map/perlin.c                      \
 	./src/map/smooth.c                      \
 	./src/brush/brush.c                     \
+	./src/brush/brush_next.c                \
 	./src/mesh/create.c                     \
 	./src/player/calc.c                     \
 	./src/radix/utils.c                     \

@@ -55,9 +55,8 @@ void poll_events(window_t *win)
         if (sfKeyboard_isKeyPressed(sfKeyS) && (sfKeyboard_isKeyPressed
         (sfKeyLControl) || sfKeyboard_isKeyPressed(sfKeyRControl)))
             save_map(win->menus[EDIT_MAP], sfText_getString(((map_create_t *)
-            win->menus[CREATE_MAP])->name->text),
-            ((game_t *)win->menus[EDIT_MAP])
-            ->win->map_size);
+            win->menus[CREATE_MAP])->name->text), ((game_t *)win->menus
+            [EDIT_MAP])->win->map_size);
         move(&(((game_t *)win->menus[EDIT_MAP])->world->matrix));
         if (mouse_pos(win_size, win) == MINIMAP)
             minimap_clicks(win->menus[EDIT_MAP]);
