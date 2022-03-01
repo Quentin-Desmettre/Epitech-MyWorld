@@ -27,7 +27,7 @@ static const sfIntRect game_button_rects[] = {
 static const float gb_pos[10][2] = {
     {0.0625, 0.25 / 4}, {0.37, 0.25 / 4}, {0.67, 0.25 / 4},
     {0.0625, 0.37}, {0.37, 0.37}, {0.67, 0.37},
-    {0.0625, 0.67}, {0.3, 0.67}, {0.53, 0.67}, {0.77, 0.67},
+    {0.0625 - 0.05, 0.67}, {0.3 - 0.05, 0.67}, {0.53 - 0.05, 0.67}, {0.77 - 0.05, 0.67},
 };
 
 static const float gb_size[10][2] = {
@@ -45,29 +45,10 @@ void draw_box(button_t *but, sfRenderTexture *rtex)
     sfRectangleShape_setOutlineColor(shape, sfWhite);
     sfRectangleShape_setPosition(shape, but->pos);
     sfRectangleShape_setOutlineThickness(shape, but->size.x * 0.05);
+    sfRectangleShape_setOrigin(shape,
+    (sfVector2f){but->size.x * 0.5, but->size.y * 0.5});
     sfRenderTexture_drawRectangleShape(rtex, shape, NULL);
     sfRectangleShape_destroy(shape);
-}
-
-void gb_events(game_buttons_t *g, sfEvent ev, sfVector2f pos)
-{
-    if (ev.type == sfEvtMouseButtonPressed) {
-        ev.mouseButton.x -= pos.x;
-        ev.mouseButton.y -= pos.y;
-        check_button_press(g->buttons, 10, ev);
-    }
-    if (ev.type == sfEvtMouseMoved) {
-        ev.mouseMove.x -= pos.x;
-        ev.mouseMove.y -= pos.y;
-        check_button_move(g->buttons, 10, ev);
-    }
-    if (ev.type == sfEvtMouseButtonReleased) {
-        ev.mouseButton.x -= pos.x;
-        ev.mouseButton.y -= pos.y;
-        int tmp = button_at(g->buttons, 10, ev);
-        if (tmp >= 0 && tmp < 6)
-            g->selected = tmp;
-    }
 }
 
 sfSprite *draw_gb(game_buttons_t *g)
@@ -92,10 +73,11 @@ game_buttons_t *create_buttons(sfVector2f size)
 
     g->rtex = sfRenderTexture_create(size.x, size.y, 0);
     for (int i = 0; i < 10; i++) {
-        pos = (sfVector2f){size.x * gb_pos[i][0], size.y * gb_pos[i][1]};
+        pos = (sfVector2f){size.x * (gb_pos[i][0] + 0.13), size.y * (gb_pos[i][1] + 0.13)};
         n_size = (sfVector2f){size.x * gb_size[i][0], size.y * gb_size[i][1]};
         g->buttons[i] = init_button(global_texture(),
         game_button_rects[i % 1], pos, n_size, "", NULL);
+        center_sprite(g->buttons[i]->sprite);
     }
     g->border = create_rectangle((sfVector2f){1, 1}, sfWhite, NULL);
     g->selected = 0;

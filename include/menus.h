@@ -374,6 +374,6 @@ unsigned int read_map(game_t *game, const char* filename);
 
 sfSprite *draw_gb(game_buttons_t *g);
 game_buttons_t *create_buttons(sfVector2f size);
-void gb_events(game_buttons_t *g, sfEvent ev, sfVector2f pos);
+void gb_events(game_t *ga, sfEvent ev, sfVector2f pos);
 
 #endif
