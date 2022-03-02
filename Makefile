@@ -110,7 +110,7 @@ fclean:    clean
 
 re:        fclean all
 
-run: re
+run: all
 	./$(NAME)
 
 lib_fclean:
