@@ -10,7 +10,8 @@
 void world_events(game_t *g, sfEvent ev, window_t *win)
 {
     g->win->event = ev;
-    if (ev.type == sfEvtMouseWheelScrolled && mouse_pos(g->size, win) != MINIMAP) {
+    if (ev.type == sfEvtMouseWheelScrolled &&
+    mouse_pos(g->size, win) != MINIMAP) {
         g->win->params->zoom += 0.1 * ev.mouseWheelScroll.delta;
         if (g->win->params->zoom < 0.1)
             g->win->params->zoom = 0.1;
