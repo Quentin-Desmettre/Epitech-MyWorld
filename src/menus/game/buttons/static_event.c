@@ -7,8 +7,6 @@
 
 #include "menus.h"
 
-#define TOOLTIP_DURATION 350000
-
 static const char *tips[10] = {
     " Rise up AreA ",
     " Smooth towArds AverAge height ",

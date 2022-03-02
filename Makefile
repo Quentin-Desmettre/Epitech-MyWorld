@@ -12,7 +12,7 @@ SRC = \
 	./src/menus/game/buttons/static_event.c \
 	./src/fps.c                             \
 	./src/load.c                            \
-	./src/main.c                            \
+	./src/free_lists.c                      \
 	./src/mesh/draw.c                       \
 	./src/map/perlin.c                      \
 	./src/map/smooth.c                      \

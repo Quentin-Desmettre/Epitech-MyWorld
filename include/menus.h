@@ -29,6 +29,11 @@
     #define MAIN_MENU_TXT_FACTOR 0.7
     #define SETTINGS_FILE ".conf"
     #define PART_OF_MINIMAP 0.6
+    #define REPEAT_DELAY 500000
+    #define BACKGROUND_SETTINGS 0
+    #define BACK_SETTINGS 0
+    #define TOOLTIP_DURATION 350000
+
 
 typedef struct {
     sfSprite *box;
@@ -374,8 +379,8 @@ void game_events(window_t *win, sfEvent ev);
 void minimap_clicks(game_t *g);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
 
-void save_map(game_t *game, const char* filename, unsigned int size);
-unsigned int read_map(game_t *game, const char* filename);
+void save_map(game_t *game, const char *filename, unsigned int size);
+unsigned int read_map(game_t *game, const char *filename);
 
 sfSprite *draw_gb(game_t *ga);
 game_buttons_t *create_buttons(sfVector2f size);

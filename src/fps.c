@@ -23,7 +23,7 @@ int int_to_str(int x, char str[], int d)
     return i;
 }
 
-void ftoa(float n, char* res, int afterpoint)
+void ftoa(float n, char *res, int afterpoint)
 {
     int ipart = (int)n;
     float fpart = n - (float)ipart;

@@ -6,7 +6,7 @@
 */
 
 #include "menus.h"
-#define REPEAT_DELAY 500000
+
 sfFloatRect bounds(sfSprite *s)
 {
     return sfSprite_getGlobalBounds(s);

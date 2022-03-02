@@ -24,8 +24,10 @@ void scale_map_create(map_create_t *mc, sfVector2f win_size)
 
     sfRenderTexture_destroy(mc->rtex);
     mc->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
-    sfText_setCharacterSize(mc->name_prompt, win_size.y * MAIN_MENU_TXT_FACTOR * 0.13);
-    sfText_setCharacterSize(mc->size, win_size.y * MAIN_MENU_TXT_FACTOR * 0.13);
+    sfText_setCharacterSize(mc->name_prompt,
+    win_size.y * MAIN_MENU_TXT_FACTOR * 0.13);
+    sfText_setCharacterSize(mc->size,
+    win_size.y * MAIN_MENU_TXT_FACTOR * 0.13);
     scale_line_edit(mc->name,
     (sfVector2f){win_size.x * 0.9, win_size.y * 0.2});
     rescale_slider(mc->size_slider,
@@ -46,7 +48,8 @@ void move_mc(map_create_t *mc, sfVector2f ws)
 {
     sfVector2f new_pos;
 
-    sfText_setPosition(mc->name_prompt, (sfVector2f){ws.x * 0.28, ws.y * 0.07});
+    sfText_setPosition(mc->name_prompt,
+    (sfVector2f){ws.x * 0.28, ws.y * 0.07});
     sfText_setPosition(mc->size, (sfVector2f){ws.x * 0.33, ws.y * 0.5});
     for (int i = 0; i < 4; i++) {
         new_pos = (sfVector2f)
