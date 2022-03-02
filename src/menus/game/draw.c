@@ -11,6 +11,8 @@ void draw_world(game_t *g)
 {
     sfSprite *s;
 
+    if (sfKeyboard_isKeyPressed(sfKeyR))
+        refresh_map(g->world, g->win);
     draw_meshes(g->world, g->win);
     draw_fps(g->win);
     sfRenderTexture_display(g->win->r_tex);

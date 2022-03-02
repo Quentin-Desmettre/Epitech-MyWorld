@@ -10,9 +10,15 @@
 void world_events(game_t *g, sfEvent ev, window_t *win)
 {
     g->win->event = ev;
-    if (ev.type == sfEvtClosed) {
+    if (ev.type == sfEvtMouseWheelScrolled &&
+    mouse_pos(g->size, win) != MINIMAP) {
+        g->win->params->zoom += 0.1 * ev.mouseWheelScroll.delta;
+        if (g->win->params->zoom < 0.1)
+            g->win->params->zoom = 0.1;
+    }
+    if (ev.type == sfEvtClosed)
         set_next_win_state(win, EXIT);
-    } else if (ev.type == sfEvtKeyPressed && ev.key.code == sfKeyEscape)
+    else if (ev.type == sfEvtKeyPressed && ev.key.code == sfKeyEscape)
         set_next_win_state(win, HOME);
     else
         params(g->win, g->world);
@@ -20,7 +26,8 @@ void world_events(game_t *g, sfEvent ev, window_t *win)
 
 void minimap_clicks(game_t *g)
 {
-    if (sfMouse_isButtonPressed(sfMouseLeft) && sfClock_getElapsedTime(g->minimap->time).microseconds > 50000) {
+    if (sfMouse_isButtonPressed(sfMouseLeft) &&
+    sfClock_getElapsedTime(g->minimap->time).microseconds > 50000) {
         g->minimap->actions[g->minimap->state](g->world, g->minimap);
         smooth_shadow(g->world, g->win);
         update_color(g->world);
