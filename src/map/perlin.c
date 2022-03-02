@@ -7,6 +7,7 @@
 
 #include "world.h"
 
+
 float ***fill_gradient(int x, int y)
 {
     float ***gradient = malloc(sizeof(float **) * (x + 1));
@@ -25,6 +26,23 @@ float ***fill_gradient(int x, int y)
     return gradient;
 }
 
+float ***get_gradient(sfBool reset)
+{
+    static float ***gradient = 0;
+
+    if (reset && gradient) {
+        for (int i = 0; i < 128; i++) {
+            for (int j = 0; j < 128; j++)
+                free(gradient[i][j]);
+            free(gradient[i]);
+        }
+        free(gradient);
+    }
+    if (!gradient || reset)
+        gradient = fill_gradient(128, 128);
+    return gradient;
+}
+
 float lerp(float a, float b, float w)
 {
     return (1.0 - w)*a + w*b;
@@ -32,7 +50,7 @@ float lerp(float a, float b, float w)
 
 float dot_grid_gradient(int ix, int iy, float x, float y)
 {
-    static float ***gradient = 0;
+    float ***gradient = get_gradient(0);
     float dx = x - (float)ix;
     float dy = y - (float)iy;
 

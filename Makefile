@@ -6,6 +6,7 @@
 ##
 
 SRC = \
+	./src/map/refresh.c						\
 	./src/menus/game/buttons/create.c		\
 	./src/menus/game/buttons/events.c		\
 	./src/menus/game/draw.c					\
