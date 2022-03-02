@@ -9,6 +9,7 @@ SRC = \
 	./src/menus/game/buttons/create.c		\
 	./src/menus/game/buttons/events.c		\
 	./src/menus/game/draw.c					\
+	./src/menus/map_select/events.c 		\
 	./src/menus/game/buttons/static_event.c \
 	./src/fps.c                             \
 	./src/load.c                            \
@@ -68,7 +69,6 @@ SRC = \
 	./src/menus/sprite/sprite_modif.c       \
 	./src/menus/button/get_button_ev.c      \
 	./src/menus/global_win/transition.c     \
-	./src/menus/map_select/map_create.c     \
 	./src/menus/settings/visu_updates.c     \
 	./src/menus/global_win/init_window.c    \
 	./src/menus/global_win/rescale_all.c    \

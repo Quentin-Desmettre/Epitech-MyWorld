@@ -255,26 +255,6 @@ static const int available_framerates[] = {
     30, 60, 90, 120, 144
 };
 
-//maps
-//     #define MAP_X_FACTOR 0.5
-//     #define MAP_Y_FACTOR 0.2
-
-// void rescale_map(map_t *m, sfVector2f win_size);
-// sfRectangleShape *map_sprite(map_t *m);
-// map_t *create_map(sfVector2f win_size, char const *file);
-
-// static const sfIntRect thumbnail_rect = {
-//     0, 0, 1, 1
-// };
-
-// typedef struct {
-//     sfText *name;
-//     char *file;
-//     sfRenderTexture *rtex;
-//     sfSprite *thumbnail;
-// } map_t;
-
-// line edit
 typedef struct {
     sfRenderTexture *rtex;
     sfRectangleShape *background;
@@ -387,5 +367,35 @@ game_buttons_t *create_buttons(sfVector2f size);
 void gb_events(game_t *ga, sfEvent ev, sfVector2f pos);
 void draw_tooltip(game_t *ga, sfRenderTexture *rtex);
 void check_tooltip(game_t *ga);
+
+bool is_file_valid(char const *file);
+
+typedef struct {
+    sfRenderTexture *rtex;
+    sfSprite *icon;
+    sfText *level_name;
+} map_entry_t;
+
+typedef struct {
+    button_t *buttons[3];
+    sfSprite *background;
+    sfRenderTexture *rtex;
+    list_t *maps;
+    sfRectangleShape *box;
+    sfSprite *hider;
+    sfVector2f size;
+    int primary;
+    int secondary;
+    float x_start;
+} map_select_t;
+
+map_select_t *create_map_select(sfVector2f size);
+const sfTexture *draw_select(void *m);
+void scale_select(map_select_t *m, sfVector2f size);
+sfSprite *draw_entry(map_entry_t *m);
+void map_select_events(window_t *m, sfEvent ev);
+
+    #define ENTRY_Y_SPAN 0.12
+    #define ENTRY_SPACING 1.35
 
 #endif

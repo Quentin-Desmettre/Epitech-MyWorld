@@ -7,17 +7,19 @@
 
 #include "menus.h"
 
-static const char *tips[10] = {
-    " Rise up AreA ",
-    " Smooth towArds AverAge height ",
-    " Add wAter ",
-    " Lower AreA ",
-    " Smooth towArds lowest point ",
-    " SAve mAp ",
-    " PAuse time ",
-    " +1 hour ",
-    " -1 hour ",
-    " Help "
+static const char *tips[12] = {
+    " (1) Rise up AreA ",
+    " (2) Smooth towArds AverAge height ",
+    " (3) Add wAter ",
+    " (4) Lower AreA ",
+    " (5) Smooth towArds lowest point ",
+    " (CTRL+S) SAve mAp ",
+    " (P) PAuse time ",
+    " (RIGHT) +1 hour ",
+    " (LEFT) -1 hour ",
+    " Help ",
+    " Change brush type ",
+    " Quit "
 };
 
 int get_button(game_buttons_t *gb)

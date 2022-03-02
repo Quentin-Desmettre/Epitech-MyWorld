@@ -23,6 +23,35 @@ void save_map(game_t *game, const char *filename, unsigned int size)
         write(fd, &(world->a_vertxs[i]->pos[1]), sizeof(float));
 }
 
+bool is_file_valid(char const *file)
+{
+    int fd = open(file, O_RDONLY);
+    unsigned long size = 0;
+    unsigned map_size;
+    char buf[30000];
+    int tmp;
+
+    if (fd < 0)
+        return false;
+    if (read(fd, &map_size, sizeof(unsigned)) != sizeof(unsigned)) {
+        close(fd);
+        return false;
+    }
+    while (1) {
+        tmp = read(fd, buf, 30000);
+        if (tmp < 0) {
+            close(fd);
+            return false;
+        }
+        if (!tmp)
+            break;
+        size += tmp;
+    }
+    tmp = (size == (map_size * map_size * sizeof(float)));
+    close(fd);
+    return tmp;
+}
+
 unsigned int read_map(game_t *game, const char *filename)
 {
     unsigned int size;
@@ -33,7 +62,10 @@ unsigned int read_map(game_t *game, const char *filename)
 
     strcpy(map, "./map/");
     fd = open(str_concat(2, map, filename), O_RDONLY);
+    printf("fd: %d\n", fd);
     read(fd, &size, sizeof(unsigned int));
+    size--;
+    printf("size: %d\n", size);
     create_map(world, size);
     set_light_source(world, size / 2.0, 1, 1000);
     convert_to_array(world);

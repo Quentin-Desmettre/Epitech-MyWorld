@@ -10,12 +10,11 @@
 void create_pointers(window_t *win)
 {
     const sfTexture* (*dr[6])(void *) = {
-        &draw_main_menu, NULL, &draw_settings, NULL, NULL, &draw_game
+        &draw_main_menu, &draw_select, &draw_settings, NULL, NULL, &draw_game
     };
     void (*ev[6])(window_t *, sfEvent) = {
-        &main_menu_event, NULL, &settings_ev, &mc_event, NULL, &game_events
+        &main_menu_event, &map_select_events, &settings_ev, &mc_event, NULL, &game_events
     };
-
     for (int i = 0; i < 6; i++) {
         win->draw[i] = dr[i];
         win->event[i] = ev[i];
@@ -48,6 +47,7 @@ window_t *window_create(void)
     create_basics(win);
     win->menus[0] = init_main_menu(global_texture(), (sfVector2f){800, 600});
     win->menus[3] = create_map_create((sfVector2f){800, 600});
+    win->menus[MAP_SELECT] = create_map_select((sfVector2f){800, 600});
     create_settings(win);
     return win;
 }
