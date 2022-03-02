@@ -23,6 +23,7 @@ static const float night_light[7] = {
 
 typedef struct params_struct {
     int hour;
+    float zoom;
     sfBool day;
     sfBool pause;
     sfBool is_fill;

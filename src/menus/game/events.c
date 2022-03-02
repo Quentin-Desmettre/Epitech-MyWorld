@@ -10,6 +10,11 @@
 void world_events(game_t *g, sfEvent ev, window_t *win)
 {
     g->win->event = ev;
+    if (ev.type == sfEvtMouseWheelScrolled) {
+        g->win->params->zoom += 0.1 * ev.mouseWheelScroll.delta;
+        if (g->win->params->zoom < 0.1)
+            g->win->params->zoom = 0.1;
+    }
     if (ev.type == sfEvtClosed) {
         set_next_win_state(win, EXIT);
     } else if (ev.type == sfEvtKeyPressed && ev.key.code == sfKeyEscape)

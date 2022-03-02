@@ -28,6 +28,7 @@ void init_params(win_t *win, size_t size)
     sfConvexShape_setPointCount(win->convex, 3);
     sfConvexShape_setOutlineColor(win->convex, sfTransparent);
     win->params = malloc(sizeof(params_t));
+    win->params->zoom = 1;
     win->params->hour = 0;
     win->params->day = DAY;
     win->params->pause = 0;

@@ -92,7 +92,7 @@ size_t offset_in_struct, void *buffer2);
 world_t *create_world();
 void add_mesh(world_t *world, mesh_t *mesh);
 void draw_meshes(world_t *world, win_t *win);
-void project_meshes(world_t *world);
+void project_meshes(world_t *world, float delta);
 void sort_vertxs(world_t *world);
 list_t *get_from_index(list_t **begin, size_t index, size_t len_list);
 void get_player_pos(world_t *world);
