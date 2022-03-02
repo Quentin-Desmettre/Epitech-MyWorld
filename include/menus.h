@@ -345,12 +345,17 @@ void destroy_check_box(check_box *c);
 void destroy_mc(map_create_t *mc);
 
 // game
+
 typedef struct {
     button_t *buttons[10];
     sfRenderTexture *rtex;
     sfClock *tip_clock;
     sfRectangleShape *border;
+    sfRectangleShape *tooltip_box;
+    sfText *tooltip;
+    sfVector2f mouse_pos;
     int selected;
+    int tool_tip_enabled;
 } game_buttons_t;
 
 typedef struct {
@@ -372,8 +377,10 @@ mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
 void save_map(game_t *game, const char* filename, unsigned int size);
 unsigned int read_map(game_t *game, const char* filename);
 
-sfSprite *draw_gb(game_buttons_t *g);
+sfSprite *draw_gb(game_t *ga);
 game_buttons_t *create_buttons(sfVector2f size);
 void gb_events(game_t *ga, sfEvent ev, sfVector2f pos);
+void draw_tooltip(game_t *ga, sfRenderTexture *rtex);
+void check_tooltip(game_t *ga);
 
 #endif

@@ -18,6 +18,7 @@ void move_evt(game_buttons_t *g, sfEvent ev, sfVector2f pos)
 {
     ev.mouseMove.x -= pos.x;
     ev.mouseMove.y -= pos.y;
+    g->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
     check_button_move(g->buttons, 10, ev);
 }
 
@@ -59,4 +60,8 @@ void gb_events(game_t *ga, sfEvent ev, sfVector2f pos)
         move_evt(g, ev, pos);
     if (ev.type == sfEvtMouseButtonReleased)
         release_evt(ga, ev, pos);
+    if (ev.type >= 9 && ev.type <= 11) {
+        sfClock_restart(g->tip_clock);
+        g->tool_tip_enabled = false;
+    }
 }

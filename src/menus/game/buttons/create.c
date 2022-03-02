@@ -7,19 +7,6 @@
 
 #include "menus.h"
 
-static const char *tips[10] = {
-    "Rise up the selected area",
-    "Smooth all the selected points towards the average height",
-    "Add water on the selected area",
-    "Lower the selected area",
-    "Smooth all the selected points toward the lowest point",
-    "Save the map",
-    "Pause the time",
-    "Shift the in-game time by +1 hour",
-    "Shift the in-game time by -1 hour",
-    "Help"
-};
-
 static const sfIntRect game_button_rects[] = {
     {0, 0, 1, 1}
 };
@@ -51,8 +38,10 @@ void draw_box(button_t *but, sfRenderTexture *rtex)
     sfRectangleShape_destroy(shape);
 }
 
-sfSprite *draw_gb(game_buttons_t *g)
+sfSprite *draw_gb(game_t *ga)
 {
+    game_buttons_t *g = ga->gb;
+
     sfRenderTexture_clear(g->rtex, sfBlack);
 
     for (int i = 0; i < 10; i++) {
@@ -62,6 +51,14 @@ sfSprite *draw_gb(game_buttons_t *g)
     }
     sfRenderTexture_display(g->rtex);
     return init_sprite_from_texture(sfRenderTexture_getTexture(g->rtex));
+}
+
+void create_tooltip(game_buttons_t *g, sfVector2f tex_size)
+{
+    g->tooltip = init_text("", tex_size.y * 0.075);
+    sfText_setColor(g->tooltip, sfBlack);
+    g->tooltip_box = create_rectangle((sfVector2f){1, 1}, sfYellow, NULL);
+    g->tool_tip_enabled = false;
 }
 
 game_buttons_t *create_buttons(sfVector2f size)
@@ -82,5 +79,6 @@ game_buttons_t *create_buttons(sfVector2f size)
     g->border = create_rectangle((sfVector2f){1, 1}, sfWhite, NULL);
     g->selected = 0;
     g->tip_clock = sfClock_create();
+    create_tooltip(g, size);
     return g;
 }
