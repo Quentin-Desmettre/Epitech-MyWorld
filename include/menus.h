@@ -123,6 +123,7 @@ typedef struct win {
     int framerate;
 
     sfRenderWindow *win;
+    sfVector2i tmp_pos;
 } window_t;
 
 typedef enum {WORLD, MINIMAP, BUTTONS} mouse_pos_t;
@@ -387,5 +388,6 @@ game_buttons_t *create_buttons(sfVector2f size);
 void gb_events(game_t *ga, sfEvent ev, sfVector2f pos);
 void draw_tooltip(game_t *ga, sfRenderTexture *rtex);
 void check_tooltip(game_t *ga);
+void world_clicks(window_t *win, sfEvent ev);
 
 #endif

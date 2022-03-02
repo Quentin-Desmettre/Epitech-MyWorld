@@ -48,6 +48,9 @@ void poll_events(window_t *win)
             sfRenderWindow_close(win->win);
         if (!win->is_transition)
             win->event[win->state](win, ev);
+        if (win->state == EDIT_MAP && (mouse_pos(win_size, win) == WORLD ||
+        ev.type == sfEvtMouseButtonReleased))
+            world_clicks(win, ev);
     }
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
