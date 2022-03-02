@@ -35,7 +35,7 @@
     #define PI 3.14159265359
     #define CONST 0b10000000
 
-    #define ABS(nb) (nb) < 0 ? -(nb) : (nb)
+    #define ABS(nb) ((nb) < 0 ? -(nb) : (nb))
 
 typedef struct world_struct {
     vecsort_t *sortBuffer;
@@ -80,6 +80,8 @@ typedef struct minimap {
     int state;
     int map_size;
     void (*actions[NB_ACTIONS])(world_t *, struct minimap *);
+    sfCircleShape *circle;
+    sfClock *time;
 } minimap_t;
 
 static const float height = 800.0;

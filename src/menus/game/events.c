@@ -20,10 +20,11 @@ void world_events(game_t *g, sfEvent ev, window_t *win)
 
 void minimap_clicks(game_t *g)
 {
-    if (sfMouse_isButtonPressed(sfMouseLeft)) {
+    if (sfMouse_isButtonPressed(sfMouseLeft) && sfClock_getElapsedTime(g->minimap->time).microseconds > 50000) {
         g->minimap->actions[g->minimap->state](g->world, g->minimap);
         smooth_shadow(g->world, g->win);
         update_color(g->world);
+        sfClock_restart(g->minimap->time);
     }
 }
 

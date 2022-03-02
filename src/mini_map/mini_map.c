@@ -32,6 +32,11 @@ minimap_t *create_minimap(sfVector2f size, int map_size)
     m->mouse_pos = (sfVector2f){10, 10};
     m->state = 4;
     m->map_size = map_size;
+    m->circle = sfCircleShape_create();
+    m->time = sfClock_create();
+    sfCircleShape_setOutlineColor(m->circle, sfWhite);
+    sfCircleShape_setOutlineThickness(m->circle, 1.0);
+    sfCircleShape_setFillColor(m->circle, sfTransparent);
     init_functions(m);
     return m;
 }

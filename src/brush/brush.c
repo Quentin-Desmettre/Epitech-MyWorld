@@ -21,8 +21,9 @@ void average_br_next(world_t *world, minimap_t *map, int tmp)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
-            > -10) ? (P_HEIGT(world, i, size) = (P_HEIGT(world, i, size) + tmp)
-            / 2): 0;
+            > -10) && sqrt(pow(i - x, 2) + pow(j - y, 2)) <= map->s_br ?
+            (P_HEIGT(world, i, size) = (P_HEIGT(world, i, size) * 10 + tmp)
+            / 11): 0;
         }
     }
 }
@@ -43,7 +44,8 @@ void average_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
-            > -10) ? tmp += P_HEIGT(world, i, size), count++: 0;
+            > -10) && sqrt(pow(i - x, 2) + pow(j - y, 2)) <= map->s_br
+            ? tmp += P_HEIGT(world, i, size), count++: 0;
         }
     }
     if (count == 0)
@@ -63,8 +65,10 @@ void average_w_br_next(world_t *world, minimap_t *map, int tmp)
         if (i < 0 || i >= size)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
-            ((size - j) >= 0 && (size - j) < (size)) ?
-            (P_HEIGT(world, i, size) = (P_HEIGT(world, i, size) + tmp) / 2): 0;
+            ((size - j) >= 0 && (size - j) < (size)) && sqrt(pow(i - x, 2) +
+            pow(j - y, 2)) <= map->s_br ?
+            (P_HEIGT(world, i, size) = (P_HEIGT(world, i, size) * 10 + tmp) /
+            11): 0;
         }
     }
 }
@@ -84,8 +88,9 @@ void average_w_br(world_t *world, minimap_t *map)
         if (i < 0 || i >= size)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
-            ((size - j) >= 0 && (size - j) < (size)) ?
-            tmp += P_HEIGT(world, i, size), count++ : 0;
+            ((size - j) >= 0 && (size - j) < (size)) && sqrt(pow(i - x, 2) +
+            pow(j - y, 2)) <= map->s_br
+            ? tmp += P_HEIGT(world, i, size), count++ : 0;
         }
     }
     if (count == 0)
