@@ -25,15 +25,15 @@ static const sfIntRect game_button_rects[] = {
 };
 
 static const float gb_pos[10][2] = {
-    {0.0625, 0.25 / 4}, {0.37, 0.25 / 4}, {0.67, 0.25 / 4},
-    {0.0625, 0.37}, {0.37, 0.37}, {0.67, 0.37},
-    {0.0625 - 0.05, 0.67}, {0.3 - 0.05, 0.67}, {0.53 - 0.05, 0.67}, {0.77 - 0.05, 0.67},
+    {0.1925, 0.1925}, {0.5, 0.1925}, {0.8, 0.1925},
+    {0.1925, 0.5}, {0.5, 0.5}, {0.8, 0.5},
+    {0.1425, 0.8}, {0.38, 0.8}, {0.61, 0.8}, {0.85, 0.8}
 };
 
 static const float gb_size[10][2] = {
     {0.25, 0.25}, {0.25, 0.25}, {0.25, 0.25},
     {0.25, 0.25}, {0.25, 0.25}, {0.25, 0.25},
-    {0.15, 0.25}, {0.15, 0.25}, {0.15, 0.25}, {0.15, 0.25}
+    {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}
 };
 
 void draw_box(button_t *but, sfRenderTexture *rtex)
@@ -73,7 +73,7 @@ game_buttons_t *create_buttons(sfVector2f size)
 
     g->rtex = sfRenderTexture_create(size.x, size.y, 0);
     for (int i = 0; i < 10; i++) {
-        pos = (sfVector2f){size.x * (gb_pos[i][0] + 0.13), size.y * (gb_pos[i][1] + 0.13)};
+        pos = (sfVector2f){size.x * (gb_pos[i][0]), size.y * (gb_pos[i][1])};
         n_size = (sfVector2f){size.x * gb_size[i][0], size.y * gb_size[i][1]};
         g->buttons[i] = init_button(global_texture(),
         game_button_rects[i % 1], pos, n_size, "", NULL);
