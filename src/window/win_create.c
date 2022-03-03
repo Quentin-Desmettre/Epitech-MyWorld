@@ -42,7 +42,7 @@ win_t *win_create(size_t nb_trig, sfVector2f size)
 
     if (win == NULL)
         return NULL;
-    memset(win, 0, sizeof(win_t));
+    my_memset(win, 0, sizeof(win_t));
     win->settings.antialiasingLevel = ALIASING;
     win->destroy = destroy_win;
     win->draw_shape = draw_shape;

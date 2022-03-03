@@ -131,5 +131,7 @@ float ***get_gradient(sfBool reset);
 void add_background(world_t *world);
 void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win);
 void draw_back(world_t *world, win_t *win);
+void my_memset(void *data, int type, size_t n);
+void my_memcpy(void *dest, const void *src, size_t n);
 
 #endif

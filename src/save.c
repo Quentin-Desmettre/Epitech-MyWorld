@@ -11,12 +11,10 @@
 void save_map(game_t *game, const char *filename, unsigned int size)
 {
     world_t *world = game->world;
-    char *map = malloc(sizeof(char) * 8);
     int fd = 0;
     unsigned long s = size * size;
 
-    strcpy(map, "./map/");
-    fd = open(str_concat(2, map, filename), O_WRONLY | O_CREAT | O_TRUNC,
+    fd = open(str_concat(2, "./map/", filename), O_WRONLY | O_CREAT | O_TRUNC,
     ALL_FLAGS);
     write(fd, &size, sizeof(unsigned int));
     for (unsigned long i = 0; i < s; i++)
@@ -68,16 +66,12 @@ unsigned int read_map(game_t *game, const char *filename)
 {
     unsigned int size;
     world_t *world = game->world;
-    char *map = malloc(sizeof(char) * 8);
     int fd = 0;
     unsigned long s;
 
-    strcpy(map, "./map/");
-    fd = open(str_concat(2, map, filename), O_RDONLY);
-    printf("fd: %d\n", fd);
+    fd = open(str_concat(2, "./map/", filename), O_RDONLY);
     read(fd, &size, sizeof(unsigned int));
     size--;
-    printf("size: %d\n", size);
     create_map(world, size);
     set_light_source(world, size / 2.0, 1, 1000);
     convert_to_array(world);

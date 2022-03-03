@@ -6,6 +6,7 @@
 ##
 
 SRC = \
+	./src/my_memset.c 						\
 	./src/world/background.c				\
 	./src/map/refresh.c						\
 	./src/menus/game/buttons/create.c		\
@@ -17,7 +18,6 @@ SRC = \
 	./src/menus/map_select/load_entries.c \
 	./src/menus/map_select/release.c		\
 	./src/fps.c                             \
-	./src/load.c                            \
 	./src/free_lists.c                      \
 	./src/mesh/draw.c                       \
 	./src/map/perlin.c                      \

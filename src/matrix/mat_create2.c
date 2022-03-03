@@ -34,7 +34,7 @@ mat4x4 *mat4x4_create()
 {
     mat4x4 *mat = malloc(sizeof(mat4x4));
 
-    memset(mat, 0, sizeof(mat4x4));
+    my_memset(mat, 0, sizeof(mat4x4));
     mat->val[0] = 1;
     mat->val[5] = 1;
     mat->val[10] = 1;
