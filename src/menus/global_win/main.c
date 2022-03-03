@@ -48,18 +48,14 @@ void poll_events(window_t *win)
             sfRenderWindow_close(win->win);
         if (!win->is_transition)
             win->event[win->state](win, ev);
-        if (win->state == EDIT_MAP && (mouse_pos(win_size, win) == WORLD ||
-        ev.type == sfEvtMouseButtonReleased))
+        if (IS_WORLD_CLICK)
             world_clicks(win, ev);
     }
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
     if (win->state == EDIT_MAP) {
-        if (sfKeyboard_isKeyPressed(sfKeyS) && (sfKeyboard_isKeyPressed
-        (sfKeyLControl) || sfKeyboard_isKeyPressed(sfKeyRControl)))
-            save_map(win->menus[EDIT_MAP], sfText_getString(((map_create_t *)
-            win->menus[CREATE_MAP])->name->text), ((game_t *)win->menus
-            [EDIT_MAP])->win->map_size);
+        if (IS_SAVE)
+            save_map(win->menus[EDIT_MAP], MAP_STRING, MAP_SIZE);
         move(&(((game_t *)win->menus[EDIT_MAP])->world->matrix));
         if (mouse_pos(win_size, win) == MINIMAP)
             minimap_clicks(win->menus[EDIT_MAP]);

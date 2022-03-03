@@ -51,10 +51,18 @@ void press_button(button_t *b, int is_press)
 }
 
 button_t *init_button(sfTexture *t, sfIntRect rect,
-sfVector2f pos, sfVector2f size, char const *str, void (*action)(void *))
+sfVector2f pos, ...)
 {
     button_t *n = malloc(sizeof(button_t));
+    va_list va;
+    sfVector2f size;
+    char *str;
+    void (*action)(void *);
 
+    va_start(va, pos);
+    size = va_arg(va, sfVector2f);
+    str = va_arg(va, char *);
+    action = va_arg(va, void (*)(void *));
     n->is_hover = 0;
     n->is_press = 0;
     n->pos = pos;

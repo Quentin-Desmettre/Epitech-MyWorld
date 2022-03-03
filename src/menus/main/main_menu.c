@@ -7,21 +7,15 @@
 
 #include "menus.h"
 
-static const char *button_texts[] = {
-    "LAunch mAp",
-    "CreAte mAp",
-    "Settings",
-    "Quit"
-};
-
 void main_menu_release(main_menu_t *m, sfEvent ev, window_t *win)
 {
+    int win_act[4] = {MAP_SELECT, CREATE_MAP, SETTINGS, EXIT};
+    int action = button_at(m->buttons, 4, ev);
+
     for (int i = 0; i < 4; i++) {
         hover_button(m->buttons[i], 0);
         press_button(m->buttons[i], 0);
     }
-    int win_act[4] = {MAP_SELECT, CREATE_MAP, SETTINGS, EXIT};
-    int action = button_at(m->buttons, 4, ev);
     if (action < 0)
         return;
     set_next_win_state(win, win_act[action]);

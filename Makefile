@@ -13,6 +13,9 @@ SRC = \
 	./src/menus/game/draw.c					\
 	./src/menus/map_select/events.c 		\
 	./src/menus/game/buttons/static_event.c \
+	./src/menus/map_select/draw.c		\
+	./src/menus/map_select/load_entries.c \
+	./src/menus/map_select/release.c		\
 	./src/fps.c                             \
 	./src/load.c                            \
 	./src/free_lists.c                      \

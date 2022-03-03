@@ -7,11 +7,6 @@
 
 #include "menus.h"
 
-sfFloatRect bounds(sfSprite *s)
-{
-    return sfSprite_getGlobalBounds(s);
-}
-
 void check_sound_repeat(window_t *win, sfEvent *ev)
 {
     if (sfMouse_isButtonPressed(sfMouseLeft) && win->state == SETTINGS &&
@@ -31,11 +26,11 @@ void check_sound_repeat(window_t *win, sfEvent *ev)
 
 int get_set_button_at(settings_t *se, sfEvent *ev)
 {
-    sfFloatRect all_bounds[9] = {bounds(se->back->sprite),
-    bounds(se->full_screen->box), bounds(se->vsync->box),
-    bounds(se->res_button->sprite), bounds(se->framerate_button->sprite),
-    bounds(se->sfx_minus->sprite), bounds(se->sfx_plus->sprite),
-    bounds(se->music_minus->sprite), bounds(se->music_plus->sprite)
+    sfFloatRect all_bounds[9] = {BOUNDS(se->back->sprite),
+    BOUNDS(se->full_screen->box), BOUNDS(se->vsync->box),
+    BOUNDS(se->res_button->sprite), BOUNDS(se->framerate_button->sprite),
+    BOUNDS(se->sfx_minus->sprite), BOUNDS(se->sfx_plus->sprite),
+    BOUNDS(se->music_minus->sprite), BOUNDS(se->music_plus->sprite)
     };
     sfVector2f pos = ev->type == sfEvtMouseMoved ?
     (sfVector2f){ev->mouseMove.x, ev->mouseMove.y} :

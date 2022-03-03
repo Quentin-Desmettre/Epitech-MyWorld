@@ -7,22 +7,6 @@
 
 #include "menus.h"
 
-static const sfIntRect game_button_rects[] = {
-    {0, 0, 1, 1}
-};
-
-static const float gb_pos[10][2] = {
-    {0.1925, 0.1925}, {0.5, 0.1925}, {0.8, 0.1925},
-    {0.1925, 0.5}, {0.5, 0.5}, {0.8, 0.5},
-    {0.1425, 0.8}, {0.38, 0.8}, {0.61, 0.8}, {0.85, 0.8}
-};
-
-static const float gb_size[10][2] = {
-    {0.25, 0.25}, {0.25, 0.25}, {0.25, 0.25},
-    {0.25, 0.25}, {0.25, 0.25}, {0.25, 0.25},
-    {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}
-};
-
 void draw_box(button_t *but, sfRenderTexture *rtex)
 {
     sfRectangleShape *shape = sfRectangleShape_create();

@@ -18,7 +18,7 @@ sfFloatRect get_entry_rect(map_entry_t *m, sfVector2f pos)
     return rect;
 }
 
-static int entry_at(map_select_t *m, sfVector2f m_pos)
+int entry_at(map_select_t *m, sfVector2f m_pos)
 {
     list_t *start = m->maps;
     sfVector2f pos = {m->size.x * 0.2, m->size.y * 0.2 - m->x_start};
@@ -43,7 +43,7 @@ static int entry_at(map_select_t *m, sfVector2f m_pos)
 static inline void manage_move(map_select_t *m, sfEvent ev)
 {
     sfVector2f pos = {ev.mouseMove.x, ev.mouseMove.y};
-    check_button_move(m->buttons, 3 - (m->primary < 0 ? 1 : 0), ev);
+    check_button_move(m->buttons, 3 - (m->primary < 0 ? 2 : 0), ev);
     ev.type = sfEvtMouseButtonReleased;
     ev.mouseButton.x = pos.x;
     ev.mouseButton.y = pos.y;
@@ -55,74 +55,7 @@ static inline void manage_move(map_select_t *m, sfEvent ev)
 
 static inline void manage_press(map_select_t *m, sfEvent ev)
 {
-    check_button_press(m->buttons, 3 - (m->primary < 0 ? 1 : 0), ev);
-}
-
-void remove_level(map_select_t *m, int level)
-{
-}
-
-map_entry_t *entry_at_list(list_t *l, int index)
-{
-    for (int i = 0; i < index; i++)
-        l = l->next;
-    return l->data;
-}
-
-unsigned map_size(char const *map)
-{
-    char *str = str_concat(2, "./map/", map);
-    int fd = open(str, O_RDONLY);
-    unsigned size = 64;
-
-    if (fd >= 0)
-        read(fd, &size, sizeof(unsigned));
-    free(str);
-    close(fd);
-    return size;
-}
-
-void load_map(char const *map, window_t *win)
-{
-    unsigned size = map_size(map);
-
-    printf("size: %d\n", size);
-    win->menus[EDIT_MAP] = create_game(size,
-    (sfVector2f){win->mode.width, win->mode.height});
-    read_map(win->menus[EDIT_MAP], map);
-    set_next_win_state(win, EDIT_MAP);
-}
-
-void manage_release(map_select_t *m, sfEvent ev, window_t *win)
-{
-    int but;
-    sfVector2f pos = {ev.mouseButton.x, ev.mouseButton.y};
-
-    for (int i = 0; i < 3; i++)
-        press_button(m->buttons[i], false);
-    ev.type = sfEvtMouseButtonReleased;
-    ev.mouseButton.x = pos.x;
-    ev.mouseButton.y = pos.y;
-    but = button_at(m->buttons, 3, ev);
-    if (but < 0)
-        m->primary = entry_at(m, pos);
-    else {
-        if (but == 0)
-            set_next_win_state(win, HOME);
-        if (but == 1 && m->primary >= 0)
-            remove_level(m, m->primary);
-        if (but == 2 && m->primary >= 0) {
-            load_map(sfText_getString(entry_at_list
-            (m->maps, m->primary)->level_name), win);
-        }
-    }
-}
-
-static inline void manage_scroll(map_select_t *m, sfEvent ev)
-{
-    m->x_start -= ev.mouseWheelScroll.delta * 20;
-    if (m->x_start < 0)
-        m->x_start = 0;
+    check_button_press(m->buttons, 3 - (m->primary < 0 ? 2 : 0), ev);
 }
 
 void map_select_events(window_t *w, sfEvent ev)
@@ -135,6 +68,9 @@ void map_select_events(window_t *w, sfEvent ev)
         manage_press(m, ev);
     if (ev.type == sfEvtMouseButtonReleased)
         manage_release(m, ev, w);
-    if (ev.type == sfEvtMouseWheelScrolled)
-        manage_scroll(m, ev);
+    if (ev.type == sfEvtMouseWheelScrolled) {
+        m->x_start -= ev.mouseWheelScroll.delta * 20;
+        if (m->x_start < 0)
+            m->x_start = 0;
+    }
 }

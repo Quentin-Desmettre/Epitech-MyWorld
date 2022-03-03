@@ -15,6 +15,8 @@
     #include <SFML/Graphics.h>
     #include <SFML/Audio.h>
     #include <SFML/System.h>
+    #include <sys/types.h>
+    #include <dirent.h>
     #include "world.h"
 
     #define true 1
@@ -163,8 +165,7 @@ sfSprite *init_sprite_from_texture(sfTexture const *t);
 sfText *init_text(char const *str, int charSize);
 void set_sprite_size(sfSprite *s, sfVector2f size);
 sfSprite *init_sprite(sfTexture *t, sfIntRect rect, sfVector2f size);
-button_t *init_button(sfTexture *t, sfIntRect rect, sfVector2f pos,
-sfVector2f size, char const *str, void (*action)(void *));
+button_t *init_button(sfTexture *t, sfIntRect rect, sfVector2f pos, ...);
 bool is_on_button(sfVector2f pos, button_t *b);
 void check_button_move(button_t **buttons, int nb_button, sfEvent move);
 void check_button_press(button_t **buttons, int nb_button, sfEvent press);
@@ -399,5 +400,106 @@ void map_select_events(window_t *m, sfEvent ev);
 
     #define ENTRY_Y_SPAN 0.12
     #define ENTRY_SPACING 1.35
+
+static const sfIntRect game_button_rects[] = {
+    {0, 0, 1, 1}
+};
+
+static const float gb_pos[10][2] = {
+    {0.1925, 0.1925}, {0.5, 0.1925}, {0.8, 0.1925},
+    {0.1925, 0.5}, {0.5, 0.5}, {0.8, 0.5},
+    {0.1425, 0.8}, {0.38, 0.8}, {0.61, 0.8}, {0.85, 0.8}
+};
+
+static const float gb_size[10][2] = {
+    {0.25, 0.25}, {0.25, 0.25}, {0.25, 0.25},
+    {0.25, 0.25}, {0.25, 0.25}, {0.25, 0.25},
+    {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}
+};
+
+static const char *tips[12] = {
+    " (1) Rise up AreA ",
+    " (2) Smooth towArds AverAge height ",
+    " (3) Add wAter ",
+    " (4) Lower AreA ",
+    " (5) Smooth towArds lowest point ",
+    " (CTRL+S) SAve mAp ",
+    " (P) PAuse time ",
+    " (RIGHT) +1 hour ",
+    " (LEFT) -1 hour ",
+    " Help ",
+    " Change brush type ",
+    " Quit "
+};
+
+    #define IS_SAVE (sfKeyboard_isKeyPressed(sfKeyS) && \
+    (sfKeyboard_isKeyPressed(sfKeyLControl) || \
+    sfKeyboard_isKeyPressed(sfKeyRControl)))
+
+    #define MAP_STRING (sfText_getString(((map_create_t *) \
+    win->menus[CREATE_MAP])->name->text))
+
+    #define MAP_SIZE (((game_t *)win->menus[EDIT_MAP])->win->map_size)
+
+    #define IS_WORLD_CLICK (win->state == EDIT_MAP && \
+    (mouse_pos(win_size, win) == WORLD || ev.type == sfEvtMouseButtonReleased))
+
+static const char *codes[] = {
+    "A", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o",
+    "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+};
+
+static const char *digits[] = {
+    "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"
+};
+
+static const char *button_texts[] = {
+    "LAunch mAp",
+    "CreAte mAp",
+    "Settings",
+    "Quit"
+};
+
+    #define DEFAULT_2F (sfVector2f){1, 1}
+
+    #define TMP_V2F (sfVector2f){win_size.x * 0.55, win_size.y * 0.1}
+
+static const float mc_pos_fac[4][2] = {
+    {0.15, 0.69}, {0.805, 0.69}, {0.64, 0.9}, {0.87, 0.9}
+};
+
+static const float mc_size_fac[4][2] = {
+    {0.06, 0.06}, {0.06, 0.1}, {0.18, 0.1}, {0.18, 0.1}
+};
+
+static const sfIntRect check_rect[2] = {
+    {0, 0, 1, 1},
+    {0, 0, 1, 1}
+};
+
+    #define BOUNDS(s) (sfSprite_getGlobalBounds(s))
+
+    #define SEMI_COLOR ((sfColor){127, 127, 127, 255})
+    #define SEMI_TRANSP ((sfColor){127, 127, 127, 127})
+
+    #define ENTRY_Y_SPAN 0.12
+
+typedef struct dirent dirent_t;
+
+static const sfIntRect icon_rect = {0, 0, 1, 1};
+
+static const sfIntRect background_rect = {0, 0, 1, 1};
+
+static const sfIntRect but_rects[3] = {
+    {0, 0, 1, 1}, {0, 0, 1, 1}, {0, 0, 1, 1}
+};
+
+static const sfIntRect hider_rect = {1, 0, 1, 1};
+
+static const float select_pf[3][2] = {
+    {0.18, 0.9}, {0.5, 0.9}, {0.82, 0.9}
+};
+
+static const float select_sf[2] = {0.27, 0.1};
 
 #endif

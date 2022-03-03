@@ -28,7 +28,7 @@ void create_basics(window_t *win)
     win->next_state = HOME;
     win->is_transition = 0;
     win->win = sfRenderWindow_create(
-        (sfVideoMode){800, 600, 32}, "My world", sfClose, NULL);
+    (sfVideoMode){800, 600, 32}, "My world", sfClose, NULL);
     win->mode = (sfVideoMode){800, 600, 32};
     win->lum_clock = sfClock_create();
 }

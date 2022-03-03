@@ -8,20 +8,9 @@
 #include "menus.h"
 #include "my.h"
 
-#define DEFAULT_2F (sfVector2f){1, 1}
-
-static const float mc_pos_fac[4][2] = {
-    {0.15, 0.69}, {0.805, 0.69}, {0.64, 0.9}, {0.87, 0.9}
-};
-
-static const float mc_size_fac[4][2] = {
-    {0.06, 0.06}, {0.06, 0.1}, {0.18, 0.1}, {0.18, 0.1}
-};
-
 void scale_map_create(map_create_t *mc, sfVector2f win_size)
 {
     sfVector2f new_size;
-
     sfRenderTexture_destroy(mc->rtex);
     mc->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     sfText_setCharacterSize(mc->name_prompt,
@@ -30,8 +19,7 @@ void scale_map_create(map_create_t *mc, sfVector2f win_size)
     win_size.y * MAIN_MENU_TXT_FACTOR * 0.13);
     scale_line_edit(mc->name,
     (sfVector2f){win_size.x * 0.9, win_size.y * 0.2});
-    rescale_slider(mc->size_slider,
-    (sfVector2f){win_size.x * 0.55, win_size.y * 0.1},
+    rescale_slider(mc->size_slider, TMP_V2F,
     (sfVector2f){win_size.x * 0.205, win_size.y * 0.64});
     for (int i = 0; i < 4; i++) {
         new_size = (sfVector2f)

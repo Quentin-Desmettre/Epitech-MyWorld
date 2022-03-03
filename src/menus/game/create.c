@@ -7,6 +7,17 @@
 
 #include "menus.h"
 
+void create_other(game_t *g, unsigned size, sfVector2f win_size)
+{
+    g->win->map_size = size;
+    g->size = win_size;
+    g->minimap = create_minimap((sfVector2f)
+    {win_size.y * PART_OF_MINIMAP, win_size.y * PART_OF_MINIMAP}, size);
+    g->dimension = size;
+    g->gb = create_buttons((sfVector2f)
+    {win_size.y * PART_OF_MINIMAP, win_size.y * (1 - PART_OF_MINIMAP)});
+}
+
 game_t *create_game(unsigned size, sfVector2f win_size)
 {
     game_t *g = malloc(sizeof(game_t));
@@ -23,13 +34,7 @@ game_t *create_game(unsigned size, sfVector2f win_size)
     world->sortBuffer2 = malloc(sizeof(vecsort_t) * world->nb_trig);
     g->win = win_create(world->nb_trig,
     (sfVector2f){win_size.x - win_size.y * PART_OF_MINIMAP, win_size.y});
-    g->win->map_size = size;
     free_lists(world);
-    g->size = win_size;
-    g->minimap = create_minimap((sfVector2f)
-    {win_size.y * PART_OF_MINIMAP, win_size.y * PART_OF_MINIMAP}, size);
-    g->dimension = size;
-    g->gb = create_buttons((sfVector2f)
-    {win_size.y * PART_OF_MINIMAP, win_size.y * (1 - PART_OF_MINIMAP)});
+    create_other(g, size, win_size);
     return g;
 }

@@ -8,32 +8,23 @@
 #include "world.h"
 #include "my.h"
 #include <math.h>
+#include "menus.h"
 
-int int_to_str(int x, char str[], int d)
-{
-    int i = 0;
-    while (x) {
-        str[i++] = (x % 10) + '0';
-        x = x / 10;
-    }
-    while (i < d)
-        str[i++] = '0';
-    str[i] = '\0';
-    my_revstr(str);
-    return i;
-}
-
-void ftoa(float n, char *res, int afterpoint)
+char *ftoa(float n, int afterpoint)
 {
     int ipart = (int)n;
     float fpart = n - (float)ipart;
-    int i = int_to_str(ipart, res, 0);
+    char *ip = long_to_str(ipart);
+    char *fp = long_to_str(fpart * pow(10, afterpoint));
+    char *res;
 
     if (afterpoint != 0) {
-        res[i] = '.';
-        fpart = fpart * pow(10, afterpoint);
-        int_to_str((int)fpart, res + i + 1, afterpoint);
-    }
+        res = str_concat(3, ip, ".", fp);
+        free(ip);
+    } else
+        res = ip;
+    free(fp);
+    return res;
 }
 
 void append(char **str, char *buf, int is_free)
@@ -68,12 +59,12 @@ void draw_fps(win_t *w)
     static sfText *t = NULL;
     static sfTime last_time = {0};
     float fps;
-    char *fps_str = malloc(7);
+    char *fps_str;
 
     init_graph(&c, &t, w);
     fps = 1000000.0 /
     (sfClock_getElapsedTime(c).microseconds - last_time.microseconds);
-    ftoa(fps, fps_str, 2);
+    fps_str = ftoa(fps, 2);
     last_time = sfClock_getElapsedTime(c);
     append(&fps_str, " FPS", 1);
     if (sfClock_getElapsedTime(c).microseconds > 500000) {
