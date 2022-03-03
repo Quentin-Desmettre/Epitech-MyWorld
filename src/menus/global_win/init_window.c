@@ -13,7 +13,8 @@ void create_pointers(window_t *win)
         &draw_main_menu, &draw_select, &draw_settings, NULL, NULL, &draw_game
     };
     void (*ev[6])(window_t *, sfEvent) = {
-        &main_menu_event, &map_select_events, &settings_ev, &mc_event, NULL, &game_events
+        &main_menu_event, &map_select_events, &settings_ev,
+        &mc_event, NULL, &game_events
     };
     for (int i = 0; i < 6; i++) {
         win->draw[i] = dr[i];

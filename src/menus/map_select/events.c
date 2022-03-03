@@ -112,7 +112,8 @@ void manage_release(map_select_t *m, sfEvent ev, window_t *win)
         if (but == 1 && m->primary >= 0)
             remove_level(m, m->primary);
         if (but == 2 && m->primary >= 0) {
-            load_map(sfText_getString(entry_at_list(m->maps, m->primary)->level_name), win);
+            load_map(sfText_getString(entry_at_list
+            (m->maps, m->primary)->level_name), win);
         }
     }
 }
