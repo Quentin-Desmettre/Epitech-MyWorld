@@ -56,6 +56,8 @@ typedef struct world_struct {
     float *light_start;
     float *light_source;
     void (*destroy)(struct world_struct *world);
+    sfConvexShape *back;
+    float moy_dir;
 } world_t;
 
 typedef struct tmp_struct {
@@ -95,10 +97,7 @@ void draw_meshes(world_t *world, win_t *win);
 void project_meshes(world_t *world, float delta);
 void sort_vertxs(world_t *world);
 list_t *get_from_index(list_t **begin, size_t index, size_t len_list);
-void get_player_pos(world_t *world);
-void get_player_dir(world_t *world);
 mesh_t *load_from_file(char *file);
-void add_player_pos(vertex_t *vertxs, size_t i, world_t *world, float *tmp);
 float apply_shades(world_t *world, triangle_t *tri);
 float get_direction(vertex_t *pts);
 void set_light_source(world_t *world, float x, float y, float z);
@@ -129,5 +128,8 @@ void update_color(world_t *world);
 float get_max_height(triangle_t trig);
 void refresh_map(world_t *world, win_t *win);
 float ***get_gradient(sfBool reset);
+void add_background(world_t *world);
+void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win);
+void draw_back(world_t *world, win_t *win);
 
 #endif

@@ -17,8 +17,7 @@ void draw_line(vertex_t vertxs[3], win_t *win)
     sfVertexArray_append(win->array, *win->tmp);
 }
 
-void draw_triangle(vertex_t vertxs[3], triangle_t *tri,
-win_t *win)
+void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win)
 {
     win->tmp->color = center_vertxs(vertxs, tri, win);
     for (int i = 0; i < 3; i++) {
@@ -40,7 +39,6 @@ void draw_meshes(world_t *world, win_t *win)
 {
     size_t i = -1;
     vertex_t pts[3];
-
     project_meshes(world, win->params->zoom);
     sort_vertxs(world);
     if (!win->params->pause && sfClock_getElapsedTime(world->clock)

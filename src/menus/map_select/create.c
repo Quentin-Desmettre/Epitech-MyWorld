@@ -5,7 +5,6 @@
 ** create.c
 */
 
-
 #include "menus.h"
 #include "list.h"
 #include <sys/types.h>
@@ -166,8 +165,6 @@ const sfTexture *draw_select(void *mm)
     map_select_t *m = mm;
 
     sfRenderTexture_clear(m->rtex, sfBlack);
-
-    //sfRenderTexture_drawSprite(m->rtex, m->background, NULL);
     if (m->maps)
         draw_entries(m);
     sfRenderTexture_drawSprite(m->rtex, m->hider, NULL);

@@ -6,6 +6,7 @@
 ##
 
 SRC = \
+	./src/world/background.c				\
 	./src/map/refresh.c						\
 	./src/menus/game/buttons/create.c		\
 	./src/menus/game/buttons/events.c		\
@@ -21,7 +22,6 @@ SRC = \
 	./src/brush/brush.c                     \
 	./src/brush/brush_next.c                \
 	./src/mesh/create.c                     \
-	./src/player/calc.c                     \
 	./src/radix/utils.c                     \
 	./src/input/params.c                    \
 	./src/light/shades.c                    \
