@@ -73,7 +73,6 @@ void create_map(world_t *world, size_t size)
     vertex_t vertex;
     triangle_t trig;
     mesh_t *mesh = malloc(sizeof(mesh_t));
-
     trig.mesh_ptr = mesh;
     trig.color = sfGreen;
     mesh->is_selected = 0;

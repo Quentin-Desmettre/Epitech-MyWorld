@@ -39,7 +39,6 @@ void draw_meshes(world_t *world, win_t *win)
 {
     size_t i = -1;
     vertex_t pts[3];
-
     project_meshes(world, win->params->zoom);
     sort_vertxs(world);
     if (!win->params->pause && sfClock_getElapsedTime(world->clock)

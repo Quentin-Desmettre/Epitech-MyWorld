@@ -47,7 +47,6 @@ void smooth_trig(void *param)
     }
     mid /= count;
     trig->direction = mid;
-
 }
 
 void for_loop(void *param)
