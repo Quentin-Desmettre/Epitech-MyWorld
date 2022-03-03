@@ -99,12 +99,15 @@ void smooth_shadow(world_t *world, win_t *win)
     tmp->size = win->map_size;
     tmp2->world = world;
     tmp2->size = win->map_size;
+    world->moy_dir = 0;
     for (size_t i = 0; i < world->nb_trig; i++)
         apply_shades(world, &world->a_triangles[i]);
     launch_thread(tmp, tmp2, win, 1);
     launch_thread(tmp, tmp2, win, 0);
     free(tmp2);
     free(tmp);
-    for (size_t i = 0; i < world->nb_trig; i++)
+    for (size_t i = 0; i < world->nb_trig; i++) {
         world->a_triangles[i].direction *= win->params->day ? 0.9 : 0.3;
+        world->moy_dir += world->a_triangles[i].direction;
+    }
 }

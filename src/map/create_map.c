@@ -90,4 +90,5 @@ void create_map(world_t *world, size_t size)
     add_map_trig(mesh, size, trig);
     smooth(mesh, size);
     add_mesh(world, mesh);
+    add_background(world);
 }

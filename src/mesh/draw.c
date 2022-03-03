@@ -17,8 +17,7 @@ void draw_line(vertex_t vertxs[3], win_t *win)
     sfVertexArray_append(win->array, *win->tmp);
 }
 
-void draw_triangle(vertex_t vertxs[3], triangle_t *tri,
-win_t *win)
+void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win)
 {
     win->tmp->color = center_vertxs(vertxs, tri, win);
     for (int i = 0; i < 3; i++) {
