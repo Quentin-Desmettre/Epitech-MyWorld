@@ -36,7 +36,6 @@
     #define BACK_SETTINGS 0
     #define TOOLTIP_DURATION 350000
 
-
 typedef struct {
     sfSprite *box;
     sfSprite *check;

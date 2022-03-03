@@ -23,10 +23,30 @@ void save_map(game_t *game, const char *filename, unsigned int size)
         write(fd, &(world->a_vertxs[i]->pos[1]), sizeof(float));
 }
 
+long read_all_file(int fd)
+{
+    long tmp;
+    long size = 0;
+    char buf[30000];
+
+    while (1) {
+        tmp = read(fd, buf, 30000);
+        if (tmp < 0) {
+            close(fd);
+            return -1;
+        }
+        if (!tmp)
+            break;
+        size += tmp;
+    }
+    close(fd);
+    return size;
+}
+
 bool is_file_valid(char const *file)
 {
     int fd = open(file, O_RDONLY);
-    unsigned long size = 0;
+    long size = 0;
     unsigned map_size;
     char buf[30000];
     int tmp;
@@ -37,18 +57,10 @@ bool is_file_valid(char const *file)
         close(fd);
         return false;
     }
-    while (1) {
-        tmp = read(fd, buf, 30000);
-        if (tmp < 0) {
-            close(fd);
-            return false;
-        }
-        if (!tmp)
-            break;
-        size += tmp;
-    }
+    size = read_all_file(fd);
+    if (size < 0)
+        return false;
     tmp = (size == (map_size * map_size * sizeof(float)));
-    close(fd);
     return tmp;
 }
 
