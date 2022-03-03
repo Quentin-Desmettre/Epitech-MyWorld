@@ -3,6 +3,8 @@
 
 my_world
 
+./map/
+
 *.o
 
 .conf
