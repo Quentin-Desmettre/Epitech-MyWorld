@@ -66,17 +66,15 @@ unsigned int read_map(game_t *game, const char *filename)
 {
     unsigned int size;
     world_t *world = game->world;
-    int fd = 0;
+    int fd = open(str_concat(2, "./map/", filename), O_RDONLY);
     unsigned long s;
 
-    fd = open(str_concat(2, "./map/", filename), O_RDONLY);
     read(fd, &size, sizeof(unsigned int));
-    size--;
-    create_map(world, size);
-    set_light_source(world, size / 2.0, 1, 1000);
-    convert_to_array(world);
+    game->win->map_size = size;
+    game->minimap->map_size = size;
     s = size * size;
     for (unsigned long i = 0; i < s; i++)
         read(fd, &(world->a_vertxs[i]->pos[1]), sizeof(float));
+    close(fd);
     return size;
 }

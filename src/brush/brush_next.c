@@ -39,7 +39,8 @@ void up_br(world_t *world, minimap_t *map)
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
             < 80) && sqrt(pow(i - x, 2) + pow(j - y, 2)) <= map->s_br ?
-            world->a_vertxs[i * (size) + (size - j)]->pos[1] += 0.5 : 0;
+            world->a_vertxs[i * (size) + (size - j)]->pos[1] +=
+            (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 0;
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
             > 80) ? P_HEIGT(world, i, size) = 80 : 0;
         }
@@ -60,7 +61,8 @@ void down_br(world_t *world, minimap_t *map)
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
             > -10) && sqrt(pow(i - x, 2) + pow(j - y, 2)) <= map->s_br ?
-            P_HEIGT(world, i, size) -= 0.5 : 0;
+            P_HEIGT(world, i, size) -=
+            (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 0;
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
             < -10) ? P_HEIGT(world, i, size) = -10 : 0;
         }
@@ -69,7 +71,6 @@ void down_br(world_t *world, minimap_t *map)
 
 void average_d_br_next(world_t *world, minimap_t *map, int tmp)
 {
-
     float nb = map->size.y / (float)(map->map_size);
     int size = map->map_size;
     int x = (int)(round(map->mouse_pos.x / nb));
