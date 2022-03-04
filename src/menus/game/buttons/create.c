@@ -64,5 +64,6 @@ game_buttons_t *create_buttons(sfVector2f size)
     g->selected = 0;
     g->tip_clock = sfClock_create();
     create_tooltip(g, size);
+    g->mouse_pos = (sfVector2f){0, 0};
     return g;
 }
