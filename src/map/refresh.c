@@ -9,8 +9,10 @@
 
 void refresh_map(world_t *world, win_t *win)
 {
-    free(world->a_vertxs);
     free(world->a_triangles);
+    for (size_t i = 0; i < world->nb_vertxs; i++)
+        free(world->a_vertxs[i]);
+    free(world->a_vertxs);
     free(world->projected);
     world->nb_meshes = 0;
     world->nb_vertxs = 0;

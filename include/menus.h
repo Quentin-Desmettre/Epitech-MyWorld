@@ -359,6 +359,7 @@ const sfTexture *draw_game(void *game);
 void game_events(window_t *win, sfEvent ev);
 void minimap_clicks(game_t *g);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
+void destroy_game_struct(game_t *game);
 
 void save_map(game_t *game, const char *filename, unsigned int size);
 unsigned int read_map(game_t *game, const char *filename);

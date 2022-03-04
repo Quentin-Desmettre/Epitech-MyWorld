@@ -12,7 +12,9 @@ void destroy_win(win_t *win)
     sfRenderTexture_destroy(win->r_tex);
     sfConvexShape_destroy(win->convex);
     sfCircleShape_destroy(win->circle);
+    sfVertexArray_destroy(win->array);
     free(win->params);
+    free(win->tmp);
     free(win);
 }
 

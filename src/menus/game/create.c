@@ -7,6 +7,26 @@
 
 #include "menus.h"
 
+void destroy_game_struct(game_t *game)
+{
+    sfRenderTexture_destroy(game->rtex);
+    game->world->destroy(game->world);
+    game->win->destroy(game->win);
+    sfRenderTexture_destroy(game->minimap->rtex);
+    sfVertexArray_destroy(game->minimap->array);
+    free(game->minimap->tmp);
+    sfCircleShape_destroy(game->minimap->circle);
+    sfClock_destroy(game->minimap->time);
+    for (int i = 0; i < 10; i++)
+        destroy_button(game->gb->buttons[i]);
+    sfRenderTexture_destroy(game->gb->rtex);
+    sfClock_destroy(game->gb->tip_clock);
+    sfRectangleShape_destroy(game->gb->border);
+    sfRectangleShape_destroy(game->gb->tooltip_box);
+    sfText_destroy(game->gb->tooltip);
+    free(game);
+}
+
 void create_other(game_t *g, unsigned size, sfVector2f win_size)
 {
     g->win->map_size = size;

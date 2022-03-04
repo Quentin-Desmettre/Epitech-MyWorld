@@ -8,6 +8,19 @@
 #include "menus.h"
 #include "list.h"
 
+void destroy_map_select(map_select_t *map)
+{
+    for (int i = 0; i < 3; i++)
+        destroy_button(map->buttons[i]);
+    sfSprite_destroy(map->background);
+    sfRenderTexture_destroy(map->rtex);
+    for (; map->maps;)
+        remove_node(map->maps, 0, 0);
+    sfRectangleShape_destroy(map->box);
+    sfSprite_destroy(map->hider);
+    free(map);
+}
+
 void scale_entry(map_entry_t *entry, sfVector2f size)
 {
     sfFloatRect sp_bnds;

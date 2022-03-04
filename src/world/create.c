@@ -18,10 +18,16 @@ void free_mesh(void *value)
 
 void destroy_world(world_t *world)
 {
+    free(world->sortBuffer);
+    free(world->sortBuffer2);
     free(world->matrix);
     sfClock_destroy(world->clock);
+    free(world->a_vertxs);
+    free(world->projected);
+    free(world->a_triangles);
     free(world->light_start);
     free(world->light_source);
+    sfConvexShape_destroy(world->back);
     free(world);
 }
 

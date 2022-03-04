@@ -15,6 +15,8 @@ void win_destroy(window_t *win)
     destroy_settings(win->menus[2]);
     sfClock_destroy(win->lum_clock);
     destroy_mc(win->menus[3]);
+    destroy_game_struct(win->menus[EDIT_MAP]);
+    destroy_map_select(win->menus[MAP_SELECT]);
     free(win);
 }
 
