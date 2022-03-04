@@ -82,7 +82,8 @@ SRC = \
 	./src/menus/settings/scale_settings.c   \
 	./src/menus/settings/set_evt_manager.c	\
 	./src/save.c							\
-	./src/mouse_move/mouse_move.c
+	./src/mouse_move/mouse_move.c			\
+	./src/player/calc.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -13,6 +13,8 @@ void destroy_minimap(minimap_t *m)
     sfClock_destroy(m->time);
     sfRenderTexture_destroy(m->rtex);
     sfCircleShape_destroy(m->circle);
+    sfSprite_destroy(m->vision);
+    sfTexture_destroy(m->vision_tex);
     sfVertexArray_destroy(m->array);
     free(m);
 }
@@ -30,7 +32,10 @@ void init_functions(minimap_t *m)
 minimap_t *create_minimap(sfVector2f size, int map_size)
 {
     minimap_t *m = malloc(sizeof(minimap_t));
-
+    m->vision_tex = sfTexture_createFromFile("./vision.png", 0);
+    m->vision = sfSprite_create();
+    sfSprite_setTexture(m->vision, m->vision_tex, 0);
+    sfSprite_setOrigin(m->vision, (sfVector2f){64, 128});
     m->rtex = sfRenderTexture_create(size.x, size.y, 0);
     m->array = sfVertexArray_create();
     sfVertexArray_resize(m->array, map_size);
