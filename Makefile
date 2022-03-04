@@ -127,8 +127,8 @@ push_fclean: fclean
 re:	fclean all
 
 valgrind: all
-	valgrind --track-origins=yes --leak-check=full --show-leak-kinds=definite \
-	./$(NAME)
+	valgrind --track-origins=yes --leak-check=full \
+	--show-leak-kinds=definite,indirect ./$(NAME)
 
 tests_run: exec_lib
 	gcc -o unit_tests $(SRC) tests/*.c -Llib/ -lmy --coverage -lcriterion

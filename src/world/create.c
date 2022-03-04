@@ -22,6 +22,7 @@ void destroy_world(world_t *world)
     free(world->sortBuffer2);
     free(world->matrix);
     sfClock_destroy(world->clock);
+    free(world->a_vertxs[0]);
     free(world->a_vertxs);
     free(world->projected);
     free(world->a_triangles);

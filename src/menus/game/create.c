@@ -17,6 +17,7 @@ void destroy_game_struct(game_t *game)
     free(game->minimap->tmp);
     sfCircleShape_destroy(game->minimap->circle);
     sfClock_destroy(game->minimap->time);
+    free(game->minimap);
     for (int i = 0; i < 10; i++)
         destroy_button(game->gb->buttons[i]);
     sfRenderTexture_destroy(game->gb->rtex);
@@ -24,6 +25,7 @@ void destroy_game_struct(game_t *game)
     sfRectangleShape_destroy(game->gb->border);
     sfRectangleShape_destroy(game->gb->tooltip_box);
     sfText_destroy(game->gb->tooltip);
+    free(game->gb);
     free(game);
 }
 

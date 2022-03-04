@@ -15,7 +15,7 @@ void destroy_map_select(map_select_t *map)
     sfSprite_destroy(map->background);
     sfRenderTexture_destroy(map->rtex);
     for (; map->maps;)
-        remove_node(map->maps, 0, 0);
+        remove_node(&map->maps, 0, 0);
     sfRectangleShape_destroy(map->box);
     sfSprite_destroy(map->hider);
     free(map);
