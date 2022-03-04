@@ -30,7 +30,7 @@ void get_player_dir(world_t *world)
 
     world->p_dir[0] = 0;
     world->p_dir[1] = 0;
-    world->p_dir[2] = 1;
+    world->p_dir[2] = -1;
     mat4x4_multiplyvector3(mat_inv, world->p_dir, tmp);
     world->p_dir[0] = tmp[0] - world->p_pos[0];
     world->p_dir[1] = tmp[1] - world->p_pos[1];
