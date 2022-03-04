@@ -12,8 +12,8 @@
 
 char *ftoa(float n, int afterpoint)
 {
-    int ipart = (int)n;
-    float fpart = n - (float)ipart;
+    int ipart = ABS((int)n);
+    float fpart = ABS(n - (float)ipart);
     char *ip = long_to_str(ipart);
     char *fp = long_to_str(fpart * pow(10, afterpoint));
     char *res;
@@ -71,5 +71,6 @@ void draw_fps(win_t *w)
         sfText_setString(t, fps_str);
         sfClock_restart(c);
     }
+    free(fps_str);
     sfRenderTexture_drawText(w->r_tex, t, NULL);
 }
