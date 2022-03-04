@@ -11,14 +11,16 @@
 void save_map(game_t *game, const char *filename, unsigned int size)
 {
     world_t *world = game->world;
-    int fd = 0;
     unsigned long s = size * size;
-
-    fd = open(str_concat(2, "./map/", filename), O_WRONLY | O_CREAT | O_TRUNC,
+    char *path = str_concat(2, "./map/", filename);
+    int fd = open(path, O_WRONLY | O_CREAT | O_TRUNC,
     ALL_FLAGS);
+
     write(fd, &size, sizeof(unsigned int));
     for (unsigned long i = 0; i < s; i++)
         write(fd, &(world->a_vertxs[i]->pos[1]), sizeof(float));
+    close(fd);
+    free(path);
 }
 
 long read_all_file(int fd)
@@ -66,7 +68,8 @@ unsigned int read_map(game_t *game, const char *filename)
 {
     unsigned int size;
     world_t *world = game->world;
-    int fd = open(str_concat(2, "./map/", filename), O_RDONLY);
+    char *path = str_concat(2, "./map/", filename);
+    int fd = open(path, O_RDONLY);
     unsigned long s;
 
     read(fd, &size, sizeof(unsigned int));
@@ -76,5 +79,6 @@ unsigned int read_map(game_t *game, const char *filename)
     for (unsigned long i = 0; i < s; i++)
         read(fd, &(world->a_vertxs[i]->pos[1]), sizeof(float));
     close(fd);
+    free(path);
     return size;
 }
