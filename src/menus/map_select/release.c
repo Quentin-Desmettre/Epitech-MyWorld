@@ -9,6 +9,8 @@
 
 void remove_level(map_select_t *m, int level)
 {
+    if (level == 3)
+        m->background = m->background;
 }
 
 map_entry_t *entry_at_list(list_t *l, int index)

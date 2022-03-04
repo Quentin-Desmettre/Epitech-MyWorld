@@ -52,7 +52,6 @@ void release_evt(game_t *ga, sfEvent ev, sfVector2f pos)
 void gb_events(game_t *ga, sfEvent ev, sfVector2f pos)
 {
     game_buttons_t *g = ga->gb;
-    int tmp;
 
     if (ev.type == sfEvtMouseButtonPressed)
         press_evt(g, ev, pos);

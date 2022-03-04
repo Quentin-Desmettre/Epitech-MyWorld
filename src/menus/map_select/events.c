@@ -22,7 +22,6 @@ int entry_at(map_select_t *m, sfVector2f m_pos)
 {
     list_t *start = m->maps;
     sfVector2f pos = {m->size.x * 0.2, m->size.y * 0.2 - m->x_start};
-    sfSprite *s;
     sfFloatRect rect;
     int i = 0;
 

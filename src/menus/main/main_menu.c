@@ -6,6 +6,7 @@
 */
 
 #include "menus.h"
+#include "main_menu.h"
 
 void main_menu_release(main_menu_t *m, sfEvent ev, window_t *win)
 {

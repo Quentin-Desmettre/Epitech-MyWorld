@@ -33,7 +33,7 @@ void start_world(game_t *g)
     sfVector2f win_size = g->size;
 
     g->world = create_world();
-    srand((unsigned)(g->world));
+    srand((unsigned)(unsigned long)(g->world));
     world = g->world;
     create_map(world, g->dimension);
     set_light_source(world, g->dimension / 2.0, 1, 1000);
@@ -51,7 +51,6 @@ void start_world(game_t *g)
 game_t *create_game(unsigned size, sfVector2f win_size)
 {
     game_t *g = malloc(sizeof(game_t));
-    world_t *world;
 
     create_other(g, size, win_size);
     size++;

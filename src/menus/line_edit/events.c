@@ -7,6 +7,7 @@
 
 #include "menus.h"
 #include "my.h"
+#include "line_edit.h"
 
 char *switch_ev(sfEvent ev, char const *base)
 {

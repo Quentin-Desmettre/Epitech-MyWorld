@@ -1,0 +1,69 @@
+src/menus/map_select/release.c: In function ‘remove_level’:
+src/menus/map_select/release.c:10:33: warning: unused parameter ‘m’ [-Wunused-parameter]
+   10 | void remove_level(map_select_t *m, int level)
+      |                   ~~~~~~~~~~~~~~^
+src/menus/map_select/release.c:10:40: warning: unused parameter ‘level’ [-Wunused-parameter]
+   10 | void remove_level(map_select_t *m, int level)
+      |                                    ~~~~^~~~~
+src/menus/map_select/release.c: In function ‘manage_release’:
+src/menus/map_select/release.c:58:22: warning: implicit declaration of function ‘entry_at’ [-Wimplicit-function-declaration]
+   58 |         m->primary = entry_at(m, pos);
+      |                      ^~~~~~~~
+src/mini_map/draw.c: In function ‘where_minimap’:
+src/mini_map/draw.c:51:52: warning: excess elements in struct initializer
+   51 |     {(xx - map->s_br) * nb, (yy - map->s_br) * nb, map});
+      |                                                    ^~~
+src/mini_map/draw.c:51:52: note: (near initialization for ‘(anonymous)’)
+src/menus/game/create.c: In function ‘start_world’:
+src/menus/game/create.c:36:11: warning: cast from pointer to integer of different size [-Wpointer-to-int-cast]
+   36 |     srand((unsigned)(g->world));
+      |           ^
+src/menus/game/create.c: In function ‘create_game’:
+src/menus/game/create.c:54:14: warning: unused variable ‘world’ [-Wunused-variable]
+   54 |     world_t *world;
+      |              ^~~~~
+src/menus/global_win/main.c: In function ‘win_destroy’:
+src/menus/global_win/main.c:19:5: warning: implicit declaration of function ‘destroy_map_select’; did you mean ‘create_map_select’? [-Wimplicit-function-declaration]
+   19 |     destroy_map_select(win->menus[MAP_SELECT]);
+      |     ^~~~~~~~~~~~~~~~~~
+      |     create_map_select
+In file included from src/menus/line_edit/events.c:10:
+./include/line_edit.h:6:55: warning: excess elements in array initializer
+    6 |     "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+      |                                                       ^~~
+./include/line_edit.h:6:55: note: (near initialization for ‘codes’)
+src/menus/map_select/create.c: In function ‘create_map_select’:
+src/menus/map_select/create.c:86:5: warning: implicit declaration of function ‘init_entries’ [-Wimplicit-function-declaration]
+   86 |     init_entries(m, size);
+      |     ^~~~~~~~~~~~
+src/menus/settings/sound_evt.c: In function ‘sfx_minus’:
+src/menus/settings/sound_evt.c:29:42: warning: unused parameter ‘win’ [-Wunused-parameter]
+   29 | void sfx_minus(settings_t *se, window_t *win)
+      |                                ~~~~~~~~~~^~~
+src/menus/settings/sound_evt.c: In function ‘sfx_plus’:
+src/menus/settings/sound_evt.c:37:41: warning: unused parameter ‘win’ [-Wunused-parameter]
+   37 | void sfx_plus(settings_t *se, window_t *win)
+      |                               ~~~~~~~~~~^~~
+src/menus/settings/sound_evt.c: In function ‘music_minus’:
+src/menus/settings/sound_evt.c:45:44: warning: unused parameter ‘win’ [-Wunused-parameter]
+   45 | void music_minus(settings_t *se, window_t *win)
+      |                                  ~~~~~~~~~~^~~
+src/menus/settings/sound_evt.c: In function ‘music_plus’:
+src/menus/settings/sound_evt.c:53:43: warning: unused parameter ‘win’ [-Wunused-parameter]
+   53 | void music_plus(settings_t *se, window_t *win)
+      |                                 ~~~~~~~~~~^~~
+src/save.c: In function ‘is_file_valid’:
+src/save.c:63:17: warning: comparison of integer expressions of different signedness: ‘long int’ and ‘long unsigned int’ [-Wsign-compare]
+   63 |     tmp = (size == (map_size * map_size * sizeof(float)));
+      |                 ^~
+src/save.c:51:10: warning: unused variable ‘buf’ [-Wunused-variable]
+   51 |     char buf[30000];
+      |          ^~~
+src/mouse_move/mouse_move.c: In function ‘world_clicks_next’:
+src/mouse_move/mouse_move.c:11:47: warning: unused parameter ‘ev’ [-Wunused-parameter]
+   11 | void world_clicks_next(window_t *win, sfEvent ev)
+      |                                       ~~~~~~~~^~
+src/mouse_move/mouse_move.c: In function ‘world_clicks’:
+src/mouse_move/mouse_move.c:37:12: warning: type defaults to ‘int’ in declaration of ‘is_click’ [-Wimplicit-int]
+   37 |     static is_click = 0;
+      |            ^~~~~~~~

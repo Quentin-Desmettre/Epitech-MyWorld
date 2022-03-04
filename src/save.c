@@ -47,8 +47,8 @@ bool is_file_valid(char const *file)
 {
     int fd = open(file, O_RDONLY);
     long size = 0;
+    unsigned long usize;
     unsigned map_size;
-    char buf[30000];
     int tmp;
 
     if (fd < 0)
@@ -60,7 +60,8 @@ bool is_file_valid(char const *file)
     size = read_all_file(fd);
     if (size < 0)
         return false;
-    tmp = (size == (map_size * map_size * sizeof(float)));
+    usize = ABS(size);
+    tmp = (usize == (map_size * map_size * sizeof(float)));
     return tmp;
 }
 

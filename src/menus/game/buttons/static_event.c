@@ -6,6 +6,7 @@
 */
 
 #include "menus.h"
+#include "tooltips.h"
 
 int get_button(game_buttons_t *gb)
 {

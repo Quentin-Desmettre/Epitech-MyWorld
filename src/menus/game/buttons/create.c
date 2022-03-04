@@ -62,7 +62,6 @@ game_buttons_t *create_buttons(sfVector2f size)
     game_buttons_t *g = malloc(sizeof(game_buttons_t));
     sfVector2f pos;
     sfVector2f n_size;
-    float size_factor;
 
     g->rtex = sfRenderTexture_create(size.x, size.y, 0);
     for (int i = 0; i < 10; i++) {

@@ -48,7 +48,7 @@ void where_minimap(world_t *world, minimap_t *map, long long size)
     xx = world->a_vertxs[x * (size + 1) + y]->pos[0] / 1.5;
     yy = world->a_vertxs[x * (size + 1) + y]->pos[2] / 1.5;
     sfCircleShape_setPosition(map->circle, (sfVector2f)
-    {(xx - map->s_br) * nb, (yy - map->s_br) * nb, map});
+    {(xx - map->s_br) * nb, (yy - map->s_br) * nb});
     sfRenderTexture_drawCircleShape(map->rtex, map->circle, 0);
 }
 

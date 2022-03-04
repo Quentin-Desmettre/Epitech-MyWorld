@@ -8,7 +8,7 @@
 #include "world.h"
 #include "menus.h"
 
-void world_clicks_next(window_t *win, sfEvent ev)
+void world_clicks_next(window_t *win)
 {
     game_t *g = win->menus[EDIT_MAP];
     mat4x4 *tmp;
@@ -34,7 +34,7 @@ void world_clicks_next(window_t *win, sfEvent ev)
 
 void world_clicks(window_t *win, sfEvent ev)
 {
-    static is_click = 0;
+    static int is_click = 0;
     if (ev.type == sfEvtMouseButtonPressed) {
         win->tmp_pos = sfMouse_getPositionRenderWindow(win->win);
         is_click = 1;
@@ -42,5 +42,5 @@ void world_clicks(window_t *win, sfEvent ev)
     if (ev.type == sfEvtMouseButtonReleased)
         is_click = 0;
     if (is_click == 1 && ev.type == sfEvtMouseMoved)
-        world_clicks_next(win, ev);
+        world_clicks_next(win);
 }

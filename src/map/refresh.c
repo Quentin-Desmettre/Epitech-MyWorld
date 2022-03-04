@@ -33,9 +33,9 @@ void refresh_map(game_t *game)
     my_memcpy(par, game->win->params, sizeof(params_t));
     my_memcpy(mat_world, game->world->matrix, sizeof(mat4x4));
     reload(game);
-    modify_data(&game->world->matrix, mat_world);
-    modify_data(&game->win->params, par);
-    modify_data(&game->world->light_source, light_source);
-    modify_data(&game->world->light_start, light_start);
+    modify_data((void **)&game->world->matrix, mat_world);
+    modify_data((void **)&game->win->params, par);
+    modify_data((void **)&game->world->light_source, light_source);
+    modify_data((void **)&game->world->light_start, light_start);
     smooth_shadow(game->world, game->win);
 }
