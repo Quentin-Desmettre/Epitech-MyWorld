@@ -9,29 +9,16 @@
 
 void destroy_game_struct(game_t *game)
 {
+    destroy_gbuttons(game->gb);
+    destroy_minimap(game->minimap);
     sfRenderTexture_destroy(game->rtex);
     game->world->destroy(game->world);
     game->win->destroy(game->win);
-    sfRenderTexture_destroy(game->minimap->rtex);
-    sfVertexArray_destroy(game->minimap->array);
-    free(game->minimap->tmp);
-    sfCircleShape_destroy(game->minimap->circle);
-    sfClock_destroy(game->minimap->time);
-    free(game->minimap);
-    for (int i = 0; i < 10; i++)
-        destroy_button(game->gb->buttons[i]);
-    sfRenderTexture_destroy(game->gb->rtex);
-    sfClock_destroy(game->gb->tip_clock);
-    sfRectangleShape_destroy(game->gb->border);
-    sfRectangleShape_destroy(game->gb->tooltip_box);
-    sfText_destroy(game->gb->tooltip);
-    free(game->gb);
     free(game);
 }
 
 void create_other(game_t *g, unsigned size, sfVector2f win_size)
 {
-    g->win->map_size = size;
     g->size = win_size;
     g->minimap = create_minimap((sfVector2f)
     {win_size.y * PART_OF_MINIMAP, win_size.y * PART_OF_MINIMAP}, size);
@@ -40,23 +27,35 @@ void create_other(game_t *g, unsigned size, sfVector2f win_size)
     {win_size.y * PART_OF_MINIMAP, win_size.y * (1 - PART_OF_MINIMAP)});
 }
 
-game_t *create_game(unsigned size, sfVector2f win_size)
+void start_world(game_t *g)
 {
-    game_t *g = malloc(sizeof(game_t));
     world_t *world;
+    sfVector2f win_size = g->size;
 
-    size++;
-    g->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     g->world = create_world();
+    srand((unsigned)(g->world));
     world = g->world;
-    create_map(world, size);
-    set_light_source(world, size / 2.0, 1, 1000);
+    create_map(world, g->dimension);
+    set_light_source(world, g->dimension / 2.0, 1, 1000);
     convert_to_array(world);
     world->sortBuffer = malloc(sizeof(vecsort_t) * world->nb_trig);
     world->sortBuffer2 = malloc(sizeof(vecsort_t) * world->nb_trig);
     g->win = win_create(world->nb_trig,
     (sfVector2f){win_size.x - win_size.y * PART_OF_MINIMAP, win_size.y});
+    g->win->map_size = g->dimension;
+    get_gradient(1);
+    smooth_shadow(world, g->win);
     free_lists(world);
+}
+
+game_t *create_game(unsigned size, sfVector2f win_size)
+{
+    game_t *g = malloc(sizeof(game_t));
+    world_t *world;
+
     create_other(g, size, win_size);
+    size++;
+    g->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
+    start_world(g);
     return g;
 }

@@ -7,6 +7,16 @@
 
 #include "world.h"
 
+void destroy_minimap(minimap_t *m)
+{
+    free(m->tmp);
+    sfClock_destroy(m->time);
+    sfRenderTexture_destroy(m->rtex);
+    sfCircleShape_destroy(m->circle);
+    sfVertexArray_destroy(m->array);
+    free(m);
+}
+
 void init_functions(minimap_t *m)
 {
     void (*actions[NB_ACTIONS])(world_t *, minimap_t *) = {

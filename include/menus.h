@@ -502,4 +502,10 @@ static const float select_pf[3][2] = {
 
 static const float select_sf[2] = {0.27, 0.1};
 
+void refresh_map(game_t *game);
+
+void start_world(game_t *g);
+void destroy_gbuttons(game_buttons_t *gb);
+void destroy_minimap(minimap_t *m);
+
 #endif

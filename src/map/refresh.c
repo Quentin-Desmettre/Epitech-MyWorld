@@ -6,29 +6,36 @@
 */
 
 #include "world.h"
+#include "menus.h"
 
-void refresh_map(world_t *world, win_t *win)
+void reload(game_t *game)
 {
-    free(world->a_triangles);
-    for (size_t i = 0; i < world->nb_vertxs; i++)
-        free(world->a_vertxs[i]);
-    free(world->a_vertxs);
-    free(world->projected);
-    world->nb_meshes = 0;
-    world->nb_vertxs = 0;
-    world->nb_trig = 0;
-    world->meshes = malloc(sizeof(list_t *));
-    *world->meshes = NULL;
-    world->vertxs = malloc(sizeof(list_t *));
-    *world->vertxs = NULL;
-    world->triangles = malloc(sizeof(list_t *));
-    *world->triangles = NULL;
-    srand((unsigned)(unsigned long)(&world->a_vertxs[0]));
-    get_gradient(1);
-    create_map(world, win->map_size);
-    set_light_source(world, world->light_source[0],
-    world->light_source[1], world->light_source[2]);
-    convert_to_array(world);
-    free_lists(world);
-    smooth_shadow(world, win);
+    game->world->destroy(game->world);
+    game->win->destroy(game->win);
+    start_world(game);
+}
+
+void modify_data(void **data, void *new)
+{
+    free(*data);
+    *data = new;
+}
+
+void refresh_map(game_t *game)
+{
+    mat4x4 *mat_world = mat4x4_create();
+    params_t *par = malloc(sizeof(params_t));
+    float *light_source = malloc(sizeof(float) * 3);
+    float *light_start = malloc(sizeof(float) * 3);
+
+    my_memcpy(light_source, game->world->light_source, sizeof(float) * 3);
+    my_memcpy(light_start, game->world->light_start, sizeof(float) * 3);
+    my_memcpy(par, game->win->params, sizeof(params_t));
+    my_memcpy(mat_world, game->world->matrix, sizeof(mat4x4));
+    reload(game);
+    modify_data(&game->world->matrix, mat_world);
+    modify_data(&game->win->params, par);
+    modify_data(&game->world->light_source, light_source);
+    modify_data(&game->world->light_start, light_start);
+    smooth_shadow(game->world, game->win);
 }

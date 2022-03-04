@@ -44,7 +44,7 @@ void move_cam(mat4x4 **mat_world)
         mat_mov = mat4x4_rx(-PI / 180);
     if (sfKeyboard_isKeyPressed(sfKeyK))
         mat_mov = mat4x4_rx(PI / 180);
-    if (mat_mov != NULL) {
+    if (mat_mov) {
         tmp = mat4x4_multiplymat4x4(*mat_world, mat_mov);
         mat4x4_destroy(mat_mov);
         mat4x4_destroy(*mat_world);

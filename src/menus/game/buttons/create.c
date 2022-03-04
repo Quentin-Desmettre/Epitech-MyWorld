@@ -7,6 +7,18 @@
 
 #include "menus.h"
 
+void destroy_gbuttons(game_buttons_t *gb)
+{
+    sfRectangleShape_destroy(gb->border);
+    sfRenderTexture_destroy(gb->rtex);
+    sfClock_destroy(gb->tip_clock);
+    sfRectangleShape_destroy(gb->tooltip_box);
+    sfText_destroy(gb->tooltip);
+    for (int i = 0; i < 10; i++)
+        destroy_button(gb->buttons[i]);
+    free(gb);
+}
+
 void draw_box(button_t *but, sfRenderTexture *rtex)
 {
     sfRectangleShape *shape = sfRectangleShape_create();

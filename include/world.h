@@ -126,7 +126,6 @@ void free_lists(world_t *world);
 void draw_fps(win_t *w);
 void update_color(world_t *world);
 float get_max_height(triangle_t trig);
-void refresh_map(world_t *world, win_t *win);
 float ***get_gradient(sfBool reset);
 void add_background(world_t *world);
 void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win);
