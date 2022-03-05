@@ -227,7 +227,7 @@ typedef struct {
     float x_start;
 } map_select_t;
 // int rects
-static const sfIntRect icon_rect = {0, 0, 1, 1};
+static const sfIntRect icon_rect = {0, 671, 648, 648};
 static const sfIntRect background_rect = {0, 0, 1, 1};
 static const sfIntRect but_rects[3] = {
     {0, 81, 315, 80},
@@ -333,6 +333,8 @@ int button_at(button_t **buttons, int nb_button, sfEvent release);
 void set_next_win_state(window_t *win, int next);
 void main_menu_release(main_menu_t *m, sfEvent ev, window_t *win);
 void main_menu_event(window_t *win, sfEvent ev);
+list_t *add_texture(sfTexture *tex);
+void clear_textures(void);
 sfVector2f get_sprite_size(sfSprite *s);
 void center_sprite(sfSprite *s);
 void scale_main_buttons(button_t *buttons[4], sfVector2f winSize);

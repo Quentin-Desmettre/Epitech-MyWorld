@@ -28,13 +28,12 @@ void draw_minimap_to_game(game_t *g)
 {
     sfSprite *s;
 
+    sfRenderTexture_clear(g->minimap->rtex, sfBlack);
     draw_minimap(g->minimap, g->world, g->dimension - 1);
+    sfRenderTexture_display(g->minimap->rtex);
     s = init_sprite_from_texture(sfRenderTexture_getTexture(g->minimap->rtex));
-    sfSprite_scale(s, (sfVector2f){1, -1});
-    sfSprite_setPosition(s, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});
     sfRenderTexture_drawSprite(g->rtex, s, NULL);
     sfSprite_destroy(s);
-    sfRenderTexture_clear(g->minimap->rtex, sfBlack);
 }
 
 void draw_gb_to_rtex(game_t *g)

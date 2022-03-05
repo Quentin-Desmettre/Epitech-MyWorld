@@ -40,9 +40,10 @@ void where_minimap(world_t *world, minimap_t *map, long long size)
     float nb = map->size.y / (float)(size);
     int x = (int)(round(map->mouse_pos.x / nb));
     int y = (int)(round(map->mouse_pos.y / nb));
-    sfCircleShape_setRadius(map->circle, map->s_br * nb);
     float xx;
     float yy;
+
+    sfCircleShape_setRadius(map->circle, map->s_br * nb);
     if (x < 0 || y < 0 || x > size || y > size)
         return;
     xx = world->a_vertxs[x * (size + 1) + y]->pos[0] / 1.5;

@@ -7,6 +7,19 @@
 
 #include "menus.h"
 
+sfSprite *init_entry_icon(char const *path, sfVector2f icon_size)
+{
+    sfTexture *t = sfTexture_createFromFile(path, NULL);
+    sfSprite *s;
+
+    if (!t)
+        return init_sprite(global_texture(), icon_rect, icon_size);
+    add_texture(t);
+    s = init_sprite_from_texture(t);
+    set_sprite_size(s, icon_size);
+    return s;
+}
+
 list_t *get_all_levels_name(void)
 {
     DIR *dir = opendir("./map/");
@@ -22,17 +35,19 @@ list_t *get_all_levels_name(void)
             append_node(&levels, my_strdup(t->d_name));
         free(tmp);
     }
+    closedir(dir);
     return levels;
 }
 
 map_entry_t *create_entry(char const *file, sfVector2f size)
 {
     map_entry_t *e = malloc(sizeof(map_entry_t));
+    char *entry_png = str_concat(3, "./map/.", file, ".png");
 
     e->rtex = sfRenderTexture_create(size.x, size.y, false);
-    e->icon = init_sprite(global_texture(), icon_rect,
-    (sfVector2f){size.y, size.y});
+    e->icon = init_entry_icon(entry_png, (sfVector2f){size.y, size.y});
     e->level_name = init_text(file, size.y * 0.9);
+    free(entry_png);
     scale_entry(e, size);
     return e;
 }

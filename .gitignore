@@ -3,7 +3,7 @@
 
 my_world
 
-map/
+map/*
 
 *.o
 

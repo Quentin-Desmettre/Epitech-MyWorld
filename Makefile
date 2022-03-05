@@ -7,6 +7,7 @@
 
 SRC = \
 	./src/my_memset.c 						\
+	./src/menus/global_win/textures.c 		\
 	./src/world/background.c				\
 	./src/map/refresh.c						\
 	./src/menus/game/buttons/create.c		\

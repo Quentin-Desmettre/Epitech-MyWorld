@@ -8,6 +8,24 @@
 #include "world.h"
 #include "menus.h"
 
+void save_minimap_to_png(minimap_t *m, const char *filename,
+world_t *world, unsigned size)
+{
+    sfImage *i;
+    sfTexture *t;
+    char *dest = str_concat(3, "./map/.", filename, ".png");
+
+    sfRenderTexture_clear(m->rtex, sfBlack);
+    draw_minimap(m, world, size - 1);
+    sfRenderTexture_display(m->rtex);
+    t = sfTexture_copy(sfRenderTexture_getTexture(m->rtex));
+    i = sfTexture_copyToImage(t);
+    sfImage_saveToFile(i, dest);
+    sfImage_destroy(i);
+    sfTexture_destroy(t);
+    free(dest);
+}
+
 void save_map(game_t *game, const char *filename, unsigned int size)
 {
     world_t *world = game->world;
@@ -19,6 +37,7 @@ void save_map(game_t *game, const char *filename, unsigned int size)
     write(fd, &size, sizeof(unsigned int));
     for (unsigned long i = 0; i < s; i++)
         write(fd, &(world->a_vertxs[i]->pos[1]), sizeof(float));
+    save_minimap_to_png(game->minimap, filename, world, size);
     close(fd);
     free(path);
 }

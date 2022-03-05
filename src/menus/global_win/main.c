@@ -67,14 +67,18 @@ void poll_events(window_t *win)
 
 int main(void)
 {
-    window_t *win = window_create();
+    window_t *win;
 
+    if (!global_texture() || !global_font())
+        return 84;
+    win = window_create();
     srand((unsigned)(unsigned long)(&win));
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         draw(win);
     }
     win_destroy(win);
+    clear_textures();
     sfFont_destroy(global_font());
     sfTexture_destroy(global_texture());
     return 0;
