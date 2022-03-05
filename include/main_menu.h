@@ -2,8 +2,8 @@
     #define MAIN_MENU_H
 
 static const char *button_texts[4] = {
-    "LAunch mAp",
-    "CreAte mAp",
+    "Launch map",
+    "Create map",
     "Settings",
     "Quit"
 };

@@ -8,6 +8,8 @@
 #include "menus.h"
 #include "list.h"
 
+static const char *ms_but_txt[3] = {"Cancel", "Delete", "Play"};
+
 void destroy_map_select(map_select_t *map)
 {
     for (int i = 0; i < 3; i++)
@@ -61,8 +63,9 @@ void scale_select(map_select_t *m, sfVector2f size)
         m->buttons[i]->size =
         (sfVector2f){size.x * select_sf[0], size.y * select_sf[1]};
         set_sprite_size(m->buttons[i]->sprite, m->buttons[i]->size);
+        sfText_setCharacterSize(m->buttons[i]->text, size.y * 0.07);
     }
-    set_sprite_size(m->hider, (sfVector2f){size.x, size.y * 0.2});
+    set_sprite_size(m->hider, (sfVector2f){size.x * 0.1, size.x * 0.1});
     sfSprite_setPosition(m->hider, (sfVector2f){0, size.y * 0.8});
     scale_entries(m, size);
 }
@@ -74,15 +77,15 @@ map_select_t *create_map_select(sfVector2f size)
     m->maps = NULL;
     for (int i = 0; i < 3; i++) {
         m->buttons[i] = init_button(global_texture(), but_rects[i],
-        (sfVector2f){0, 0},
-        (sfVector2f){size.x * select_sf[0], size.y * select_sf[1]}, "", NULL);
+        (sfVector2f){0, 0}, (sfVector2f){size.x * select_sf[0],
+        size.y * select_sf[1]}, ms_but_txt[i], NULL);
         center_sprite(m->buttons[i]->sprite);
     }
     m->size = size;
     m->background = init_sprite(global_texture(), background_rect, size);
     m->box = sfRectangleShape_create();
     m->hider = init_sprite(global_texture(),
-    hider_rect, (sfVector2f){size.x, size.y * 0.3});
+    hider_rect, (sfVector2f){size.x * 0.1, size.x * 0.1});
     init_entries(m, size);
     scale_select(m, size);
     m->primary = -1;

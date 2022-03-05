@@ -230,39 +230,47 @@ typedef struct {
 static const sfIntRect icon_rect = {0, 0, 1, 1};
 static const sfIntRect background_rect = {0, 0, 1, 1};
 static const sfIntRect but_rects[3] = {
-    {0, 0, 1, 1}, {0, 0, 1, 1}, {0, 0, 1, 1}
+    {0, 81, 315, 80},
+    {0, 81, 315, 80},
+    {0, 81, 315, 80}
 };
-static const sfIntRect hider_rect = {1, 0, 1, 1};
-static const sfIntRect button_rect = {
-    1, 1, 1, 1
+static const sfIntRect hider_rect = {82, 241, 128, 128};
+static const sfIntRect button_rects[4] = {
+    {0, 1, 630, 80},
+    {0, 81, 315, 80}
 };
 static const sfIntRect main_background_rects[BACKGROUND_FRAMES] = {
     {0, 0, 1, 1}
 };
-static const sfIntRect settings_rects[10] = {
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {0, 0, 1, 1}
+static const sfIntRect settings_rects[11] = {
+    {160, 161, 80, 80},
+    {240, 161, 80, 80},
+    {320, 81, 709, 118},
+    {320, 199, 709, 118},
+    {320, 317, 709, 118},
+    {320, 435, 709, 118},
+    {320, 553, 709, 118},
+    {1028, 81, 709, 118},
+    {1028, 199, 709, 118},
+    {1028, 317, 709, 118},
+    {80, 161, 80, 80}
 };
+
+static const sfIntRect line_edit_rect = {1029, 435, 808, 88};
 static const sfIntRect mc_rects[] = {
-    {0, 0, 1, 1},
-    {0, 0, 1, 1},
-    {1, 0, 1, 1},
-    {1, 0, 1, 1}
+    {160, 161, 80, 80},
+    {240, 161, 80, 80},
+    {0, 81, 315, 80},
+    {0, 81, 315, 80}
 };
-static const sfIntRect cursor_rect = {
-    1, 0, 1, 1
+static const sfIntRect slider_rects[3] = {
+    {630, 0, 32, 80},
+    {662, 0, 382 / 2, 80},
+    {662 + 382 / 2, 0, 382 / 2, 80}
 };
 static const sfIntRect check_rect[2] = {
-    {0, 0, 1, 1},
-    {0, 0, 1, 1}
+    {0, 241, 82, 80},
+    {0, 161, 80, 80}
 };
 static const sfIntRect game_button_rects[] = {
     {0, 0, 1, 1}
@@ -289,7 +297,7 @@ static const float gb_size[10][2] = {
     {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}
 };
 static const float mc_size_fac[4][2] = {
-    {0.06, 0.06}, {0.06, 0.1}, {0.18, 0.1}, {0.18, 0.1}
+    {0.06, 0.06}, {0.06, 0.1}, {0.23, 0.1}, {0.23, 0.1}
 };
 
 // pos factors
@@ -305,10 +313,10 @@ static const float gb_pos[10][2] = {
     {0.1425, 0.8}, {0.38, 0.8}, {0.61, 0.8}, {0.85, 0.8}
 };
 static const float mc_pos_fac[4][2] = {
-    {0.15, 0.69}, {0.805, 0.69}, {0.64, 0.9}, {0.87, 0.9}
+    {0.15, 0.69}, {0.805, 0.69}, {0.6, 0.9}, {0.85, 0.9}
 };
 
-void factor_color(sfSprite *s, float factor);
+void factor_color(sfSprite *s, float factor, sfText *text);
 void hover_button(button_t *b, int is_on);
 void press_button(button_t *b, int is_press);
 sfFont *global_font(void);
@@ -385,7 +393,8 @@ line_edit_t *create_line_edit(sfVector2f size, char const *def);
 sfRectangleShape *rectangle_from_texture(sfTexture const *tex);
 map_create_t *create_map_create(sfVector2f win_size);
 void scale_mc(map_create_t *mc, sfVector2f win_size);
-const sfTexture *draw_mc(map_create_t *mc, sfVector2f ws);
+const sfTexture *draw_mc(map_create_t *mc, sfVector2f ws, map_select_t *ms);
+void draw_hider(sfRenderTexture *rtex, sfSprite *hider, sfVector2f size);
 void increase_size(void *w);
 void decrease_size(void *w);
 void launch_size(void *w);
@@ -398,7 +407,7 @@ void slider_event(slider_t *s, sfEvent ev);
 void update_positions(slider_t *s);
 void destroy_slider(slider_t *s);
 sfRectangleShape *create_rectangle(sfVector2f size,
-sfColor fill, sfTexture const *tex);
+sfColor fill, sfTexture const *tex, ...);
 char *str_concat(int nb_str, ...);
 void line_edit_event(line_edit_t *le, sfEvent ev);
 void mc_event(window_t *mc, sfEvent ev);

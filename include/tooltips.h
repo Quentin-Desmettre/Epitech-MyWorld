@@ -2,18 +2,19 @@
     #define TOOL_TIP_H
 
 static const char *tips[12] = {
-    " (1) Rise up AreA ",
-    " (2) Smooth towArds AverAge height ",
-    " (3) Add wAter ",
-    " (4) Lower AreA ",
-    " (5) Smooth towArds lowest point ",
-    " (CTRL+S) SAve mAp ",
-    " (P) PAuse time ",
-    " (RIGHT) +1 hour ",
-    " (LEFT) -1 hour ",
-    " Help ",
-    " Change brush type ",
-    " Quit "
+    "  [1] Rise up area ",
+    "  [2] Smooth towards average height ",
+    "  [3] Add water ",
+    "  [4] Lower area ",
+    "  [5] Smooth towards lowest point ",
+    "  [CTRL+S] Save map ",
+    "  [P] Pause time ",
+    "  [RIGHT] +1 hour ",
+    "  [LEFT] -1 hour ",
+    "  Help ",
+    "  Change brush type ",
+    "  [R] Restart generation"
+    "  Quit "
 };
 
 #endif // TOOL_TIP_H

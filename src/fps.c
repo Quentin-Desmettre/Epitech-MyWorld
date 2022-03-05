@@ -47,9 +47,9 @@ void init_graph(sfClock **c, sfText **t, win_t *w)
     if (!(*t)) {
         *c = sfClock_create();
         *t = sfText_create();
-        sfText_setFont(*t, sfFont_createFromFile("pusab.otf"));
+        sfText_setFont(*t, global_font());
     }
-    sfText_setCharacterSize(*t, size.x / 30.0);
+    sfText_setCharacterSize(*t, size.x / 27.0);
     sfText_setPosition(*t, (sfVector2f){size.x * 0.8, 0});
 }
 

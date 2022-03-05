@@ -41,7 +41,8 @@ line_edit_t *create_line_edit(sfVector2f size, char const *def)
 {
     line_edit_t *le = malloc(sizeof(line_edit_t));
 
-    le->background = create_rectangle(size, sfGrey, NULL);
+    le->background = create_rectangle(size, sfGrey,
+    global_texture(), line_edit_rect);
     le->rtex = sfRenderTexture_create(size.x, size.y, 0);
     le->text = init_text(def, size.y * 0.72);
     return le;

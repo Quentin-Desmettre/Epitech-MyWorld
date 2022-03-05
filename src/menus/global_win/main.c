@@ -23,7 +23,7 @@ void win_destroy(window_t *win)
 void draw(window_t *win)
 {
     const sfTexture* tex = (win->state == CREATE_MAP) ? draw_mc(win->menus[3],
-    (sfVector2f){win->mode.width, win->mode.height}) :
+    (sfVector2f){win->mode.width, win->mode.height}, win->menus[MAP_SELECT]) :
     win->draw[win->state](win->menus[win->state]);
     sfSprite *s = init_sprite_from_texture(tex);
 

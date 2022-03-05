@@ -63,7 +63,7 @@ main_menu_t *init_main_menu(sfTexture *t, sfVector2f winSize)
 
     m->text = sfRenderTexture_create(winSize.x, winSize.y, 0);
     for (int i = 0; i < 4; i++)
-        m->buttons[i] = init_button(t, button_rect,
+        m->buttons[i] = init_button(t, button_rects[i / 2],
         (sfVector2f){1, 1}, (sfVector2f){1, 1}, button_texts[i], NULL);
     scale_main_buttons(m->buttons, winSize);
     move_main_buttons(m->buttons, winSize);

@@ -50,6 +50,10 @@ void move_mc(map_create_t *mc, sfVector2f ws)
 void scale_mc(map_create_t *mc, sfVector2f win_size)
 {
     scale_map_create(mc, win_size);
+    for (int i = 2; i < 4; i++) {
+        sfText_setCharacterSize(mc->buttons[i]->text, win_size.y * 0.07);
+        center_text(mc->buttons[i]->text);
+    }
     move_mc(mc, win_size);
 }
 
@@ -67,22 +71,23 @@ void update_size_text(sfText *size, slider_t *slider)
 map_create_t *create_map_create(sfVector2f win_size)
 {
     map_create_t *mc = malloc(sizeof(map_create_t));
+    char *txts[4] = {"", "", "Cancel", "Create"};
     void (*ptrs[4])(void *) = {
         increase_size, decrease_size, mc_go_back, launch_size
     };
 
     mc->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     mc->name_prompt =
-    init_text("MAp nAme", win_size.y * MAIN_MENU_TXT_FACTOR);
+    init_text("Map name", win_size.y * MAIN_MENU_TXT_FACTOR);
     mc->name = create_line_edit(
-    (sfVector2f){win_size.x * 0.8, win_size.y * 0.2}, "my_mAp-0");
+    (sfVector2f){win_size.x * 0.8, win_size.y * 0.2}, "World_8");
     mc->size = init_text("64x64", win_size.y * MAIN_MENU_TXT_FACTOR);
     mc->size_slider = create_slider(
     (sfVector2f){win_size.x * 0.8, win_size.y * 0.2},
     (sfVector2f){16, 256}, 64, (sfVector2f){1, 1});
     for (int i = 0; i < 4; i++)
         mc->buttons[i] = init_button(global_texture(),
-        mc_rects[i], DEFAULT_2F, DEFAULT_2F, "", ptrs[i]);
+        mc_rects[i], DEFAULT_2F, DEFAULT_2F, txts[i], ptrs[i]);
     scale_mc(mc, win_size);
     return mc;
 }
