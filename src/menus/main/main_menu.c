@@ -45,12 +45,12 @@ void destroy_home(main_menu_t *menu)
     free(menu);
 }
 
-const sfTexture *draw_main_menu(void *m)
+const sfTexture *draw_main_menu(window_t *win)
 {
-    main_menu_t *menu = m;
+    main_menu_t *menu = win->menus[HOME];
     sfRenderTexture_clear(menu->text, sfBlack);
 
-    sfRenderTexture_drawSprite(menu->text, menu->background, NULL);
+    draw_spectator_to_rtex(win->spec, menu->text, 0, 1);
     for (int i = 0; i < 4; i++)
         draw_button_to_rtex(menu->buttons[i], menu->text);
     sfRenderTexture_display(menu->text);

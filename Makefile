@@ -6,6 +6,7 @@
 ##
 
 SRC = \
+	./src/menus/spectator.c 				\
 	./src/my_memset.c 						\
 	./src/menus/global_win/textures.c 		\
 	./src/world/background.c				\

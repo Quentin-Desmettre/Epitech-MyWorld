@@ -15,6 +15,7 @@ void win_destroy(window_t *win)
     destroy_settings(win->menus[2]);
     sfClock_destroy(win->lum_clock);
     destroy_mc(win->menus[3]);
+    destroy_spectator(win->spec);
     destroy_game_struct(win->menus[EDIT_MAP]);
     destroy_map_select(win->menus[MAP_SELECT]);
     free(win);
@@ -22,9 +23,7 @@ void win_destroy(window_t *win)
 
 void draw(window_t *win)
 {
-    const sfTexture* tex = (win->state == CREATE_MAP) ? draw_mc(win->menus[3],
-    (sfVector2f){win->mode.width, win->mode.height}, win->menus[MAP_SELECT]) :
-    win->draw[win->state](win->menus[win->state]);
+    const sfTexture* tex = win->draw[win->state](win);
     sfSprite *s = init_sprite_from_texture(tex);
 
     if (win->is_transition)

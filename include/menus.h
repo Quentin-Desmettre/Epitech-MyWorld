@@ -58,6 +58,13 @@
     #define IS_WORLD_CLICK (win->state == EDIT_MAP && \
     (mouse_pos(win_size, win) == WORLD || ev.type == sfEvtMouseButtonReleased))
 
+    #define SPECTATOR_SIZE 64
+    #define MIN(x, y) ((x) < (y) ? (x) : (y))
+
+    #define SPECTATOR_TIME 1000000 / 25.0
+
+    #define RESCALE_SPECTATOR(s, ns) sfRenderTexture_destroy(s->win->r_tex); \
+    s->win->r_tex = sfRenderTexture_create(ns.x, ns.y, 0);
 
 static const sfColor sfGrey = {128, 128, 128, 255};
 
@@ -66,6 +73,12 @@ typedef enum {WORLD, MINIMAP, BUTTONS} mouse_pos_t;
 // structures
 
 typedef struct dirent dirent_t;
+
+typedef struct {
+    world_t *world;
+    win_t *win;
+    sfClock *time;
+} spectator_t;
 
 typedef struct {
     sfSprite *box;
@@ -120,14 +133,8 @@ typedef struct win {
     bool is_transition;
 
     void *menus[6];
-    // void *map_select;
-    // void *settings;
-    // void *create_level;
-    // void *how_to_play;
-    // void *home;
-    // void *game;
 
-    const sfTexture* (*draw[6])(void *);
+    const sfTexture* (*draw[6])(struct win *);
     void (*event[6])(struct win *, sfEvent ev);
     void (*update[6])(void *);
 
@@ -139,6 +146,8 @@ typedef struct win {
 
     sfRenderWindow *win;
     sfVector2i tmp_pos;
+
+    spectator_t *spec;
 } window_t;
 
 typedef enum {
@@ -226,6 +235,7 @@ typedef struct {
     int secondary;
     float x_start;
 } map_select_t;
+
 // int rects
 static const sfIntRect icon_rect = {0, 671, 648, 648};
 static const sfIntRect background_rect = {0, 0, 1, 1};
@@ -341,7 +351,7 @@ void scale_main_buttons(button_t *buttons[4], sfVector2f winSize);
 void move_main_buttons(button_t *buttons[4], sfVector2f winSize);
 main_menu_t *init_main_menu(sfTexture *t, sfVector2f winSize);
 void draw_button_to_rtex(button_t *b, sfRenderTexture *rtex);
-const sfTexture *draw_main_menu(void *menu);
+const sfTexture *draw_main_menu(window_t *win);
 window_t *window_create(void);
 void destroy_home(main_menu_t *menu);
 void win_destroy(window_t *win);
@@ -380,7 +390,7 @@ void music_minus(settings_t *se, window_t *win);
 void music_plus(settings_t *se, window_t *win);
 void update_vol(float vol, char const *format, ...);
 void settings_ev(window_t *win, sfEvent ev);
-const sfTexture *draw_settings(void *se);
+const sfTexture *draw_settings(window_t *win);
 settings_t *init_settings(window_t *win);
 void check_sound_repeat(window_t *win, sfEvent *ev);
 void scale_main_menu(main_menu_t *m, window_t *win);
@@ -395,7 +405,7 @@ line_edit_t *create_line_edit(sfVector2f size, char const *def);
 sfRectangleShape *rectangle_from_texture(sfTexture const *tex);
 map_create_t *create_map_create(sfVector2f win_size);
 void scale_mc(map_create_t *mc, sfVector2f win_size);
-const sfTexture *draw_mc(map_create_t *mc, sfVector2f ws, map_select_t *ms);
+const sfTexture *draw_mc(window_t *win);
 void draw_hider(sfRenderTexture *rtex, sfSprite *hider, sfVector2f size);
 void increase_size(void *w);
 void decrease_size(void *w);
@@ -421,7 +431,7 @@ void release_mc(map_create_t *mc, int index, window_t *win);
 void destroy_check_box(check_box *c);
 void destroy_mc(map_create_t *mc);
 game_t *create_game(unsigned size, sfVector2f win_size);
-const sfTexture *draw_game(void *game);
+const sfTexture *draw_game(window_t *win);
 void game_events(window_t *win, sfEvent ev);
 void minimap_clicks(game_t *g);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
@@ -436,7 +446,7 @@ void check_tooltip(game_t *ga);
 void world_clicks(window_t *win, sfEvent ev);
 bool is_file_valid(char const *file);
 map_select_t *create_map_select(sfVector2f size);
-const sfTexture *draw_select(void *m);
+const sfTexture *draw_select(window_t *win);
 void scale_select(map_select_t *m, sfVector2f size);
 sfSprite *draw_entry(map_entry_t *m);
 void map_select_events(window_t *m, sfEvent ev);
@@ -449,5 +459,10 @@ void scale_entry(map_entry_t *entry, sfVector2f size);
 int entry_at(map_select_t *m, sfVector2f m_pos);
 void destroy_map_select(map_select_t *map);
 void init_entries(map_select_t *m, sfVector2f size);
+void center_cam(mat4x4 **mat_world);
+spectator_t *create_spectator(sfVector2f size);
+void draw_spectator_to_rtex(spectator_t *s,
+sfRenderTexture *rtex, sfBool dark, sfBool update);
+void destroy_spectator(spectator_t *s);
 
 #endif

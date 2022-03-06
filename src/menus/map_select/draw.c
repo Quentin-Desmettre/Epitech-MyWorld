@@ -65,19 +65,15 @@ void draw_hider(sfRenderTexture *rtex, sfSprite *hider, sfVector2f size)
     }
 }
 
-const sfTexture *draw_select(void *mm)
+const sfTexture *draw_select(window_t *win)
 {
-    map_select_t *m = mm;
+    map_select_t *m = win->menus[MAP_SELECT];
     sfColor c = m->primary < 0 ? SEMI_COLOR : sfWhite;
 
     sfRenderTexture_clear(m->rtex, sfBlack);
     if (m->maps)
         draw_entries(m);
     draw_hider(m->rtex, m->hider, m->size);
-    for (int i = 1; i < 3; i++) {
-        sfSprite_setColor(m->buttons[i]->sprite, c);
-        sfText_setFillColor(m->buttons[i]->text, c);
-    }
     for (int i = 0; i < 3; i++)
         draw_button_to_rtex(m->buttons[i], m->rtex);
     sfRenderTexture_display(m->rtex);

@@ -52,19 +52,15 @@ static inline void manage_move(map_select_t *m, sfEvent ev)
         m->secondary = -1;
 }
 
-static inline void manage_press(map_select_t *m, sfEvent ev)
-{
-    check_button_press(m->buttons, 3 - (m->primary < 0 ? 2 : 0), ev);
-}
-
 void map_select_events(window_t *w, sfEvent ev)
 {
     map_select_t *m = w->menus[MAP_SELECT];
+    int t = -1;
 
     if (ev.type == sfEvtMouseMoved)
         manage_move(m, ev);
     if (ev.type == sfEvtMouseButtonPressed)
-        manage_press(m, ev);
+        check_button_press(m->buttons, 3 - (m->primary < 0 ? 2 : 0), ev);
     if (ev.type == sfEvtMouseButtonReleased)
         manage_release(m, ev, w);
     if (ev.type == sfEvtMouseWheelScrolled) {

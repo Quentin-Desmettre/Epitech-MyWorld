@@ -47,9 +47,9 @@ void draw_gb_to_rtex(game_t *g)
         draw_tooltip(g, g->rtex);
 }
 
-const sfTexture *draw_game(void *game)
+const sfTexture *draw_game(window_t *win)
 {
-    game_t *g = game;
+    game_t *g = win->menus[EDIT_MAP];
 
     sfRenderTexture_clear(g->rtex, sfBlack);
     draw_world(g);

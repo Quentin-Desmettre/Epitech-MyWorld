@@ -46,6 +46,7 @@ void start_world(game_t *g)
     get_gradient(1);
     smooth_shadow(world, g->win);
     free_lists(world);
+    center_cam(&(g->world->matrix));
 }
 
 game_t *create_game(unsigned size, sfVector2f win_size)
