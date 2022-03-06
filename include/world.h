@@ -84,6 +84,8 @@ typedef struct minimap {
     void (*actions[NB_ACTIONS])(world_t *, struct minimap *);
     sfCircleShape *circle;
     sfClock *time;
+    sfSprite *vision;
+    sfTexture *vision_tex;
 } minimap_t;
 
 static const float height = 800.0;
@@ -132,5 +134,7 @@ void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win);
 void draw_back(world_t *world, win_t *win);
 void my_memset(void *data, int type, size_t n);
 void my_memcpy(void *dest, const void *src, size_t n);
+void get_player_pos(world_t *world);
+void get_player_dir(world_t *world);
 
 #endif
