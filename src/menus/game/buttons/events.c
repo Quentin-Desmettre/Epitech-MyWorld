@@ -11,7 +11,7 @@ void press_evt(game_buttons_t *g, sfEvent ev, sfVector2f pos)
 {
     ev.mouseButton.x -= pos.x;
     ev.mouseButton.y -= pos.y;
-    check_button_press(g->buttons, 10, ev);
+    check_button_press(g->buttons, NB_BUTTONS, ev);
 }
 
 void move_evt(game_buttons_t *g, sfEvent ev, sfVector2f pos)
@@ -19,7 +19,7 @@ void move_evt(game_buttons_t *g, sfEvent ev, sfVector2f pos)
     ev.mouseMove.x -= pos.x;
     ev.mouseMove.y -= pos.y;
     g->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
-    check_button_move(g->buttons, 10, ev);
+    check_button_move(g->buttons, NB_BUTTONS, ev);
 }
 
 void action(int type, game_t *ga)
@@ -32,25 +32,28 @@ void action(int type, game_t *ga)
         rota_right(ga->world, ga->win);
 }
 
-void release_evt(game_t *ga, sfEvent ev, sfVector2f pos)
+void release_evt(game_t *ga, sfEvent ev, sfVector2f pos, window_t *win)
 {
     game_buttons_t *g = ga->gb;
     int tmp;
 
     ev.mouseButton.x -= pos.x;
     ev.mouseButton.y -= pos.y;
-    tmp = button_at(g->buttons, 10, ev);
-    for (int i = 0; i < 10; i++)
+    tmp = button_at(g->buttons, NB_BUTTONS, ev);
+    for (int i = 0; i < NB_BUTTONS; i++)
         press_button(g->buttons[i], false);
-    if (tmp >= 0 && tmp < 6) {
+    if (tmp < 0)
+        return;
+    if (!(g->buttons[tmp]->action)) {
         g->selected = tmp;
         ga->minimap->state = tmp;
-    } else if (tmp >= 6 && tmp < 10)
-        action(tmp, ga);
+    } else
+        g->buttons[tmp]->action(win);
 }
 
-void gb_events(game_t *ga, sfEvent ev, sfVector2f pos)
+void gb_events(window_t *win, sfEvent ev, sfVector2f pos)
 {
+    game_t *ga = win->menus[EDIT_MAP];
     game_buttons_t *g = ga->gb;
 
     if (ev.type == sfEvtMouseButtonPressed)
@@ -58,9 +61,14 @@ void gb_events(game_t *ga, sfEvent ev, sfVector2f pos)
     if (ev.type == sfEvtMouseMoved)
         move_evt(g, ev, pos);
     if (ev.type == sfEvtMouseButtonReleased)
-        release_evt(ga, ev, pos);
+        release_evt(ga, ev, pos, win);
     if (ev.type >= 9 && ev.type <= 11) {
         sfClock_restart(g->tip_clock);
         g->tool_tip_enabled = false;
+    }
+    if (ev.type == sfEvtMouseWheelScrolled) {
+        g->y_offset -= ev.mouseWheelScroll.delta * 10;
+        if (g->y_offset < 0)
+            g->y_offset = 0;
     }
 }

@@ -9,6 +9,18 @@
 #include "my.h"
 #include "line_edit.h"
 
+const char *get_text(line_edit_t *le)
+{
+    char const *r;
+
+    if (le->has_underscore)
+        remove_last_text(le->text);
+    r = sfText_getString(le->text);
+    if (le->has_underscore)
+        append_to_text(le->text, ' ');
+    return r;
+}
+
 void append_to_text(sfText *t, char c)
 {
     char const *base = sfText_getString(t);

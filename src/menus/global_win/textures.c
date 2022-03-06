@@ -21,5 +21,5 @@ void clear_textures(void)
     list_t *texs = add_texture(NULL);
 
     while (texs)
-        remove_node(&texs, 0, sfTexture_destroy);
+        remove_node(&texs, 0, (void (*)(void *))sfTexture_destroy);
 }

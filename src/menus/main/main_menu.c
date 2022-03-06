@@ -41,7 +41,6 @@ void destroy_home(main_menu_t *menu)
         sfText_destroy(menu->buttons[i]->text);
         free(menu->buttons[i]);
     }
-    sfSprite_destroy(menu->background);
     free(menu);
 }
 
@@ -67,7 +66,5 @@ main_menu_t *init_main_menu(sfTexture *t, sfVector2f winSize)
         (sfVector2f){1, 1}, (sfVector2f){1, 1}, button_texts[i], NULL);
     scale_main_buttons(m->buttons, winSize);
     move_main_buttons(m->buttons, winSize);
-    m->background = init_sprite(global_texture(),
-    main_background_rects[0], winSize);
     return m;
 }

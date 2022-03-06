@@ -12,8 +12,8 @@ void destroy_line_edit(line_edit_t *le)
     sfRectangleShape_destroy(le->background);
     sfText_destroy(le->text);
     sfRenderTexture_destroy(le->rtex);
-    free(le);
     sfClock_destroy(le->underscore);
+    free(le);
 }
 
 void update_underscore(line_edit_t *le)

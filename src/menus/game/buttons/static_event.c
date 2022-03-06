@@ -16,8 +16,8 @@ int get_button(game_buttons_t *gb)
     ev.type = sfEvtMouseButtonReleased;
     ev.mouseButton.x = gb->mouse_pos.x;
     ev.mouseButton.y = gb->mouse_pos.y;
-    but = button_at(gb->buttons, 10, ev);
-    if (but < 0 || but >= 10)
+    but = button_at(gb->buttons, NB_BUTTONS, ev);
+    if (but < 0 || but >= NB_BUTTONS)
         return -1;
     return but;
 }
@@ -49,7 +49,7 @@ void check_tooltip(game_t *ga)
 {
     game_buttons_t *gb = ga->gb;
 
-    if (sfClock_getElapsedTime(ga->gb->tip_clock).microseconds
+    if (sfClock_getElapsedTime(gb->tip_clock).microseconds
     < TOOLTIP_DURATION) {
         gb->tool_tip_enabled = false;
     } else

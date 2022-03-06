@@ -8,8 +8,6 @@
 #ifndef MENU_H
     #define MENU_H
 
-    #define BACKGROUND_FRAMES 1
-
     #include <stdlib.h>
     #include <SFML/Window.h>
     #include <SFML/Graphics.h>
@@ -50,8 +48,8 @@
     (sfKeyboard_isKeyPressed(sfKeyLControl) || \
     sfKeyboard_isKeyPressed(sfKeyRControl)))
 
-    #define MAP_STRING (sfText_getString(((map_create_t *) \
-    win->menus[CREATE_MAP])->name->text))
+    #define MAP_STRING (get_text(((map_create_t *) \
+    win->menus[CREATE_MAP])->name))
 
     #define MAP_SIZE (((game_t *)win->menus[EDIT_MAP])->win->map_size)
 
@@ -67,6 +65,7 @@
     s->win->r_tex = sfRenderTexture_create(ns.x, ns.y, 0);
 
     #define LINEEDIT_TIME 400000
+    #define NB_BUTTONS 12
 
 static const sfColor sfGrey = {128, 128, 128, 255};
 
@@ -200,7 +199,8 @@ typedef struct {
 } map_create_t;
 
 typedef struct {
-    button_t *buttons[10];
+    button_t *buttons[NB_BUTTONS];
+    sfSprite *background;
     sfRenderTexture *rtex;
     sfClock *tip_clock;
     sfRectangleShape *border;
@@ -209,6 +209,7 @@ typedef struct {
     sfVector2f mouse_pos;
     int selected;
     int tool_tip_enabled;
+    float y_offset;
 } game_buttons_t;
 
 typedef struct {
@@ -252,9 +253,6 @@ static const sfIntRect hider_rect = {82, 241, 128, 128};
 static const sfIntRect button_rects[4] = {
     {0, 1, 630, 80},
     {0, 81, 315, 80}
-};
-static const sfIntRect main_background_rects[BACKGROUND_FRAMES] = {
-    {0, 0, 1, 1}
 };
 static const sfIntRect settings_rects[11] = {
     {160, 161, 80, 80},
@@ -444,7 +442,7 @@ void save_map(game_t *game, const char *filename, unsigned int size);
 unsigned int read_map(game_t *game, const char *filename);
 sfSprite *draw_gb(game_t *ga);
 game_buttons_t *create_buttons(sfVector2f size);
-void gb_events(game_t *ga, sfEvent ev, sfVector2f pos);
+void gb_events(window_t *win, sfEvent ev, sfVector2f pos);
 void draw_tooltip(game_t *ga, sfRenderTexture *rtex);
 void check_tooltip(game_t *ga);
 void world_clicks(window_t *win, sfEvent ev);
@@ -471,5 +469,14 @@ void destroy_spectator(spectator_t *s);
 void destroy_entry(void *entry);
 void append_to_text(sfText *t, char c);
 void remove_last_text(sfText *t);
+const char *get_text(line_edit_t *le);
+void save_game(void *w);
+void add_hour(void *win);
+void sub_hour(void *win);
+void pause_game(void *win);
+void create_tooltip(game_buttons_t *g, sfVector2f tex_size);
+void get_help(void *win);
+void quit_game(void *win);
+void switch_brush_type(void *win);
 
 #endif

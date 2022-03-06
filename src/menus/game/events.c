@@ -11,7 +11,7 @@ void world_events(game_t *g, sfEvent ev, window_t *win)
 {
     g->win->event = ev;
     if (ev.type == sfEvtMouseWheelScrolled &&
-    mouse_pos(g->size, win) != MINIMAP) {
+    mouse_pos(g->size, win) == WORLD) {
         g->win->params->zoom += 0.1 * ev.mouseWheelScroll.delta;
         if (g->win->params->zoom < 0.1)
             g->win->params->zoom = 0.1;
@@ -68,7 +68,7 @@ void game_events(window_t *win, sfEvent ev)
     world_events(g, ev, win);
     if (mouse == MINIMAP)
         minimap_events(g, ev);
-    gb_events(g, ev, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});
+    gb_events(win, ev, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});
     if (ev.type == sfEvtMouseMoved)
         g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
 }

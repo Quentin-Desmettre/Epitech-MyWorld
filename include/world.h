@@ -73,19 +73,20 @@ typedef struct tmp_struct {
     #define NB_ACTIONS 5
 
 typedef struct minimap {
+    void (*actions[NB_ACTIONS])(world_t *, struct minimap *);
     sfRenderTexture *rtex;
     sfVertexArray *array;
     sfVertex *tmp;
     sfVector2f size;
     sfVector2f mouse_pos;
-    int s_br;
-    int state;
-    int map_size;
-    void (*actions[NB_ACTIONS])(world_t *, struct minimap *);
     sfCircleShape *circle;
     sfClock *time;
     sfSprite *vision;
     sfTexture *vision_tex;
+    int s_br;
+    int state;
+    int map_size;
+    int is_circle;
 } minimap_t;
 
 static const float height = 800.0;
