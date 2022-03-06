@@ -27,11 +27,17 @@ void init_functions(minimap_t *m)
 
     for (int i = 0; i < NB_ACTIONS; i++)
         m->actions[i] = actions[i];
+    m->circle = sfCircleShape_create();
+    m->time = sfClock_create();
+    sfCircleShape_setOutlineColor(m->circle, sfWhite);
+    sfCircleShape_setOutlineThickness(m->circle, 1.0);
+    sfCircleShape_setFillColor(m->circle, sfTransparent);
 }
 
 minimap_t *create_minimap(sfVector2f size, int map_size)
 {
     minimap_t *m = malloc(sizeof(minimap_t));
+
     m->vision_tex = sfTexture_createFromFile("./vision.png", 0);
     m->vision = sfSprite_create();
     sfSprite_setTexture(m->vision, m->vision_tex, 0);
@@ -44,14 +50,9 @@ minimap_t *create_minimap(sfVector2f size, int map_size)
         ((char *)(m->tmp))[i] = 0;
     m->size = size;
     m->s_br = 1;
-    m->mouse_pos = (sfVector2f){10, 10};
+    m->mouse_pos = (sfVector2f){-10000, -10000};
     m->state = 4;
     m->map_size = map_size;
-    m->circle = sfCircleShape_create();
-    m->time = sfClock_create();
-    sfCircleShape_setOutlineColor(m->circle, sfWhite);
-    sfCircleShape_setOutlineThickness(m->circle, 1.0);
-    sfCircleShape_setFillColor(m->circle, sfTransparent);
     init_functions(m);
     return m;
 }

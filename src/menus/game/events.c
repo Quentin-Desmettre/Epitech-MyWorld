@@ -7,7 +7,7 @@
 
 #include "menus.h"
 
-int world_events(game_t *g, sfEvent ev, window_t *win)
+void world_events(game_t *g, sfEvent ev, window_t *win)
 {
     g->win->event = ev;
     if (ev.type == sfEvtMouseWheelScrolled &&
@@ -43,6 +43,8 @@ void minimap_events(game_t *g, sfEvent ev)
         if (ev.mouseWheelScroll.delta == -1 && g->minimap->s_br > 0)
             g->minimap->s_br--;
     }
+    if (ev.type == sfEvtMouseMoved)
+        g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
 }
 
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win)
@@ -63,8 +65,7 @@ void game_events(window_t *win, sfEvent ev)
     game_t *g = win->menus[EDIT_MAP];
     int mouse = mouse_pos(g->size, win);
 
-    if (world_events(g, ev, win))
-        return;
+    world_events(g, ev, win);
     if (mouse == MINIMAP)
         minimap_events(g, ev);
     gb_events(g, ev, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});

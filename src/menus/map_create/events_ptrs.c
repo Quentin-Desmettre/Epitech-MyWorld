@@ -69,6 +69,8 @@ void mc_event(window_t *win, sfEvent ev)
         check_button_move(mc->buttons, 4, ev);
     if (ev.type == sfEvtMouseButtonReleased)
         release_mc(mc, button_at(mc->buttons, 4, ev), win);
+    if (ev.type == sfEvtKeyPressed && ev.key.code == sfKeyEnter)
+        launch_size(win);
     line_edit_event(mc->name, ev);
     slider_event(mc->size_slider, ev);
 }

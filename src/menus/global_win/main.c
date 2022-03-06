@@ -31,7 +31,7 @@ void draw(window_t *win)
     sfRenderWindow_clear(win->win, sfBlack);
     sfRenderWindow_drawSprite(win->win, s, NULL);
     sfRenderWindow_display(win->win);
-    sfTexture_destroy(sfSprite_getTexture(s));
+    sfTexture_destroy((sfTexture *)sfSprite_getTexture(s));
     sfSprite_destroy(s);
 }
 

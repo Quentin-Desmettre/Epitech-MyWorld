@@ -1,3 +1,10 @@
+/*
+** EPITECH PROJECT, 2021
+** B-MUL-200-LIL-2-1-myworld-paulin.leclercq
+** File description:
+** main_menu.h
+*/
+
 #ifndef MAIN_MENU_H
     #define MAIN_MENU_H
 

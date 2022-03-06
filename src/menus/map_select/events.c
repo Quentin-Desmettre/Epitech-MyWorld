@@ -55,7 +55,6 @@ static inline void manage_move(map_select_t *m, sfEvent ev)
 void map_select_events(window_t *w, sfEvent ev)
 {
     map_select_t *m = w->menus[MAP_SELECT];
-    int t = -1;
 
     if (ev.type == sfEvtMouseMoved)
         manage_move(m, ev);

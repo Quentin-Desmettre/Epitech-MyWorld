@@ -7,6 +7,7 @@
 
 #include "menus.h"
 #include "list.h"
+#include "map_select.h"
 
 void destroy_map_select(map_select_t *map)
 {

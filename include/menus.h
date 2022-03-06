@@ -66,6 +66,8 @@
     #define RESCALE_SPECTATOR(s, ns) sfRenderTexture_destroy(s->win->r_tex); \
     s->win->r_tex = sfRenderTexture_create(ns.x, ns.y, 0);
 
+    #define LINEEDIT_TIME 400000
+
 static const sfColor sfGrey = {128, 128, 128, 255};
 
 typedef enum {WORLD, MINIMAP, BUTTONS} mouse_pos_t;
@@ -179,7 +181,9 @@ typedef struct {
 typedef struct {
     sfRenderTexture *rtex;
     sfRectangleShape *background;
+    sfClock *underscore;
     sfText *text;
+    int has_underscore;
 } line_edit_t;
 
 typedef struct {
@@ -326,8 +330,6 @@ static const float mc_pos_fac[4][2] = {
     {0.15, 0.69}, {0.805, 0.69}, {0.6, 0.9}, {0.85, 0.9}
 };
 
-static const char *ms_but_txt[3] = {"Cancel", "Delete", "Play"};
-
 void factor_color(sfSprite *s, float factor, sfText *text);
 void hover_button(button_t *b, int is_on);
 void press_button(button_t *b, int is_press);
@@ -467,5 +469,7 @@ void draw_spectator_to_rtex(spectator_t *s,
 sfRenderTexture *rtex, sfBool dark, sfBool update);
 void destroy_spectator(spectator_t *s);
 void destroy_entry(void *entry);
+void append_to_text(sfText *t, char c);
+void remove_last_text(sfText *t);
 
 #endif

@@ -68,7 +68,6 @@ void draw_hider(sfRenderTexture *rtex, sfSprite *hider, sfVector2f size)
 const sfTexture *draw_select(window_t *win)
 {
     map_select_t *m = win->menus[MAP_SELECT];
-    sfColor c = m->primary < 0 ? SEMI_COLOR : sfWhite;
 
     sfRenderTexture_clear(m->rtex, sfBlack);
     if (m->maps)
