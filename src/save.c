@@ -16,7 +16,7 @@ world_t *world, unsigned size)
     char *dest = str_concat(3, "./map/.", filename, ".png");
 
     sfRenderTexture_clear(m->rtex, sfBlack);
-    draw_minimap(m, world, size - 1);
+    draw_minimap(m, world, size - 1, 0);
     sfRenderTexture_display(m->rtex);
     t = sfTexture_copy(sfRenderTexture_getTexture(m->rtex));
     i = sfTexture_copyToImage(t);

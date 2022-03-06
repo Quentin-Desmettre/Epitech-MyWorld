@@ -7,6 +7,16 @@
 
 #include "menus.h"
 
+void destroy_entry(void *entry)
+{
+    map_entry_t *e = entry;
+
+    sfSprite_destroy(e->icon);
+    sfRenderTexture_destroy(e->rtex);
+    sfText_destroy(e->level_name);
+    free(e);
+}
+
 sfSprite *init_entry_icon(char const *path, sfVector2f icon_size)
 {
     sfTexture *t = sfTexture_createFromFile(path, NULL);
@@ -56,6 +66,8 @@ void init_entries(map_select_t *m, sfVector2f size)
 {
     list_t *tmp = get_all_levels_name();
 
+    while (m->maps)
+        remove_node(&m->maps, 0, &destroy_entry);
     if (!tmp)
         return;
     while (tmp) {

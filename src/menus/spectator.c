@@ -12,6 +12,7 @@ void destroy_spectator(spectator_t *s)
     sfClock_destroy(s->time);
     s->win->destroy(s->win);
     s->world->destroy(s->world);
+    free(s);
 }
 
 void move_spectator(mat4x4 **mat_world, spectator_t *s)

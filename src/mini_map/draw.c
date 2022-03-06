@@ -63,7 +63,7 @@ void add_color(int i, minimap_t *map, world_t *world)
     map->tmp->color.b *= direction;
 }
 
-void draw_minimap(minimap_t *map, world_t *world, int size)
+void draw_minimap(minimap_t *map, world_t *world, int size, sfBool draw_pos)
 {
     float nb = map->size.y / (float)(size);
 
@@ -71,7 +71,6 @@ void draw_minimap(minimap_t *map, world_t *world, int size)
     get_player_dir(world);
     sfSprite_setPosition(map->vision, (sfVector2f){world->p_pos[0] / 1.5 * nb
     , map->size.y - (world->p_pos[2] / 1.5 * nb)});
-    // printf("%f %f %f\n", world->p_dir[0], world->p_dir[1], world->p_dir[2]);
     sfSprite_setRotation(map->vision, world->p_dir[2] < 0 ? 180 : 0);
     sfSprite_rotate(map->vision, world->p_dir[0] *
     (world->p_dir[2] < 0 ? -90 : 90));
@@ -89,7 +88,9 @@ void draw_minimap(minimap_t *map, world_t *world, int size)
     }
     sfVertexArray_setPrimitiveType(map->array, sfTriangles);
     sfRenderTexture_drawVertexArray(map->rtex, map->array, 0);
-    sfRenderTexture_drawSprite(map->rtex, map->vision, 0);
     sfVertexArray_clear(map->array);
+    if (!draw_pos)
+        return;
+    sfRenderTexture_drawSprite(map->rtex, map->vision, 0);
     where_minimap(world, map, size);
 }

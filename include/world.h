@@ -108,7 +108,7 @@ void draw_light(world_t *world, win_t *win);
 void convert_to_array(world_t *world);
 void create_map(world_t *world, size_t size);
 float apply_perlin(float x, float y);
-void draw_minimap(minimap_t *map, world_t *world, int size);
+void draw_minimap(minimap_t *map, world_t *world, int size, sfBool draw_pos);
 minimap_t *create_minimap(sfVector2f size, int map_size);
 sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri, win_t *win);
 void params(win_t *win, world_t *world);

@@ -16,7 +16,6 @@ void win_destroy(window_t *win)
     sfClock_destroy(win->lum_clock);
     destroy_mc(win->menus[3]);
     destroy_spectator(win->spec);
-    destroy_game_struct(win->menus[EDIT_MAP]);
     destroy_map_select(win->menus[MAP_SELECT]);
     free(win);
 }
@@ -26,11 +25,13 @@ void draw(window_t *win)
     const sfTexture* tex = win->draw[win->state](win);
     sfSprite *s = init_sprite_from_texture(tex);
 
+    sfSprite_setTexture(s, sfTexture_copy(sfSprite_getTexture(s)), 0);
     if (win->is_transition)
         update_transition(win, s);
     sfRenderWindow_clear(win->win, sfBlack);
     sfRenderWindow_drawSprite(win->win, s, NULL);
     sfRenderWindow_display(win->win);
+    sfTexture_destroy(sfSprite_getTexture(s));
     sfSprite_destroy(s);
 }
 

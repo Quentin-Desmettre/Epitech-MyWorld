@@ -326,6 +326,8 @@ static const float mc_pos_fac[4][2] = {
     {0.15, 0.69}, {0.805, 0.69}, {0.6, 0.9}, {0.85, 0.9}
 };
 
+static const char *ms_but_txt[3] = {"Cancel", "Delete", "Play"};
+
 void factor_color(sfSprite *s, float factor, sfText *text);
 void hover_button(button_t *b, int is_on);
 void press_button(button_t *b, int is_press);
@@ -464,5 +466,6 @@ spectator_t *create_spectator(sfVector2f size);
 void draw_spectator_to_rtex(spectator_t *s,
 sfRenderTexture *rtex, sfBool dark, sfBool update);
 void destroy_spectator(spectator_t *s);
+void destroy_entry(void *entry);
 
 #endif

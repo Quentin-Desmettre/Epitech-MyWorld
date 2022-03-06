@@ -37,7 +37,8 @@ void line_edit_event(line_edit_t *le, sfEvent ev)
         return;
     if (ev.key.code == sfKeyBackspace) {
         new = my_strdup(str);
-        new[my_strlen(new) - 1] = 0;
+        if (my_strlen(new))
+            new[my_strlen(new) - 1] = 0;
     } else
         new = switch_ev(ev, str);
     sfText_setString(le->text, new);

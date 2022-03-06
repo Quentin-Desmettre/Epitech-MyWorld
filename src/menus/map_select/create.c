@@ -8,8 +8,6 @@
 #include "menus.h"
 #include "list.h"
 
-static const char *ms_but_txt[3] = {"Cancel", "Delete", "Play"};
-
 void destroy_map_select(map_select_t *map)
 {
     for (int i = 0; i < 3; i++)
@@ -17,7 +15,7 @@ void destroy_map_select(map_select_t *map)
     sfSprite_destroy(map->background);
     sfRenderTexture_destroy(map->rtex);
     for (; map->maps;)
-        remove_node(&map->maps, 0, 0);
+        remove_node(&map->maps, 0, &destroy_entry);
     sfRectangleShape_destroy(map->box);
     sfSprite_destroy(map->hider);
     free(map);

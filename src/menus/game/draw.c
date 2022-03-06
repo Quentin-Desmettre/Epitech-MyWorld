@@ -29,7 +29,7 @@ void draw_minimap_to_game(game_t *g)
     sfSprite *s;
 
     sfRenderTexture_clear(g->minimap->rtex, sfBlack);
-    draw_minimap(g->minimap, g->world, g->dimension - 1);
+    draw_minimap(g->minimap, g->world, g->dimension - 1, 1);
     sfRenderTexture_display(g->minimap->rtex);
     s = init_sprite_from_texture(sfRenderTexture_getTexture(g->minimap->rtex));
     sfRenderTexture_drawSprite(g->rtex, s, NULL);

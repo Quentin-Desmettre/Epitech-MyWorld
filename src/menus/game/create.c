@@ -14,6 +14,8 @@ void destroy_game_struct(game_t *game)
     sfRenderTexture_destroy(game->rtex);
     game->world->destroy(game->world);
     game->win->destroy(game->win);
+    game->win = 0;
+    game->world = 0;
     free(game);
 }
 
