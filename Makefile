@@ -6,6 +6,7 @@
 ##
 
 SRC = \
+	./src/srand.c 							\
 	./src/menus/spectator.c 				\
 	./src/my_memset.c 						\
 	./src/menus/global_win/textures.c 		\
@@ -107,6 +108,7 @@ $(NAME):   $(OBJ)
 	gcc -o $(NAME) $(FLAGS) $(OBJ) $(LDFLAGS)
 
 clean:
+	find . -name "*.o" -delete
 	rm -f $(OBJ)
 
 fclean:    clean

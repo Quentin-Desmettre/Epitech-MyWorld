@@ -34,8 +34,8 @@ void start_world(game_t *g)
     world_t *world;
     sfVector2f win_size = g->size;
 
+    get_gradient(1);
     g->world = create_world();
-    srand((unsigned)(unsigned long)(g->world));
     world = g->world;
     create_map(world, g->dimension);
     set_light_source(world, g->dimension / 2.0, 1, 1000);
@@ -45,8 +45,8 @@ void start_world(game_t *g)
     g->win = win_create(world->nb_trig,
     (sfVector2f){win_size.x - win_size.y * PART_OF_MINIMAP, win_size.y});
     g->win->map_size = g->dimension;
-    get_gradient(1);
     smooth_shadow(world, g->win);
+    sfVertexArray_setPrimitiveType(g->win->array, sfTriangles);
     free_lists(world);
     center_cam(&(g->world->matrix));
 }

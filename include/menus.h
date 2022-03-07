@@ -478,5 +478,6 @@ void create_tooltip(game_buttons_t *g, sfVector2f tex_size);
 void get_help(void *win);
 void quit_game(void *win);
 void switch_brush_type(void *win);
+unsigned rand_seed(void);
 
 #endif

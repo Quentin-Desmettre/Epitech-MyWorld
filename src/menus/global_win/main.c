@@ -72,7 +72,7 @@ int main(void)
     if (!global_texture() || !global_font())
         return 84;
     win = window_create();
-    srand((unsigned)(unsigned long)(&win));
+    srand(rand_seed());
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         draw(win);
