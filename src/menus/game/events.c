@@ -85,4 +85,7 @@ void game_events(window_t *win, sfEvent ev)
         g->gb->mouse_pos = (sfVector2f){-100, -100};
     if (ev.type == sfEvtMouseMoved)
         g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
+    if (ev.type == sfEvtKeyPressed &&
+    ev.key.code == sfKeyS && ev.key.control)
+        save_game(win);
 }

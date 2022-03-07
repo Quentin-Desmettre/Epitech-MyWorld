@@ -26,7 +26,7 @@ world_t *world, unsigned size)
     free(dest);
 }
 
-void save_map(game_t *game, const char *filename, unsigned int size)
+int save_map(game_t *game, const char *filename, unsigned int size)
 {
     world_t *world = game->world;
     unsigned long s = size * size;
@@ -34,12 +34,15 @@ void save_map(game_t *game, const char *filename, unsigned int size)
     int fd = open(path, O_WRONLY | O_CREAT | O_TRUNC,
     ALL_FLAGS);
 
+    if (fd < 0)
+        return 0;
     write(fd, &size, sizeof(unsigned int));
     for (unsigned long i = 0; i < s; i++)
         write(fd, &(world->a_vertxs[i]->pos[1]), sizeof(float));
     save_minimap_to_png(game->minimap, filename, world, size);
     close(fd);
     free(path);
+    return 1;
 }
 
 long read_all_file(int fd)

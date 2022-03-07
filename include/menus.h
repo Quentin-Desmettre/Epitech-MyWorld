@@ -44,10 +44,6 @@
     #define TMP_V2F (sfVector2f){win_size.x * 0.55, win_size.y * 0.1}
     #define ENTRY_Y_SPAN 0.12
 
-    #define IS_SAVE (sfKeyboard_isKeyPressed(sfKeyS) && \
-    (sfKeyboard_isKeyPressed(sfKeyLControl) || \
-    sfKeyboard_isKeyPressed(sfKeyRControl)))
-
     #define MAP_STRING (get_level_name(win))
 
     #define MAP_SIZE (get_level_size(win))
@@ -218,8 +214,12 @@ typedef struct {
     sfVector2f size;
     minimap_t *minimap;
     game_buttons_t *gb;
+    sfClock *save_clock;
+    char *file;
     int dimension;
     int is_selected;
+    int is_from_file;
+    int has_saved;
 } game_t;
 
 typedef struct {
@@ -366,7 +366,7 @@ void move_main_buttons(button_t *buttons[4], sfVector2f winSize);
 main_menu_t *init_main_menu(sfTexture *t, sfVector2f winSize);
 void draw_button_to_rtex(button_t *b, sfRenderTexture *rtex);
 const sfTexture *draw_main_menu(window_t *win);
-window_t *window_create(void);
+window_t *window_create(int ac, char **av);
 void destroy_home(main_menu_t *menu);
 void win_destroy(window_t *win);
 void switch_color_dir(window_t *win, int *dir);
@@ -375,7 +375,7 @@ void update_lum(sfColor *lum, int *fac);
 void update_transition(window_t *win, sfSprite *s);
 void draw(window_t *win);
 void poll_events(window_t *win);
-int main(void);
+int main(int ac, char **av);
 void center_text(sfText *t);
 void scale_check_box(check_box *c, sfVector2f factors);
 void set_box_pos(check_box *c, sfVector2f pos);
@@ -448,8 +448,8 @@ game_t *create_game(unsigned size, sfVector2f win_size, int is_selected);
 const sfTexture *draw_game(window_t *win);
 void game_events(window_t *win, sfEvent ev);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
-void destroy_game_struct(game_t *game);
-void save_map(game_t *game, const char *filename, unsigned int size);
+void destroy_game_struct(game_t *game, window_t *win);
+int save_map(game_t *game, const char *filename, unsigned int size);
 unsigned int read_map(game_t *game, const char *filename);
 sfSprite *draw_gb(game_t *ga);
 game_buttons_t *create_buttons(sfVector2f size);
@@ -499,5 +499,8 @@ int comp_rectangle(int i_x, int j_y, int s_br);
 int comp_circle(int i_x, int j_y, int s_br);
 void apply_minimap_brush(game_t *g);
 void params(win_t *win, world_t *world, game_t *g);
+int save_from_file(game_t *g);
+int load_game_from_file(game_t *g, const char *filename);
+unsigned map_size_from_file(char const *file);
 
 #endif

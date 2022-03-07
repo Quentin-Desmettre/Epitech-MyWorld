@@ -41,16 +41,26 @@ void create_settings(window_t *win)
     apply_settings(win->menus[2], win);
 }
 
-window_t *window_create(void)
+window_t *window_create(int ac, char **av)
 {
     window_t *win = malloc(sizeof(window_t));
+    sfVector2f size = {800, 600};
 
     create_pointers(win);
     create_basics(win);
-    win->menus[0] = init_main_menu(global_texture(), (sfVector2f){800, 600});
-    win->menus[3] = create_map_create((sfVector2f){800, 600});
-    win->menus[MAP_SELECT] = create_map_select((sfVector2f){800, 600});
-    win->spec = create_spectator((sfVector2f){800, 600});
+    if (ac == 2) {
+        if (!is_file_valid(av[1]))
+            return my_printf("ERROR: Invalid file: %s\n", av[1]) ? NULL : NULL;
+        win->state = EDIT_MAP;
+        win->menus[EDIT_MAP] = create_game(map_size_from_file(av[1]), size, 0);
+        load_game_from_file(win->menus[EDIT_MAP], av[1]);
+        update_color(((game_t *)(win->menus[EDIT_MAP]))->world);
+    } else if (ac > 2)
+        return 0;
+    win->menus[0] = init_main_menu(global_texture(), size);
+    win->menus[3] = create_map_create(size);
+    win->menus[MAP_SELECT] = create_map_select(size);
+    win->spec = create_spectator(size);
     create_settings(win);
     return win;
 }

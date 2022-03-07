@@ -56,8 +56,6 @@ void poll_events(window_t *win)
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
     if (win->state == EDIT_MAP) {
-        if (IS_SAVE)
-            save_map(win->menus[EDIT_MAP], MAP_STRING, MAP_SIZE);
         move(&(((game_t *)win->menus[EDIT_MAP])->world->matrix));
         if (mouse_pos(win_size, win) == MINIMAP)
             apply_minimap_brush(win->menus[EDIT_MAP]);
@@ -65,13 +63,15 @@ void poll_events(window_t *win)
     }
 }
 
-int main(void)
+int main(int ac, char **av)
 {
     window_t *win;
 
     if (!global_texture() || !global_font())
         return 84;
-    win = window_create();
+    win = window_create(ac, av);
+    if (!win)
+        return 84;
     srand(rand_seed());
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);

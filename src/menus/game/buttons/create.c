@@ -82,7 +82,7 @@ game_buttons_t *create_buttons(sfVector2f size)
 {
     game_buttons_t *g = malloc(sizeof(game_buttons_t));
     sfIntRect tmp = hider_rect;
-    sfTexture *tex = sfTexture_createFromFile("truc.png", &tmp);
+    sfTexture *tex = sfTexture_createFromFile(TEXTURE, &tmp);
 
     g->rtex = sfRenderTexture_create(size.x, size.y, 0);
     create_gb_buttons(g, size);

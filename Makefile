@@ -10,6 +10,7 @@ SRC = \
 	./src/mini_map/where.c		 			\
 	./src/sounds/create_sounds.c			\
 	./src/srand.c 							\
+	./src/menus/save_from_file.c			\
 	./src/menus/spectator.c 				\
 	./src/my_memset.c 						\
 	./src/menus/global_win/textures.c 		\

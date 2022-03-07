@@ -7,8 +7,9 @@
 
 #include "menus.h"
 
-void destroy_game_struct(game_t *game)
+void destroy_game_struct(game_t *game, window_t *win)
 {
+    save_game(win);
     destroy_gbuttons(game->gb);
     destroy_minimap(game->minimap);
     sfRenderTexture_destroy(game->rtex);
@@ -16,6 +17,7 @@ void destroy_game_struct(game_t *game)
     game->win->destroy(game->win);
     game->win = 0;
     game->world = 0;
+    sfClock_destroy(game->save_clock);
     free(game);
 }
 
@@ -60,5 +62,8 @@ game_t *create_game(unsigned size, sfVector2f win_size, int is_selected)
     g->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     start_world(g);
     g->is_selected = is_selected;
+    g->is_from_file = 0;
+    g->has_saved = 0;
+    g->save_clock = sfClock_create();
     return g;
 }

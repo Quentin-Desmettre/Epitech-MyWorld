@@ -12,7 +12,13 @@ void save_game(void *w)
     window_t *win = w;
     game_t *g = win->menus[EDIT_MAP];
 
-    save_map(g, MAP_STRING, MAP_SIZE);
+    if (g->has_saved)
+        return;
+    g->has_saved = (g->is_from_file ?
+    save_from_file(g) : save_map(g, MAP_STRING, MAP_SIZE)) + 1;
+    sfClock_restart(g->save_clock);
+    if (win->next_state != EDIT_MAP)
+        g->has_saved = 0;
 }
 
 void add_hour(void *win)

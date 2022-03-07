@@ -7,6 +7,11 @@
 
 #include "world.h"
 
+static sfBool is_key(int code)
+{
+    return sfKeyboard_isKeyPressed(code);
+}
+
 void move_player(mat4x4 **mat_world)
 {
     mat4x4 *mat_mov;
@@ -14,7 +19,7 @@ void move_player(mat4x4 **mat_world)
     float vec[3] = {0, 0, 0};
     if (sfKeyboard_isKeyPressed(sfKeyZ))
         vec[2] = 0.5;
-    if (sfKeyboard_isKeyPressed(sfKeyS))
+    if (is_key(sfKeyS) && !is_key(sfKeyLControl) && !is_key(sfKeyRControl))
         vec[2] = -0.5;
     if (sfKeyboard_isKeyPressed(sfKeyQ))
         vec[0] = -0.5;

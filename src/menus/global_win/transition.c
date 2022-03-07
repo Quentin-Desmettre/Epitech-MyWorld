@@ -13,7 +13,7 @@ void switch_color_dir(window_t *win, int *dir)
 
     if ((win->next_state == HOME || win->next_state == EXIT)
     && win->state == EDIT_MAP)
-        destroy_game_struct(win->menus[EDIT_MAP]);
+        destroy_game_struct(win->menus[EDIT_MAP], win);
     if (win->next_state == MAP_SELECT)
         init_entries(win->menus[MAP_SELECT],
         (sfVector2f){win->mode.width, win->mode.height});
