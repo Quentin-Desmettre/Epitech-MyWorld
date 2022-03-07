@@ -31,6 +31,8 @@ void minimap_clicks(game_t *g)
         g->minimap->actions[g->minimap->state](g->world, g->minimap);
         smooth_shadow(g->world, g->win);
         update_color(g->world);
+        if (sfSound_getStatus(g->win->sounds[0]) != sfPlaying)
+            sfSound_play(g->win->sounds[0]);
         sfClock_restart(g->minimap->time);
     }
 }
@@ -45,6 +47,11 @@ void minimap_events(game_t *g, sfEvent ev)
     }
     if (ev.type == sfEvtMouseMoved)
         g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
+    if (ev.type == sfEvtMouseButtonReleased &&
+    ev.mouseButton.button == sfMouseLeft) {
+        for (int i = 0; i < NB_SOUNDS; i++)
+            sfSound_stop(g->win->sounds[i]);
+    }
 }
 
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win)

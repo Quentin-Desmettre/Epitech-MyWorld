@@ -13,6 +13,16 @@ void destroy_win(win_t *win)
     sfConvexShape_destroy(win->convex);
     sfCircleShape_destroy(win->circle);
     sfVertexArray_destroy(win->array);
+    for (int i = 0; i < NB_SOUNDS; i++) {
+        sfSound_stop(win->sounds[i]);
+        sfSoundBuffer_destroy((sfSoundBuffer *)
+        sfSound_getBuffer(win->sounds[i]));
+        sfSound_destroy(win->sounds[i]);
+    }
+    for (int i = 0; i < NB_MUSICS; i++) {
+        sfMusic_stop(win->musics[i]);
+        sfMusic_destroy(win->musics[i]);
+    }
     free(win->params);
     free(win->tmp);
     free(win);
@@ -51,5 +61,7 @@ win_t *win_create(size_t nb_trig, sfVector2f size)
     win->draw_circle = draw_circle;
     win->r_tex = sfRenderTexture_create(size.x, size.y, 0);
     init_params(win, nb_trig);
+    create_sounds(win);
+    create_musics(win);
     return win;
 }
