@@ -23,8 +23,8 @@
     #define false 0
     #define bool int
 
-    #define FONT "minecraft.ttf"
-    #define TEXTURE "truc.png"
+    #define FONT "assets/minecraft.ttf"
+    #define TEXTURE "assets/texture.png"
 
     #define ALL_FLAGS S_IROTH | S_IRGRP | S_IRUSR | S_IWUSR | S_IWGRP | S_IWOTH
     #define GROW_FACTOR 1.05
@@ -303,7 +303,7 @@ static const sfIntRect check_rect[2] = {
 static const sfIntRect game_button_rects[] = {
     {0, 0, 1, 1}
 };
-
+static const sfIntRect cone_rect = {0, 369, 128, 128};
 // settings
 static const sfVideoMode available_modes[] = {
     {800, 600, 32},
@@ -498,5 +498,6 @@ void restart_map(void *win);
 int comp_rectangle(int i_x, int j_y, int s_br);
 int comp_circle(int i_x, int j_y, int s_br);
 void apply_minimap_brush(game_t *g);
+void params(win_t *win, world_t *world, game_t *g);
 
 #endif

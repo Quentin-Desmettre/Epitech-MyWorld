@@ -7,6 +7,21 @@
 
 #include "menus.h"
 
+void check_tool_bar_key(int code, window_t *win)
+{
+    game_t *ga = win->menus[EDIT_MAP];
+
+    if (code == sfKeyT)
+        switch_brush_type(win);
+    if (code >= sfKeyNum1 && code <= sfKeyNum5) {
+        ga->gb->selected = code - sfKeyNum1;
+        ga->minimap->state = ga->gb->selected;
+    } else if (code == sfKeyQuote) {
+        ga->gb->selected = 3;
+        ga->minimap->state = 3;
+    }
+}
+
 void world_events(game_t *g, sfEvent ev, window_t *win)
 {
     g->win->event = ev;
@@ -21,7 +36,9 @@ void world_events(game_t *g, sfEvent ev, window_t *win)
     else if (ev.type == sfEvtKeyPressed && ev.key.code == sfKeyEscape)
         set_next_win_state(win, HOME);
     else
-        params(g->win, g->world);
+        params(g->win, g->world, g);
+    if (ev.type == sfEvtKeyPressed)
+        check_tool_bar_key(ev.key.code, win);
 }
 
 void minimap_events(game_t *g, sfEvent ev)

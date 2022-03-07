@@ -90,7 +90,6 @@ typedef struct minimap {
     sfCircleShape *circle;
     sfClock *time;
     sfSprite *vision;
-    sfTexture *vision_tex;
     int s_br;
     int state;
     int map_size;
@@ -121,7 +120,6 @@ float apply_perlin(float x, float y);
 void draw_minimap(minimap_t *map, world_t *world, int size, sfBool draw_pos);
 minimap_t *create_minimap(sfVector2f size, int map_size);
 sfColor center_vertxs(vertex_t *vertxs, triangle_t *tri, win_t *win);
-void params(win_t *win, world_t *world);
 void rota_right(world_t *world, win_t *win);
 void rota_left(world_t *world, win_t *win);
 void change_color(mesh_t *mesh, size_t size, size_t i, size_t j);
