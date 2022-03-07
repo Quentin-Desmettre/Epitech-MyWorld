@@ -24,19 +24,6 @@ void world_events(game_t *g, sfEvent ev, window_t *win)
         params(g->win, g->world);
 }
 
-void minimap_clicks(game_t *g)
-{
-    if (sfMouse_isButtonPressed(sfMouseLeft) &&
-    sfClock_getElapsedTime(g->minimap->time).microseconds > 50000) {
-        g->minimap->actions[g->minimap->state](g->world, g->minimap);
-        smooth_shadow(g->world, g->win);
-        update_color(g->world);
-        if (sfSound_getStatus(g->win->sounds[0]) != sfPlaying)
-            sfSound_play(g->win->sounds[0]);
-        sfClock_restart(g->minimap->time);
-    }
-}
-
 void minimap_events(game_t *g, sfEvent ev)
 {
     if (ev.type == sfEvtMouseWheelScrolled) {
@@ -75,7 +62,10 @@ void game_events(window_t *win, sfEvent ev)
     world_events(g, ev, win);
     if (mouse == MINIMAP)
         minimap_events(g, ev);
-    gb_events(win, ev, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});
+    if (mouse == BUTTONS)
+        gb_events(win, ev, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});
+    else
+        g->gb->mouse_pos = (sfVector2f){-100, -100};
     if (ev.type == sfEvtMouseMoved)
         g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
 }

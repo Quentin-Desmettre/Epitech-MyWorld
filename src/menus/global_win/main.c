@@ -60,7 +60,7 @@ void poll_events(window_t *win)
             save_map(win->menus[EDIT_MAP], MAP_STRING, MAP_SIZE);
         move(&(((game_t *)win->menus[EDIT_MAP])->world->matrix));
         if (mouse_pos(win_size, win) == MINIMAP)
-            minimap_clicks(win->menus[EDIT_MAP]);
+            apply_minimap_brush(win->menus[EDIT_MAP]);
         check_tooltip(win->menus[EDIT_MAP]);
     }
 }

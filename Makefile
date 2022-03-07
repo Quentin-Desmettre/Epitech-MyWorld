@@ -6,6 +6,8 @@
 ##
 
 SRC = \
+	./src/mini_map/comparators.c 			\
+	./src/mini_map/where.c		 			\
 	./src/sounds/create_sounds.c			\
 	./src/srand.c 							\
 	./src/menus/spectator.c 				\

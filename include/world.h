@@ -37,6 +37,13 @@
 
     #define ABS(nb) ((nb) < 0 ? -(nb) : (nb))
 
+    #define P_HEIGT(world, i, size) world->a_vertxs \
+    [i * (size) + (size - j)]->pos[1]
+
+    #define BRUSH_DIR (map->is_circle ? \
+    (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 1)
+
+
 typedef struct world_struct {
     vecsort_t *sortBuffer;
     vecsort_t *sortBuffer2;
@@ -73,7 +80,8 @@ typedef struct tmp_struct {
     #define NB_ACTIONS 5
 
 typedef struct minimap {
-    void (*actions[NB_ACTIONS])(world_t *, struct minimap *);
+    void (*actions[NB_ACTIONS])(world_t *,
+    struct minimap *, int (*)(int, int, int));
     sfRenderTexture *rtex;
     sfVertexArray *array;
     sfVertex *tmp;
@@ -91,6 +99,7 @@ typedef struct minimap {
 
 static const float height = 800.0;
 
+void app_point(float x, float y, minimap_t *map);
 void move(mat4x4 **mat_world);
 void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);
@@ -119,12 +128,12 @@ void change_color(mesh_t *mesh, size_t size, size_t i, size_t j);
 void smooth(mesh_t *mesh, size_t size);
 void smooth_shadow(world_t *world, win_t *win);
 sfBool is_out(size_t max, size_t size, long i, long j);
-void up_br(world_t *world, minimap_t *map);
-void down_br(world_t *world, minimap_t *map);
+void up_br(world_t *world, minimap_t *map, int (*comp)(int, int, int));
+void down_br(world_t *world, minimap_t *map, int (*comp)(int, int, int));
 void free_mesh(void *value);
-void average_br(world_t *world, minimap_t *map);
-void average_w_br(world_t *world, minimap_t *map);
-void average_d_br(world_t *world, minimap_t *map);
+void average_br(world_t *world, minimap_t *map, int (*comp)(int, int, int));
+void average_w_br(world_t *world, minimap_t *map, int (*comp)(int, int, int));
+void average_d_br(world_t *world, minimap_t *map, int (*comp)(int, int, int));
 void free_lists(world_t *world);
 void draw_fps(win_t *w);
 void update_color(world_t *world);
@@ -137,5 +146,7 @@ void my_memset(void *data, int type, size_t n);
 void my_memcpy(void *dest, const void *src, size_t n);
 void get_player_pos(world_t *world);
 void get_player_dir(world_t *world);
+void where_minimap(world_t *world, minimap_t *map, long long size);
+void where_minimap_square(world_t *world, minimap_t *map, long long size);
 
 #endif

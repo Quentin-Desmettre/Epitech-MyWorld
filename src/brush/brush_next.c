@@ -7,9 +7,6 @@
 
 #include "world.h"
 
-#define P_HEIGT(world, i, size) world->a_vertxs \
-[i * (size) + (size - j)]->pos[1]
-
 void update_color(world_t *world)
 {
     float height;
@@ -25,7 +22,7 @@ void update_color(world_t *world)
     }
 }
 
-void up_br(world_t *world, minimap_t *map)
+void up_br(world_t *world, minimap_t *map, int (*comp)(int, int, int))
 {
     float nb = map->size.y / (float)(map->map_size);
     int size = map->map_size;
@@ -38,16 +35,15 @@ void up_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
-            < 80) && sqrt(pow(i - x, 2) + pow(j - y, 2)) <= map->s_br ?
-            world->a_vertxs[i * (size) + (size - j)]->pos[1] +=
-            (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 0;
+            < 80) && comp(i - x, j - y, map->s_br) ?
+            world->a_vertxs[i * (size) + (size - j)]->pos[1] += BRUSH_DIR : 0;
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
             > 80) ? P_HEIGT(world, i, size) = 80 : 0;
         }
     }
 }
 
-void down_br(world_t *world, minimap_t *map)
+void down_br(world_t *world, minimap_t *map, int (*comp)(int, int, int))
 {
     float nb = map->size.y / (float)(map->map_size);
     int size = (int)map->map_size;
@@ -60,16 +56,16 @@ void down_br(world_t *world, minimap_t *map)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
-            > -10) && sqrt(pow(i - x, 2) + pow(j - y, 2)) <= map->s_br ?
-            P_HEIGT(world, i, size) -=
-            (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 0;
+            > -10) && comp(i - x, j - y, map->s_br) ?
+            P_HEIGT(world, i, size) -= BRUSH_DIR : 0;
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
             < -10) ? P_HEIGT(world, i, size) = -10 : 0;
         }
     }
 }
 
-void average_d_br_next(world_t *world, minimap_t *map, int tmp)
+void average_d_br_next(world_t *world, minimap_t *map,
+int tmp, int (*comp)(int, int, int))
 {
     float nb = map->size.y / (float)(map->map_size);
     int size = map->map_size;
@@ -80,14 +76,14 @@ void average_d_br_next(world_t *world, minimap_t *map, int tmp)
             continue;
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
-            > -10) && sqrt(pow(i - x, 2) + pow(j - y, 2)) <= map->s_br ?
-            (P_HEIGT(world, i, size) = (P_HEIGT(world, i, size) * 10+ tmp)
-            / 11): 0;
+            > -10) && comp(i - x, j - y, map->s_br) ?
+            (P_HEIGT(world, i, size) = (P_HEIGT(world, i, size) * 10 + tmp)
+            / 11) : 0;
         }
     }
 }
 
-void average_d_br(world_t *world, minimap_t *map)
+void average_d_br(world_t *world, minimap_t *map, int (*comp)(int, int, int))
 {
     float nb = map->size.y / (float)(map->map_size);
     int size = map->map_size;
@@ -102,9 +98,9 @@ void average_d_br(world_t *world, minimap_t *map)
         for (int j = y - map->s_br; j < y + map->s_br; j++) {
             ((size - j) >= 0 && (size - j) < (size) && P_HEIGT(world, i, size)
             > -10 && P_HEIGT(world, i, size) < tmp) &&
-            sqrt(pow(i - x, 2) + pow(j - y, 2)) <= map->s_br ?
-            tmp = P_HEIGT(world, i, size): 0;
+            comp(i - x, j - y, map->s_br) ?
+            tmp = P_HEIGT(world, i, size) : 0;
         }
     }
-    average_d_br_next(world, map, tmp);
+    average_d_br_next(world, map, tmp, comp);
 }

@@ -447,7 +447,6 @@ void destroy_mc(map_create_t *mc);
 game_t *create_game(unsigned size, sfVector2f win_size, int is_selected);
 const sfTexture *draw_game(window_t *win);
 void game_events(window_t *win, sfEvent ev);
-void minimap_clicks(game_t *g);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
 void destroy_game_struct(game_t *game);
 void save_map(game_t *game, const char *filename, unsigned int size);
@@ -496,5 +495,8 @@ map_entry_t *entry_at_list(list_t *l, int index);
 char const *get_level_name(window_t *win);
 size_t get_level_size(window_t *win);
 void restart_map(void *win);
+int comp_rectangle(int i_x, int j_y, int s_br);
+int comp_circle(int i_x, int j_y, int s_br);
+void apply_minimap_brush(game_t *g);
 
 #endif

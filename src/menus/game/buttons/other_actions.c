@@ -38,7 +38,7 @@ void switch_brush_type(void *win)
     game_t *g = w->menus[EDIT_MAP];
     minimap_t *mini = g->minimap;
 
-    mini->is_circle = !mini->is_circle;
     sfSprite_setTextureRect(g->gb->buttons[5]->sprite,
     gb_rects[5 + 9 * mini->is_circle]);
+    mini->is_circle = !mini->is_circle;
 }

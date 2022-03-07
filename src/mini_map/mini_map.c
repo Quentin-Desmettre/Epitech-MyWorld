@@ -6,6 +6,23 @@
 */
 
 #include "world.h"
+#include "menus.h"
+
+void apply_minimap_brush(game_t *g)
+{
+    int (*comp)(int, int, int) = g->minimap->is_circle ?
+    comp_circle : comp_rectangle;
+
+    if (sfMouse_isButtonPressed(sfMouseLeft) &&
+    sfClock_getElapsedTime(g->minimap->time).microseconds > 50000) {
+        g->minimap->actions[g->minimap->state](g->world, g->minimap, comp);
+        smooth_shadow(g->world, g->win);
+        update_color(g->world);
+        if (sfSound_getStatus(g->win->sounds[0]) != sfPlaying)
+            sfSound_play(g->win->sounds[0]);
+        sfClock_restart(g->minimap->time);
+    }
+}
 
 void destroy_minimap(minimap_t *m)
 {
@@ -21,7 +38,8 @@ void destroy_minimap(minimap_t *m)
 
 void init_functions(minimap_t *m)
 {
-    void (*actions[NB_ACTIONS])(world_t *, minimap_t *) = {
+    void (*actions[NB_ACTIONS])(world_t *, minimap_t *,
+    int (*)(int, int, int)) = {
         &up_br, &average_br, &average_w_br, &down_br, &average_d_br
     };
 
@@ -54,5 +72,6 @@ minimap_t *create_minimap(sfVector2f size, int map_size)
     m->state = 0;
     m->map_size = map_size;
     init_functions(m);
+    m->is_circle = 1;
     return m;
 }
