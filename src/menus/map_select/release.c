@@ -22,6 +22,13 @@ map_entry_t *entry_at_list(list_t *l, int index)
 
 void load_map(char const *map, window_t *win)
 {
+    unsigned size = map_size(map);
+
+    win->menus[EDIT_MAP] = create_game(size,
+    (sfVector2f){win->mode.width, win->mode.height});
+    read_map(win->menus[EDIT_MAP], map);
+    set_next_win_state(win, EDIT_MAP);
+    update_color(((game_t *)(win->menus[EDIT_MAP]))->world);
 }
 
 void recolor_buttons(map_select_t *m, sfVector2f pos)
