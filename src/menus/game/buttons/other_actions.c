@@ -7,6 +7,14 @@
 
 #include "menus.h"
 
+void restart_map(void *win)
+{
+    window_t *w = win;
+    game_t *g = w->menus[EDIT_MAP];
+
+    refresh_map(g);
+}
+
 void create_tooltip(game_buttons_t *g, sfVector2f tex_size)
 {
     g->tooltip = init_text("", tex_size.y * 0.075);
@@ -31,4 +39,6 @@ void switch_brush_type(void *win)
     minimap_t *mini = g->minimap;
 
     mini->is_circle = !mini->is_circle;
+    sfSprite_setTextureRect(g->gb->buttons[5]->sprite,
+    gb_rects[5 + 9 * mini->is_circle]);
 }

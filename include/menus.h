@@ -64,7 +64,7 @@
     s->win->r_tex = sfRenderTexture_create(ns.x, ns.y, 0);
 
     #define LINEEDIT_TIME 400000
-    #define NB_BUTTONS 12
+    #define NB_BUTTONS 13
 
 static const sfColor sfGrey = {128, 128, 128, 255};
 
@@ -267,7 +267,23 @@ static const sfIntRect settings_rects[11] = {
     {1028, 317, 709, 118},
     {80, 161, 80, 80}
 };
-
+static const sfIntRect gb_rects[] = {
+    {648, 671, 80, 80}, // up
+    {808, 671, 80, 80}, // average without water
+    {648, 751, 80, 80}, // average with water
+    {728, 671, 80, 80}, // down
+    {728, 751, 80, 80}, // down average
+    {808, 751, 80, 80}, // circle
+    {888, 751, 80, 80}, // reload
+    {648, 831, 80, 80}, // save
+    {728, 831, 80, 80}, // quit
+    {808, 831, 80, 80}, // pause
+    {648, 911, 80, 80}, // +1h
+    {728, 911, 80, 80}, // -1h
+    {808, 911, 80, 80}, // help
+    {888, 831, 80, 80}, // play
+    {888, 671, 80, 80}, // rectangle
+};
 static const sfIntRect line_edit_rect = {1029, 435, 808, 88};
 static const sfIntRect mc_rects[] = {
     {160, 161, 80, 80},
@@ -303,11 +319,7 @@ static const float main_buts_sf[4][2] = {
     {0.7, 0.12}, {0.7, 0.12}, {0.33, 0.12}, {0.33, 0.12}
 };
 static const float select_sf[2] = {0.27, 0.1};
-static const float gb_size[10][2] = {
-    {0.25, 0.25}, {0.25, 0.25}, {0.25, 0.25},
-    {0.25, 0.25}, {0.25, 0.25}, {0.25, 0.25},
-    {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}, {0.2, 0.25}
-};
+static const float gb_size[2] = {0.22, 0.22};
 static const float mc_size_fac[4][2] = {
     {0.06, 0.06}, {0.06, 0.1}, {0.23, 0.1}, {0.23, 0.1}
 };
@@ -483,5 +495,6 @@ unsigned map_size(char const *map);
 map_entry_t *entry_at_list(list_t *l, int index);
 char const *get_level_name(window_t *win);
 size_t get_level_size(window_t *win);
+void restart_map(void *win);
 
 #endif

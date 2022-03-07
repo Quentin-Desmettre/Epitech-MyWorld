@@ -10,18 +10,18 @@
 
 static const char *tips[13] = {
     "  [1] Rise up area ",
-    "  [2] Smooth towards average height ",
-    "  [3] Add water ",
+    "  [2] Smooth toward average height (without water) ",
+    "  [3] Smooth towards average height (with water) ",
     "  [4] Lower area ",
     "  [5] Smooth towards lowest point ",
     "  [T] Switch brush type ",
+    "  [R] Restart generation ",
     "  [CTRL+S] Save map ",
     "  [ESC] Quit ",
-    "  Help ",
     "  [P] Pause ",
-    "  [RIGHT] +1 hour",
-    "  [LEFT] -1 hour",
-    "  [R] Refresh"
+    "  [RIGHT] +1 hour ",
+    "  [LEFT] -1 hour ",
+    "  Help "
 };
 
 #endif // TOOL_TIP_H

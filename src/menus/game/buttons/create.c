@@ -54,7 +54,7 @@ sfSprite *draw_gb(game_t *ga)
             pos.x += tex_size.x * 0.3;
         }
         pos.x = tex_size.x * 0.2;
-        pos.y += tex_size.y * 0.3;
+        pos.y += tex_size.y * 0.37;
     }
     sfRenderTexture_display(g->rtex);
     return init_sprite_from_texture(sfRenderTexture_getTexture(g->rtex));
@@ -62,17 +62,17 @@ sfSprite *draw_gb(game_t *ga)
 
 void create_gb_buttons(game_buttons_t *gb, sfVector2f size)
 {
-    sfVector2f n_size = {size.x * gb_size[0][0], size.y * gb_size[0][1]};
-    sfIntRect rect = {0, 161, 80, 80};
+    sfVector2f n_size = {size.x * gb_size[0], size.x * gb_size[0]};
     void (*actions[NB_BUTTONS])(void *) = {
         NULL, NULL, NULL,
         NULL, NULL, switch_brush_type,
-        save_game, quit_game, get_help,
-        pause_game, add_hour, sub_hour
+        restart_map, save_game, quit_game,
+        pause_game, add_hour, sub_hour,
+        get_help
     };
 
     for (int i = 0; i < NB_BUTTONS; i++) {
-        gb->buttons[i] = init_button(global_texture(), rect,
+        gb->buttons[i] = init_button(global_texture(), gb_rects[i],
         (sfVector2f){0, 0}, n_size, "", actions[i]);
         center_sprite(gb->buttons[i]->sprite);
     }

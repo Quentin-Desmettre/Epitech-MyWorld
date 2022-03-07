@@ -37,4 +37,6 @@ void pause_game(void *win)
     game_t *ga = w->menus[EDIT_MAP];
 
     ga->win->params->pause = !ga->win->params->pause;
+    sfSprite_setTextureRect(ga->gb->buttons[9]->sprite,
+    gb_rects[9 + 4 * ga->win->params->pause]);
 }

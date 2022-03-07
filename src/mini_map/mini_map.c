@@ -22,7 +22,7 @@ void destroy_minimap(minimap_t *m)
 void init_functions(minimap_t *m)
 {
     void (*actions[NB_ACTIONS])(world_t *, minimap_t *) = {
-        &average_d_br, &average_br, &average_w_br, &up_br, &down_br
+        &up_br, &average_br, &average_w_br, &down_br, &average_d_br
     };
 
     for (int i = 0; i < NB_ACTIONS; i++)
@@ -51,7 +51,7 @@ minimap_t *create_minimap(sfVector2f size, int map_size)
     m->size = size;
     m->s_br = 1;
     m->mouse_pos = (sfVector2f){-10000, -10000};
-    m->state = 4;
+    m->state = 0;
     m->map_size = map_size;
     init_functions(m);
     return m;
