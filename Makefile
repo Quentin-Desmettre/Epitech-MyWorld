@@ -6,6 +6,7 @@
 ##
 
 SRC = \
+	./src/sounds/create_sounds.c			\
 	./src/srand.c 							\
 	./src/menus/spectator.c 				\
 	./src/my_memset.c 						\
