@@ -23,6 +23,8 @@ void destroy_win(win_t *win)
         sfMusic_stop(win->musics[i]);
         sfMusic_destroy(win->musics[i]);
     }
+    free(win->sounds);
+    free(win->musics);
     free(win->params);
     free(win->tmp);
     free(win);

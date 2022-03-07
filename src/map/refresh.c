@@ -38,4 +38,5 @@ void refresh_map(game_t *game)
     modify_data((void **)&game->world->light_source, light_source);
     modify_data((void **)&game->world->light_start, light_start);
     smooth_shadow(game->world, game->win);
+    sfMusic_play(game->win->musics[0]);
 }
