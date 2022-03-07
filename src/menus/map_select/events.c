@@ -68,3 +68,16 @@ void map_select_events(window_t *w, sfEvent ev)
             m->x_start = 0;
     }
 }
+
+unsigned map_size(char const *map)
+{
+    char *str = str_concat(2, "./map/", map);
+    int fd = open(str, O_RDONLY);
+    unsigned size = 64;
+
+    if (fd >= 0)
+        read(fd, &size, sizeof(unsigned));
+    free(str);
+    close(fd);
+    return size;
+}

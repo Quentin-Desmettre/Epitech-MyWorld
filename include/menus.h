@@ -479,5 +479,6 @@ void get_help(void *win);
 void quit_game(void *win);
 void switch_brush_type(void *win);
 unsigned rand_seed(void);
+unsigned map_size(char const *map);
 
 #endif
