@@ -44,6 +44,8 @@
     #define TMP_V2F (sfVector2f){win_size.x * 0.55, win_size.y * 0.1}
     #define ENTRY_Y_SPAN 0.12
 
+    #define SAVE_MAX_TIME 3000000
+
     #define MAP_STRING (get_level_name(win))
 
     #define MAP_SIZE (get_level_size(win))
@@ -215,6 +217,7 @@ typedef struct {
     minimap_t *minimap;
     game_buttons_t *gb;
     sfClock *save_clock;
+    sfSprite *save_sprite;
     char *file;
     int dimension;
     int is_selected;
@@ -304,6 +307,11 @@ static const sfIntRect game_button_rects[] = {
     {0, 0, 1, 1}
 };
 static const sfIntRect cone_rect = {0, 369, 128, 128};
+static const sfIntRect save_rect[2] = {
+    {648, 991, 624, 106},
+    {648, 1097, 624, 106}
+};
+
 // settings
 static const sfVideoMode available_modes[] = {
     {800, 600, 32},

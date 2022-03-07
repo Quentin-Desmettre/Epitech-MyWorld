@@ -7,6 +7,15 @@
 
 #include "menus.h"
 
+void draw_has_saved(game_t *g)
+{
+    if (sfClock_getElapsedTime(g->save_clock).microseconds > SAVE_MAX_TIME) {
+        g->has_saved = 0;
+        return;
+    }
+    sfRenderTexture_drawSprite(g->rtex, g->save_sprite, NULL);
+}
+
 void draw_world(game_t *g)
 {
     sfSprite *s;
@@ -53,6 +62,8 @@ const sfTexture *draw_game(window_t *win)
     draw_world(g);
     draw_minimap_to_game(g);
     draw_gb_to_rtex(g);
+    if (g->has_saved)
+        draw_has_saved(g);
     sfRenderTexture_display(g->rtex);
     return sfRenderTexture_getTexture(g->rtex);
 }

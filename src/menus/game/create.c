@@ -18,6 +18,7 @@ void destroy_game_struct(game_t *game, window_t *win)
     game->win = 0;
     game->world = 0;
     sfClock_destroy(game->save_clock);
+    sfSprite_destroy(game->save_sprite);
     free(game);
 }
 
@@ -50,7 +51,6 @@ void start_world(game_t *g)
     smooth_shadow(world, g->win);
     sfVertexArray_setPrimitiveType(g->win->array, sfTriangles);
     free_lists(world);
-    center_cam(&(g->world->matrix));
 }
 
 game_t *create_game(unsigned size, sfVector2f win_size, int is_selected)
@@ -65,5 +65,12 @@ game_t *create_game(unsigned size, sfVector2f win_size, int is_selected)
     g->is_from_file = 0;
     g->has_saved = 0;
     g->save_clock = sfClock_create();
+    g->save_sprite = sfSprite_create();
+    sfSprite_setTexture(g->save_sprite, global_texture(), 0);
+    sfSprite_setTextureRect(g->save_sprite, save_rect[0]);
+    sfSprite_setPosition(g->save_sprite,
+    (sfVector2f){win_size.y * 0.65, win_size.y * 0.05});
+    set_sprite_size(g->save_sprite,
+    (sfVector2f){win_size.x * 0.35, win_size.x * 0.35 * 0.16987179487});
     return g;
 }

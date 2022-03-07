@@ -19,6 +19,7 @@ void save_game(void *w)
     sfClock_restart(g->save_clock);
     if (win->next_state != EDIT_MAP)
         g->has_saved = 0;
+    sfSprite_setTextureRect(g->save_sprite, save_rect[g->has_saved - 1]);
 }
 
 void add_hour(void *win)
