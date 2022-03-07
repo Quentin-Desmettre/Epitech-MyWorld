@@ -51,7 +51,7 @@ void start_world(game_t *g)
     center_cam(&(g->world->matrix));
 }
 
-game_t *create_game(unsigned size, sfVector2f win_size)
+game_t *create_game(unsigned size, sfVector2f win_size, int is_selected)
 {
     game_t *g = malloc(sizeof(game_t));
 
@@ -59,5 +59,6 @@ game_t *create_game(unsigned size, sfVector2f win_size)
     size++;
     g->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);
     start_world(g);
+    g->is_selected = is_selected;
     return g;
 }

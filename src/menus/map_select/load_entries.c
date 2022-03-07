@@ -68,8 +68,6 @@ void init_entries(map_select_t *m, sfVector2f size)
 
     while (m->maps)
         remove_node(&m->maps, 0, &destroy_entry);
-    if (!tmp)
-        return;
     while (tmp) {
         append_node(&(m->maps), create_entry(tmp->data,
         (sfVector2f){size.x, size.y * ENTRY_Y_SPAN}));
@@ -77,5 +75,5 @@ void init_entries(map_select_t *m, sfVector2f size)
     }
     for (int i = 0; i < 3; i++)
         factor_color(m->buttons[i]->sprite,
-        i == 0 ? 1 : 0.5, m->buttons[i]->text);
+        (!i || m->primary >= 0) ? 1 : 0.5, m->buttons[i]->text);
 }

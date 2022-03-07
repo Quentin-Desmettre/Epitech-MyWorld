@@ -48,10 +48,9 @@
     (sfKeyboard_isKeyPressed(sfKeyLControl) || \
     sfKeyboard_isKeyPressed(sfKeyRControl)))
 
-    #define MAP_STRING (get_text(((map_create_t *) \
-    win->menus[CREATE_MAP])->name))
+    #define MAP_STRING (get_level_name(win))
 
-    #define MAP_SIZE (((game_t *)win->menus[EDIT_MAP])->win->map_size)
+    #define MAP_SIZE (get_level_size(win))
 
     #define IS_WORLD_CLICK (win->state == EDIT_MAP && \
     (mouse_pos(win_size, win) == WORLD || ev.type == sfEvtMouseButtonReleased))
@@ -220,6 +219,7 @@ typedef struct {
     minimap_t *minimap;
     game_buttons_t *gb;
     int dimension;
+    int is_selected;
 } game_t;
 
 typedef struct {
@@ -432,7 +432,7 @@ void destroy_slider(slider_t *s);
 void release_mc(map_create_t *mc, int index, window_t *win);
 void destroy_check_box(check_box *c);
 void destroy_mc(map_create_t *mc);
-game_t *create_game(unsigned size, sfVector2f win_size);
+game_t *create_game(unsigned size, sfVector2f win_size, int is_selected);
 const sfTexture *draw_game(window_t *win);
 void game_events(window_t *win, sfEvent ev);
 void minimap_clicks(game_t *g);
@@ -480,5 +480,8 @@ void quit_game(void *win);
 void switch_brush_type(void *win);
 unsigned rand_seed(void);
 unsigned map_size(char const *map);
+map_entry_t *entry_at_list(list_t *l, int index);
+char const *get_level_name(window_t *win);
+size_t get_level_size(window_t *win);
 
 #endif

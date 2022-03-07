@@ -11,6 +11,7 @@ SRC = \
 	./src/my_memset.c 						\
 	./src/menus/global_win/textures.c 		\
 	./src/menus/game/buttons/actions.c 		\
+	./src/menus/game/accessors.c 			\
 	src/menus/game/buttons/other_actions.c  \
 	./src/world/background.c				\
 	./src/map/refresh.c						\

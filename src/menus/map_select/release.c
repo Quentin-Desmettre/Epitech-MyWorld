@@ -9,8 +9,21 @@
 
 void remove_level(map_select_t *m, int level)
 {
-    if (level == 3)
-        m->background = m->background;
+    map_entry_t *me = entry_at_list(m->maps, level);
+    char *l_name = str_concat(2, "./map/", sfText_getString(me->level_name));
+    char *png_name = str_concat(3, "./map/.",
+    sfText_getString(me->level_name), ".png");
+    int f_1 = open(l_name, O_TRUNC);
+    int f_2 = open(png_name, O_TRUNC);
+
+    m->primary = -1;
+    init_entries(m, m->size);
+    free(l_name);
+    free(png_name);
+    if (f_1 >= 0)
+        close(f_1);
+    if (f_2 >= 0)
+        close(f_2);
 }
 
 map_entry_t *entry_at_list(list_t *l, int index)
@@ -25,7 +38,7 @@ void load_map(char const *map, window_t *win)
     unsigned size = map_size(map);
 
     win->menus[EDIT_MAP] = create_game(size,
-    (sfVector2f){win->mode.width, win->mode.height});
+    (sfVector2f){win->mode.width, win->mode.height}, 1);
     read_map(win->menus[EDIT_MAP], map);
     set_next_win_state(win, EDIT_MAP);
     update_color(((game_t *)(win->menus[EDIT_MAP]))->world);

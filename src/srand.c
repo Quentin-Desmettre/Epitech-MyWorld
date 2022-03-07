@@ -10,11 +10,12 @@
 
 unsigned rand_seed(void)
 {
-    int fd = open("/dev/srand", O_RDONLY);
+    int fd = open("/dev/urandom", O_RDONLY);
     unsigned seed;
 
     if (fd < 0)
         return (unsigned)(unsigned long)(&fd);
     read(fd, &seed, sizeof(unsigned));
+    close(fd);
     return fd;
 }

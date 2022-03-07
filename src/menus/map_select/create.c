@@ -85,9 +85,9 @@ map_select_t *create_map_select(sfVector2f size)
     m->box = sfRectangleShape_create();
     m->hider = init_sprite(global_texture(),
     hider_rect, (sfVector2f){size.x * 0.1, size.x * 0.1});
+    m->primary = -1;
     init_entries(m, size);
     scale_select(m, size);
-    m->primary = -1;
     m->secondary = -1;
     m->x_start = 0;
     return m;
