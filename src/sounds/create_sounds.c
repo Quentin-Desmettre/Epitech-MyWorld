@@ -12,7 +12,6 @@ void create_musics(win_t *win)
     win->musics = malloc(sizeof(sfMusic *) * NB_MUSICS);
 
     win->musics[0] = sfMusic_createFromFile("sounds/day.ogg");
-    win->musics[1] = sfMusic_createFromFile("sounds/day.ogg");
     for (int i = 0; i < NB_MUSICS; i++)
         sfMusic_setLoop(win->musics[i], 1);
 }
