@@ -27,6 +27,7 @@ typedef struct window_t {
     params_t *params;
     sfSound **sounds;
     sfMusic **musics;
+    sfRenderStates *states;
     sfCircleShape *circle;
     sfConvexShape *convex;
     sfVertexArray *array;

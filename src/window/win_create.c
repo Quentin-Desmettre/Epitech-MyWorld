@@ -13,6 +13,7 @@ void destroy_win(win_t *win)
     sfConvexShape_destroy(win->convex);
     sfCircleShape_destroy(win->circle);
     sfVertexArray_destroy(win->array);
+    sfTexture_destroy((sfTexture *)win->states->texture);
     for (int i = 0; i < NB_SOUNDS; i++) {
         sfSound_stop(win->sounds[i]);
         sfSoundBuffer_destroy((sfSoundBuffer *)
@@ -23,6 +24,7 @@ void destroy_win(win_t *win)
         sfMusic_stop(win->musics[i]);
         sfMusic_destroy(win->musics[i]);
     }
+    free(win->states);
     free(win->sounds);
     free(win->musics);
     free(win->params);
@@ -53,10 +55,16 @@ void init_params(win_t *win, size_t size)
 win_t *win_create(size_t nb_trig, sfVector2f size)
 {
     win_t *win = malloc(sizeof(win_t));
+    sfIntRect rect = {0, 0, 1000, 1000};
 
     if (win == NULL)
         return NULL;
     my_memset(win, 0, sizeof(win_t));
+    win->states = malloc(sizeof(sfRenderStates));
+    win->states->shader = 0;
+    win->states->texture = sfTexture_createFromFile("assets/water.png", &rect);
+    win->states->blendMode = sfBlendNone;
+    win->states->transform = sfTransform_Identity;
     win->settings.antialiasingLevel = ALIASING;
     win->destroy = destroy_win;
     win->draw_shape = draw_shape;

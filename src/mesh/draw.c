@@ -7,6 +7,9 @@
 
 #include "world.h"
 
+static const sfVector2f rect[3] =
+{{0, 0}, {1000, 1000}, {1000, 0}};
+
 void draw_line(vertex_t vertxs[3], win_t *win)
 {
     win->tmp->position = (sfVector2f){vertxs[1].pos[0], vertxs[1].pos[1]};
@@ -22,6 +25,8 @@ void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win)
     win->tmp->color = center_vertxs(vertxs, tri, win);
     for (int i = 0; i < 3; i++) {
         win->tmp->position = (sfVector2f) {vertxs[i].pos[0], vertxs[i].pos[1]};
+        if (tri->color.r == sfBlue.r && tri->color.g == sfBlue.g && tri->color.b == sfBlue.b)
+            win->tmp->texCoords = rect[i];
         sfVertexArray_append(win->array, *win->tmp);
     }
     if (win->params->is_outline)
@@ -55,6 +60,6 @@ void draw_meshes(world_t *world, win_t *win)
     }
     sfVertexArray_setPrimitiveType(win->array, win->params->is_outline ?
     sfLines : sfTriangles);
-    sfRenderTexture_drawVertexArray(win->r_tex, win->array, 0);
+    sfRenderTexture_drawVertexArray(win->r_tex, win->array, win->states);
     sfVertexArray_clear(win->array);
 }
