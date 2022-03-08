@@ -14,7 +14,7 @@
     #define FPS 144
     #define ALIASING 8
     #define NB_SOUNDS 1
-    #define NB_MUSICS 2
+    #define NB_MUSICS 1
 
 static const sfVideoMode mode = {1600, 800, 32};
 
