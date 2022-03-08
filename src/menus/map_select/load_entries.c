@@ -73,7 +73,11 @@ void init_entries(map_select_t *m, sfVector2f size)
         (sfVector2f){size.x, size.y * ENTRY_Y_SPAN}));
         remove_node(&tmp, 0, &free);
     }
-    for (int i = 0; i < 3; i++)
-        factor_color(m->buttons[i]->sprite,
-        (!i || m->primary >= 0) ? 1 : 0.5, m->buttons[i]->text);
+    for (int i = 0; i < 3; i++) {
+        sfSprite_setColor(m->buttons[i]->sprite,
+        (!i || m->primary >= 0) ? sfWhite : SEMI_COLOR);
+        sfText_setColor(m->buttons[i]->text,
+        (!i || m->primary >= 0) ? sfWhite : SEMI_COLOR);
+    }
+    m->double_click = sfClock_create();
 }

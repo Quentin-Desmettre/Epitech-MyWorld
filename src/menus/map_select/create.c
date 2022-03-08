@@ -19,6 +19,7 @@ void destroy_map_select(map_select_t *map)
         remove_node(&map->maps, 0, &destroy_entry);
     sfRectangleShape_destroy(map->box);
     sfSprite_destroy(map->hider);
+    sfClock_destroy(map->double_click);
     free(map);
 }
 

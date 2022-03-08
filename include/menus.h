@@ -63,6 +63,7 @@
 
     #define LINEEDIT_TIME 400000
     #define NB_BUTTONS 13
+    #define DOUBLE_CLICK_DELAY 500000
 
 static const sfColor sfGrey = {128, 128, 128, 255};
 
@@ -239,9 +240,11 @@ typedef struct {
     sfRectangleShape *box;
     sfSprite *hider;
     sfVector2f size;
+    sfClock *double_click;
     int primary;
     int secondary;
     float x_start;
+    int has_clicked;
 } map_select_t;
 
 // int rects
@@ -510,5 +513,7 @@ void params(win_t *win, world_t *world, game_t *g);
 int save_from_file(game_t *g);
 int load_game_from_file(game_t *g, const char *filename);
 unsigned map_size_from_file(char const *file);
+int check_double_click(map_select_t *m, int entry_clicked);
+int recolor_buttons(map_select_t *m, sfVector2f pos);
 
 #endif
