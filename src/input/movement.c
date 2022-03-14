@@ -71,9 +71,12 @@ void move_angle(mat4x4 **mat_world)
     }
 }
 
-void move(mat4x4 **mat_world)
+void move(world_t *world, win_t *win)
 {
-    move_player(mat_world);
-    move_cam(mat_world);
-    move_angle(mat_world);
+    if (sfClock_getElapsedTime(win->evt_clock).microseconds > 10000) {
+        move_player(&world->matrix);
+        move_cam(&world->matrix);
+        move_angle(&world->matrix);
+        sfClock_restart(win->evt_clock);
+    }
 }

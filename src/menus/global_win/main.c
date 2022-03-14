@@ -56,7 +56,7 @@ void poll_events(window_t *win)
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
     if (win->state == EDIT_MAP) {
-        move(&(((game_t *)win->menus[EDIT_MAP])->world->matrix));
+        move(((game_t *)win->menus[EDIT_MAP])->world, ((game_t *)win->menus[EDIT_MAP])->win);
         if (mouse_pos(win_size, win) == MINIMAP)
             apply_minimap_brush(win->menus[EDIT_MAP]);
         check_tooltip(win->menus[EDIT_MAP]);
@@ -69,10 +69,10 @@ int main(int ac, char **av)
 
     if (!global_texture() || !global_font())
         return 84;
+    srand(rand_seed());
     win = window_create(ac, av);
     if (!win)
         return 84;
-    srand(rand_seed());
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         draw(win);

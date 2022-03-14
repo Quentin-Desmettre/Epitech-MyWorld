@@ -7,6 +7,17 @@
 
 #include "world.h"
 
+void destroy_win2(win_t *win)
+{
+    sfClock_destroy(win->evt_clock);
+    free(win->states);
+    free(win->sounds);
+    free(win->musics);
+    free(win->params);
+    free(win->tmp);
+    free(win);
+}
+
 void destroy_win(win_t *win)
 {
     sfRenderTexture_destroy(win->r_tex);
@@ -24,16 +35,12 @@ void destroy_win(win_t *win)
         sfMusic_stop(win->musics[i]);
         sfMusic_destroy(win->musics[i]);
     }
-    free(win->states);
-    free(win->sounds);
-    free(win->musics);
-    free(win->params);
-    free(win->tmp);
-    free(win);
+    destroy_win2(win);
 }
 
 void init_params(win_t *win, size_t size)
 {
+    win->evt_clock = sfClock_create();
     win->circle = sfCircleShape_create();
     win->convex = sfConvexShape_create();
     win->array = sfVertexArray_create();

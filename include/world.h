@@ -99,7 +99,7 @@ typedef struct minimap {
 static const float height = 800.0;
 
 void app_point(float x, float y, minimap_t *map);
-void move(mat4x4 **mat_world);
+void move(world_t *world, win_t *win);
 void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);
 world_t *create_world();
