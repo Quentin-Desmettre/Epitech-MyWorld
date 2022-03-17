@@ -40,9 +40,15 @@
     #define P_HEIGT(world, i, size) world->a_vertxs \
     [i * (size) + (size - j)]->pos[1]
 
+    #define IS_BLUE(color) \
+    (color).r == sfBlue.r && (color).g == sfBlue.g && (color).b == sfBlue.b
+    #define IS_GREEN(color) \
+    (color).r == sfGreen.r && (color).g == sfGreen.g && (color).b == sfGreen.b
+    #define IS_WHITE(color) \
+    (color).r == sfWhite.r && (color).g == sfWhite.g && (color).b == sfWhite.b
+
     #define BRUSH_DIR (map->is_circle ? \
     (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 1)
-
 
 typedef struct world_struct {
     vecsort_t *sortBuffer;

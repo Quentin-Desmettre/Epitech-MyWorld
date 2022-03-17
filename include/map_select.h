@@ -10,4 +10,4 @@
 
 static const char *ms_but_txt[3] = {"Cancel", "Delete", "Play"};
 
-#endif // MAP_SELECT_H
+#endif
