@@ -47,7 +47,7 @@ void draw_meshes(world_t *world, win_t *win)
     project_meshes(world, win->params->zoom);
     sort_vertxs(world);
     if (!win->params->pause && sfClock_getElapsedTime(world->clock)
-    .microseconds / 1000000.0 > 1.0)
+    .microseconds / 1000000.0 > 0.02)
         move_light(world, win);
     if (world->light_source[2] > 0)
         draw_light(world, win);

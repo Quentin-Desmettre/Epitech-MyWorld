@@ -45,14 +45,14 @@ window_t *window_create(int ac, char **av)
 {
     window_t *win = malloc(sizeof(window_t));
     sfVector2f size = {800, 600};
-
     create_pointers(win);
     create_basics(win);
     if (ac == 2) {
         if (!is_file_valid(av[1]))
             return my_printf("ERROR: Invalid file: %s\n", av[1]) ? NULL : NULL;
         win->state = EDIT_MAP;
-        win->menus[EDIT_MAP] = create_game(map_size_from_file(av[1]), size, 0);
+        win->menus[EDIT_MAP] = create_game(map_size_from_file(av[1]),
+        size, 0, win->menus[SETTINGS]);
         load_game_from_file(win->menus[EDIT_MAP], av[1]);
         update_color(((game_t *)(win->menus[EDIT_MAP]))->world);
     } else if (ac > 2)

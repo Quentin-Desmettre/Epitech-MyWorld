@@ -409,11 +409,11 @@ void manage_settings_press(sfEvent *ev, window_t *win);
 void manage_settings_release(sfEvent *ev, window_t *win);
 void reset_set_buttons(settings_t *se);
 void update_all_texts(settings_t *se);
-void sfx_minus(settings_t *se, window_t *win);
-void sfx_plus(settings_t *se, window_t *win);
-void music_minus(settings_t *se, window_t *win);
-void music_plus(settings_t *se, window_t *win);
-void update_vol(float vol, char const *format, ...);
+void sfx_minus(settings_t *se);
+void sfx_plus(settings_t *se);
+void music_minus(settings_t *se);
+void music_plus(settings_t *se);
+void update_vol(float m_vol, float s_vol, char const *format, ...);
 void settings_ev(window_t *win, sfEvent ev);
 const sfTexture *draw_settings(window_t *win);
 settings_t *init_settings(window_t *win);
@@ -455,7 +455,8 @@ void destroy_slider(slider_t *s);
 void release_mc(map_create_t *mc, int index, window_t *win);
 void destroy_check_box(check_box *c);
 void destroy_mc(map_create_t *mc);
-game_t *create_game(unsigned size, sfVector2f win_size, int is_selected);
+game_t *create_game(unsigned size, sfVector2f win_size,
+int is_selected, settings_t *se);
 const sfTexture *draw_game(window_t *win);
 void game_events(window_t *win, sfEvent ev);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
@@ -515,5 +516,6 @@ int load_game_from_file(game_t *g, const char *filename);
 unsigned map_size_from_file(char const *file);
 int check_double_click(map_select_t *m, int entry_clicked);
 int recolor_buttons(map_select_t *m, sfVector2f pos);
+void set_volume(game_t *g, settings_t *se);
 
 #endif

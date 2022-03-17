@@ -53,7 +53,14 @@ void start_world(game_t *g)
     free_lists(world);
 }
 
-game_t *create_game(unsigned size, sfVector2f win_size, int is_selected)
+void set_volume(game_t *g, settings_t *se)
+{
+    update_vol(se->music_vol, se->sfx_vol, "ms",
+    g->win->musics[0], g->win->sounds[0]);
+}
+
+game_t *create_game(unsigned size, sfVector2f win_size,
+int is_selected, settings_t *se)
 {
     game_t *g = malloc(sizeof(game_t));
 
@@ -72,5 +79,6 @@ game_t *create_game(unsigned size, sfVector2f win_size, int is_selected)
     (sfVector2f){win_size.y * 0.65, win_size.y * 0.05});
     set_sprite_size(g->save_sprite,
     (sfVector2f){win_size.x * 0.35, win_size.x * 0.35 * 0.16987179487});
+    set_volume(g, se);
     return g;
 }
