@@ -49,5 +49,6 @@ void draw_circle(win_t *win, size_t nb, ...);
 void draw_rtex_to_win(sfRenderTexture *t, sfRenderWindow *w);
 void create_sounds(win_t *win);
 void create_musics(win_t *win);
+int usage(void);
 
 #endif

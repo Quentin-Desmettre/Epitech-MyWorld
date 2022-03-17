@@ -56,10 +56,12 @@ void poll_events(window_t *win)
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
     if (win->state == EDIT_MAP) {
-        move(((game_t *)win->menus[EDIT_MAP])->world, ((game_t *)win->menus[EDIT_MAP])->win);
-        if (mouse_pos(win_size, win) == MINIMAP)
+        move(((game_t *)win->menus[EDIT_MAP])->world,
+        ((game_t *)win->menus[EDIT_MAP])->win);
+        if (mouse_pos(win_size, win) == MINIMAP && !win->is_fullscreen)
             apply_minimap_brush(win->menus[EDIT_MAP]);
-        check_tooltip(win->menus[EDIT_MAP]);
+        if (!win->is_fullscreen)
+            check_tooltip(win->menus[EDIT_MAP]);
     }
 }
 
@@ -67,10 +69,13 @@ int main(int ac, char **av)
 {
     window_t *win;
 
+    if (ac == 2 && !my_strcmp(av[1], "-h"))
+        return usage();
     if (!global_texture() || !global_font())
         return 84;
     srand(rand_seed());
     win = window_create(ac, av);
+    win->is_fullscreen = 0;
     if (!win)
         return 84;
     while (sfRenderWindow_isOpen(win->win)) {

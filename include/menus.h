@@ -147,6 +147,7 @@ typedef struct win {
     sfVector2i tmp_pos;
 
     spectator_t *spec;
+    int is_fullscreen;
 } window_t;
 
 typedef enum {
@@ -517,5 +518,6 @@ unsigned map_size_from_file(char const *file);
 int check_double_click(map_select_t *m, int entry_clicked);
 int recolor_buttons(map_select_t *m, sfVector2f pos);
 void set_volume(game_t *g, settings_t *se);
+void fullscreen_mode(window_t *win);
 
 #endif
