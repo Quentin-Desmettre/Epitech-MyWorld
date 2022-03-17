@@ -13,7 +13,7 @@ static const sfVector2f snow[3] =
 static const sfVector2f water[3] =
 {{0, 0}, {1000, 1000}, {1000, 0}};
 
-void draw_line(vertex_t vertxs[3] , win_t *win)
+void draw_line(vertex_t vertxs[3], win_t *win)
 {
     win->tmp->position = (sfVector2f){vertxs[1].pos[0], vertxs[1].pos[1]};
     sfVertexArray_append(win->array, *win->tmp);

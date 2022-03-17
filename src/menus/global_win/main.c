@@ -56,7 +56,8 @@ void poll_events(window_t *win)
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
     if (win->state == EDIT_MAP) {
-        move(((game_t *)win->menus[EDIT_MAP])->world, ((game_t *)win->menus[EDIT_MAP])->win);
+        move(((game_t *)win->menus[EDIT_MAP])->world
+        , ((game_t *)win->menus[EDIT_MAP])->win);
         if (mouse_pos(win_size, win) == MINIMAP)
             apply_minimap_brush(win->menus[EDIT_MAP]);
         check_tooltip(win->menus[EDIT_MAP]);
