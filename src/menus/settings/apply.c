@@ -39,10 +39,10 @@ void apply_mode(settings_t *se, window_t *win)
 void apply_musics(window_t *win, settings_t *se)
 {
     se->sfx_vol++;
-    sfx_minus(se, win);
+    sfx_minus(se);
 
     se->music_vol++;
-    music_minus(se, win);
+    music_minus(se);
 }
 
 void apply_settings(settings_t *se, window_t *win)
