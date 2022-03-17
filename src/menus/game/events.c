@@ -85,6 +85,8 @@ void game_events(window_t *win, sfEvent ev)
         gb_events(win, ev, (sfVector2f){0, g->size.y * PART_OF_MINIMAP});
     else
         g->gb->mouse_pos = (sfVector2f){-100, -100};
+    if (ev.type == sfEvtMouseButtonReleased && !g->on_help)
+        g->gb->is_help = false;
     if (ev.type == sfEvtMouseMoved)
         g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
     if (ev.type == sfEvtKeyPressed &&

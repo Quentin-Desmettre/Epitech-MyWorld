@@ -25,11 +25,17 @@ void destroy_game_struct(game_t *game, window_t *win)
 void create_other(game_t *g, unsigned size, sfVector2f win_size)
 {
     g->size = win_size;
+    g->on_help = false;
     g->minimap = create_minimap((sfVector2f)
     {win_size.y * PART_OF_MINIMAP, win_size.y * PART_OF_MINIMAP}, size);
     g->dimension = size;
     g->gb = create_buttons((sfVector2f)
     {win_size.y * PART_OF_MINIMAP, win_size.y * (1 - PART_OF_MINIMAP)});
+    g->how_to_play = init_sprite(global_texture(), vomi_rect,
+    (sfVector2f){win_size.x * 0.7, win_size.x * 0.7 / 1.45698924731});
+    center_sprite(g->how_to_play);
+    sfSprite_setPosition(g->how_to_play,
+    (sfVector2f){win_size.x / 2.0, win_size.y / 2.0});
 }
 
 void start_world(game_t *g)
@@ -39,6 +45,7 @@ void start_world(game_t *g)
 
     get_gradient(1);
     g->world = create_world();
+    g->gb->is_help = false;
     world = g->world;
     create_map(world, g->dimension);
     set_light_source(world, g->dimension / 2.0, 1, 1000);
@@ -63,7 +70,6 @@ game_t *create_game(unsigned size, sfVector2f win_size,
 int is_selected, settings_t *se)
 {
     game_t *g = malloc(sizeof(game_t));
-
     create_other(g, size, win_size);
     size++;
     g->rtex = sfRenderTexture_create(win_size.x, win_size.y, 0);

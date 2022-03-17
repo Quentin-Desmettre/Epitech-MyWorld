@@ -209,6 +209,7 @@ typedef struct {
     int selected;
     int tool_tip_enabled;
     float y_offset;
+    bool is_help;
 } game_buttons_t;
 
 typedef struct {
@@ -220,11 +221,13 @@ typedef struct {
     game_buttons_t *gb;
     sfClock *save_clock;
     sfSprite *save_sprite;
+    sfSprite *how_to_play;
     char *file;
     int dimension;
     int is_selected;
     int is_from_file;
     int has_saved;
+    bool on_help;
 } game_t;
 
 typedef struct {
@@ -255,6 +258,9 @@ static const sfIntRect but_rects[3] = {
     {0, 81, 315, 80},
     {0, 81, 315, 80},
     {0, 81, 315, 80}
+};
+static const sfIntRect vomi_rect = {
+    1046, 560, 542, 372
 };
 static const sfIntRect hider_rect = {82, 241, 128, 128};
 static const sfIntRect button_rects[4] = {

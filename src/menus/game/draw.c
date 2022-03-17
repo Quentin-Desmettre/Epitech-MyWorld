@@ -67,6 +67,8 @@ const sfTexture *draw_game(window_t *win)
     }
     if (g->has_saved)
         draw_has_saved(g);
+    if (g->gb->is_help)
+        sfRenderTexture_drawSprite(g->rtex, g->how_to_play, NULL);
     sfRenderTexture_display(g->rtex);
     return sfRenderTexture_getTexture(g->rtex);
 }
