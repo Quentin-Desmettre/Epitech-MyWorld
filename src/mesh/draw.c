@@ -7,7 +7,13 @@
 
 #include "world.h"
 
-static const sfVector2f rect[3] =
+static const sfVector2f snow[3] =
+{{0, 0}, {1000, 1000}, {0, 1000}};
+
+static const sfVector2f grass[3] =
+{{1000, 0}, {2000, 0}, {1000, 1000}};
+
+static const sfVector2f water[3] =
 {{0, 0}, {1000, 1000}, {1000, 0}};
 
 void draw_line(vertex_t vertxs[3], win_t *win)
@@ -25,8 +31,12 @@ void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win)
     win->tmp->color = center_vertxs(vertxs, tri, win);
     for (int i = 0; i < 3; i++) {
         win->tmp->position = (sfVector2f) {vertxs[i].pos[0], vertxs[i].pos[1]};
-        if (tri->color.r == sfBlue.r && tri->color.g == sfBlue.g && tri->color.b == sfBlue.b)
-            win->tmp->texCoords = rect[i];
+        if (IS_BLUE(tri->color))
+            win->tmp->texCoords = water[i];
+        if (IS_GREEN(tri->color))
+            win->tmp->texCoords = grass[i];
+        if (IS_WHITE(tri->color))
+            win->tmp->texCoords = snow[i];
         sfVertexArray_append(win->array, *win->tmp);
     }
     if (win->params->is_outline)

@@ -69,7 +69,7 @@ win_t *win_create(size_t nb_trig, sfVector2f size)
     my_memset(win, 0, sizeof(win_t));
     win->states = malloc(sizeof(sfRenderStates));
     win->states->shader = 0;
-    win->states->texture = sfTexture_createFromFile("assets/water.png", &rect);
+    win->states->texture = sfTexture_createFromFile("assets/pat.png", &rect);
     win->states->blendMode = sfBlendNone;
     win->states->transform = sfTransform_Identity;
     win->settings.antialiasingLevel = ALIASING;
