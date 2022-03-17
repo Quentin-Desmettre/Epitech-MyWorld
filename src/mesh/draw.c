@@ -10,9 +10,6 @@
 static const sfVector2f snow[3] =
 {{0, 0}, {1000, 1000}, {0, 1000}};
 
-static const sfVector2f grass[3] =
-{{1000, 0}, {2000, 0}, {1000, 1000}};
-
 static const sfVector2f water[3] =
 {{0, 0}, {1000, 1000}, {1000, 0}};
 
@@ -34,7 +31,7 @@ void draw_triangle(vertex_t vertxs[3], triangle_t *tri, win_t *win)
         if (IS_BLUE(tri->color))
             win->tmp->texCoords = water[i];
         if (IS_GREEN(tri->color))
-            win->tmp->texCoords = grass[i];
+            win->tmp->texCoords = water[0];
         if (IS_WHITE(tri->color))
             win->tmp->texCoords = snow[i];
         sfVertexArray_append(win->array, *win->tmp);

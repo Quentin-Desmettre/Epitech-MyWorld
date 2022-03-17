@@ -36,7 +36,7 @@ void apply_mode(settings_t *se, window_t *win)
     rescale_all(win);
 }
 
-void apply_musics(window_t *win, settings_t *se)
+void apply_musics(settings_t *se)
 {
     se->sfx_vol++;
     sfx_minus(se);
@@ -51,6 +51,6 @@ void apply_settings(settings_t *se, window_t *win)
     sfRenderWindow_setFramerateLimit(win->win,
     available_framerates[se->framerate]);
     sfRenderWindow_setVerticalSyncEnabled(win->win, se->vsync->is_checked);
-    apply_musics(win, se);
+    apply_musics(se);
     update_all_texts(se);
 }
