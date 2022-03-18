@@ -26,8 +26,7 @@ void apply_mode(settings_t *se, window_t *win)
         sfSprite_setColor(se->res_button->sprite,
         (sfColor){127, 127, 127, 255});
         win->mode = sfVideoMode_getDesktopMode();
-    }
-    else
+    } else
         win->mode = available_modes[se->resolution];
     recreate_render_texture(win);
     sfRenderWindow_destroy(win->win);

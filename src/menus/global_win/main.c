@@ -74,10 +74,10 @@ int main(int ac, char **av)
     if (!global_texture() || !global_font())
         return 84;
     win = window_create(ac, av);
-    srand(rand_seed());
-    win->is_fullscreen = 0;
     if (!win)
         return 84;
+    srand(rand_seed());
+    win->is_fullscreen = 0;
     while (sfRenderWindow_isOpen(win->win)) {
         poll_events(win);
         draw(win);
