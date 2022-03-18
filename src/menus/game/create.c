@@ -26,11 +26,11 @@ void create_other(game_t *g, unsigned size, sfVector2f win_size)
 {
     g->size = win_size;
     g->on_help = false;
-    g->minimap = create_minimap((sfVector2f)
-    {win_size.y * PART_OF_MINIMAP, win_size.y * PART_OF_MINIMAP}, size);
+    g->minimap = create_minimap((sfVector2f){win_size.y * PART_OF_MINIMAP,
+    win_size.y * PART_OF_MINIMAP}, size);
     g->dimension = size;
-    g->gb = create_buttons((sfVector2f)
-    {win_size.y * PART_OF_MINIMAP, win_size.y * (1 - PART_OF_MINIMAP)});
+    g->gb = create_buttons((sfVector2f){win_size.y * PART_OF_MINIMAP,
+    win_size.y * (1 - PART_OF_MINIMAP)});
     g->how_to_play = init_sprite(global_texture(), vomi_rect,
     (sfVector2f){win_size.x * 0.7, win_size.x * 0.7 / 1.45698924731});
     center_sprite(g->how_to_play);
