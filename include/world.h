@@ -52,6 +52,18 @@
     #define BRUSH_DIR (map->is_circle ? \
     (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 1)
 
+static const sfVector2f snow[3] = {
+    {0, 0}, {1000, 1000}, {0, 1000}
+};
+
+static const sfVector2f grass[3] = {
+    {1000, 0}, {2000, 0}, {1000, 1000}
+};
+
+static const sfVector2f water[3] = {
+    {0, 0}, {1000, 1000}, {1000, 0}
+};
+
 typedef struct world_struct {
     vecsort_t *sortBuffer;
     vecsort_t *sortBuffer2;
@@ -152,5 +164,6 @@ void get_player_pos(world_t *world);
 void get_player_dir(world_t *world);
 void where_minimap(world_t *world, minimap_t *map, long long size);
 void where_minimap_square(world_t *world, minimap_t *map, long long size);
+void free_loop_pe(float ***gradient, int i);
 
 #endif
