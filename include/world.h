@@ -161,5 +161,6 @@ void get_player_pos(world_t *world);
 void get_player_dir(world_t *world);
 void where_minimap(world_t *world, minimap_t *map, long long size);
 void where_minimap_square(world_t *world, minimap_t *map, long long size);
+void free_loop_pe(float ***gradient, int i);
 
 #endif
