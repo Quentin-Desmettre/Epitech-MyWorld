@@ -38,10 +38,6 @@
     #define ENTRY_Y_SPAN 0.12
     #define ENTRY_SPACING 1.35
     #define BOUNDS(s) (sfSprite_getGlobalBounds(s))
-    #define SEMI_COLOR ((sfColor){127, 127, 127, 255})
-    #define SEMI_TRANSP ((sfColor){127, 127, 127, 127})
-    #define DEFAULT_2F (sfVector2f){1, 1}
-    #define TMP_V2F (sfVector2f){win_size.x * 0.55, win_size.y * 0.1}
     #define ENTRY_Y_SPAN 0.12
 
     #define SAVE_MAX_TIME 3000000
@@ -65,9 +61,23 @@
     #define NB_BUTTONS 13
     #define DOUBLE_CLICK_DELAY 500000
 
-static const sfColor sfGrey = {128, 128, 128, 255};
+static const sfColor sfGrey = {
+    128, 128, 128, 255
+};
 
-typedef enum {WORLD, MINIMAP, BUTTONS} mouse_pos_t;
+static const sfColor SEMI_COLOR = {
+    127, 127, 127, 255
+};
+static const sfColor SEMI_TRANSP = {
+    127, 127, 127, 127
+};
+static const sfVector2f DEFAULT_2F = {
+    1, 1
+};
+
+typedef enum {
+    WORLD, MINIMAP, BUTTONS
+} mouse_pos_t;
 
 // structures
 
@@ -252,8 +262,12 @@ typedef struct {
 } map_select_t;
 
 // int rects
-static const sfIntRect icon_rect = {0, 671, 648, 648};
-static const sfIntRect background_rect = {0, 0, 1, 1};
+static const sfIntRect icon_rect = {
+    0, 671, 648, 648
+};
+static const sfIntRect background_rect = {
+    0, 0, 1, 1
+};
 static const sfIntRect but_rects[3] = {
     {0, 81, 315, 80},
     {0, 81, 315, 80},
@@ -262,7 +276,9 @@ static const sfIntRect but_rects[3] = {
 static const sfIntRect vomi_rect = {
     1046, 560, 542, 372
 };
-static const sfIntRect hider_rect = {82, 241, 128, 128};
+static const sfIntRect hider_rect = {
+    82, 241, 128, 128
+};
 static const sfIntRect button_rects[4] = {
     {0, 1, 630, 80},
     {0, 81, 315, 80}
@@ -297,7 +313,9 @@ static const sfIntRect gb_rects[] = {
     {888, 831, 80, 80},
     {888, 671, 80, 80},
 };
-static const sfIntRect line_edit_rect = {1029, 435, 808, 88};
+static const sfIntRect line_edit_rect = {
+    1029, 435, 808, 88
+};
 static const sfIntRect mc_rects[] = {
     {160, 161, 80, 80},
     {240, 161, 80, 80},
@@ -316,7 +334,9 @@ static const sfIntRect check_rect[2] = {
 static const sfIntRect game_button_rects[] = {
     {0, 0, 1, 1}
 };
-static const sfIntRect cone_rect = {0, 369, 128, 128};
+static const sfIntRect cone_rect = {
+    0, 369, 128, 128
+};
 static const sfIntRect save_rect[2] = {
     {648, 991, 624, 106},
     {648, 1097, 624, 106}

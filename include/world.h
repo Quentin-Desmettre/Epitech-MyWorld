@@ -35,6 +35,8 @@
     #define PI 3.14159265359
     #define CONST 0b10000000
 
+    #define NB_ACTIONS 5
+
     #define ABS(nb) ((nb) < 0 ? -(nb) : (nb))
 
     #define P_HEIGT(world, i, size) world->a_vertxs \
@@ -83,8 +85,6 @@ typedef struct tmp_struct {
     sfBool turn;
 } tmp_shadow_t;
 
-    #define NB_ACTIONS 5
-
 typedef struct minimap {
     void (*actions[NB_ACTIONS])(world_t *,
     struct minimap *, int (*)(int, int, int));
@@ -108,7 +108,7 @@ void app_point(float x, float y, minimap_t *map);
 void move(world_t *world, win_t *win);
 void radix_sort(void *toSort2, size_t sizes[2],
 size_t offset_in_struct, void *buffer2);
-world_t *create_world();
+world_t *create_world(void);
 void add_mesh(world_t *world, mesh_t *mesh);
 void draw_meshes(world_t *world, win_t *win);
 void project_meshes(world_t *world, float delta);
