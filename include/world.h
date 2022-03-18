@@ -62,6 +62,11 @@ static const sfVector2f water[3] = {
     {0, 0}, {1000, 1000}, {1000, 0}
 };
 
+typedef union {
+    float f;
+    uint32_t i;
+} un_t;
+
 typedef struct world_struct {
     vecsort_t *sortBuffer;
     vecsort_t *sortBuffer2;
