@@ -62,7 +62,7 @@ void init_params(win_t *win, size_t size)
 win_t *win_create(size_t nb_trig, sfVector2f size)
 {
     win_t *win = malloc(sizeof(win_t));
-    sfIntRect rect = {0, 0, 1000, 1000};
+    sfIntRect rect = {0, 0, 2000, 2000};
     if (win == NULL)
         return NULL;
     my_memset(win, 0, sizeof(win_t));
