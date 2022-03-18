@@ -7,11 +7,6 @@
 
 #include "world.h"
 
-typedef union {
-    float f;
-    uint32_t i;
-} un_t;
-
 float q_rsqrt(float number)
 {
     un_t conv = {.f = number};
