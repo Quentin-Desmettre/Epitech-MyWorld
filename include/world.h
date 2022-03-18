@@ -50,14 +50,17 @@
     #define BRUSH_DIR (map->is_circle ? \
     (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 1)
 
-static const sfVector2f snow[3] =
-{{0, 0}, {1000, 1000}, {0, 1000}};
+static const sfVector2f snow[3] = {
+    {0, 0}, {1000, 1000}, {0, 1000}
+};
 
-static const sfVector2f grass[3] =
-{{1000, 0}, {2000, 0}, {1000, 1000}};
+static const sfVector2f grass[3] = {
+    {1000, 0}, {2000, 0}, {1000, 1000}
+};
 
-static const sfVector2f water[3] =
-{{0, 0}, {1000, 1000}, {1000, 0}};
+static const sfVector2f water[3] = {
+    {0, 0}, {1000, 1000}, {1000, 0}
+};
 
 typedef struct world_struct {
     vecsort_t *sortBuffer;
