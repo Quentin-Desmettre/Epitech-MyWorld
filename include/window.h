@@ -40,6 +40,7 @@ typedef struct window_t {
     void (*draw_circle)(struct window_t *win, size_t nb, ...);
     sfRenderTexture *r_tex;
     sfClock *evt_clock;
+    int draw_fps;
 } win_t;
 
 win_t *win_create(size_t nb_trig, sfVector2f size);

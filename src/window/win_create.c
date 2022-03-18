@@ -63,10 +63,10 @@ win_t *win_create(size_t nb_trig, sfVector2f size)
 {
     win_t *win = malloc(sizeof(win_t));
     sfIntRect rect = {0, 0, 1000, 1000};
-
     if (win == NULL)
         return NULL;
     my_memset(win, 0, sizeof(win_t));
+    win->draw_fps = 0;
     win->states = malloc(sizeof(sfRenderStates));
     win->states->shader = 0;
     win->states->texture = sfTexture_createFromFile("assets/pat.png", &rect);

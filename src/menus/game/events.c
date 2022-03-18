@@ -75,9 +75,10 @@ void game_events(window_t *win, sfEvent ev)
 {
     game_t *g = win->menus[EDIT_MAP];
     int mouse = mouse_pos(g->size, win);
-
     if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyF11)
         fullscreen_mode(win);
+    if (ev.type == sfEvtKeyReleased && ev.key.code == sfKeyF5)
+        g->win->draw_fps = !g->win->draw_fps;
     world_events(g, ev, win);
     if (mouse == MINIMAP && !win->is_fullscreen)
         minimap_events(g, ev);
