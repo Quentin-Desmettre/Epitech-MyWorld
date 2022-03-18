@@ -12,6 +12,7 @@ void destroy_game_struct(game_t *game)
     destroy_gbuttons(game->gb);
     destroy_minimap(game->minimap);
     sfRenderTexture_destroy(game->rtex);
+    sfSprite_destroy(game->how_to_play);
     game->world->destroy(game->world);
     game->win->destroy(game->win);
     game->win = 0;
