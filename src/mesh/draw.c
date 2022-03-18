@@ -7,15 +7,6 @@
 
 #include "world.h"
 
-static const sfVector2f snow[3] =
-{{0, 0}, {1000, 1000}, {0, 1000}};
-
-static const sfVector2f grass[3] =
-{{1000, 0}, {2000, 0}, {1000, 1000}};
-
-static const sfVector2f water[3] =
-{{0, 0}, {1000, 1000}, {1000, 0}};
-
 void draw_line(vertex_t vertxs[3], win_t *win)
 {
     win->tmp->position = (sfVector2f){vertxs[1].pos[0], vertxs[1].pos[1]};
