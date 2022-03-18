@@ -467,7 +467,7 @@ int is_selected, settings_t *se);
 const sfTexture *draw_game(window_t *win);
 void game_events(window_t *win, sfEvent ev);
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win);
-void destroy_game_struct(game_t *game, window_t *win);
+void destroy_game_struct(game_t *game);
 int save_map(game_t *game, const char *filename, unsigned int size);
 unsigned int read_map(game_t *game, const char *filename);
 sfSprite *draw_gb(game_t *ga);

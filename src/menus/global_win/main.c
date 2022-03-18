@@ -47,7 +47,7 @@ void poll_events(window_t *win)
     sfVector2f win_size = {win->mode.width, win->mode.height};
     while (sfRenderWindow_pollEvent(win->win, &ev)) {
         if (ev.type == sfEvtClosed)
-            sfRenderWindow_close(win->win);
+            win->next_state = EXIT;
         if (!win->is_transition)
             win->event[win->state](win, ev);
         if (IS_WORLD_CLICK)
@@ -73,8 +73,8 @@ int main(int ac, char **av)
         return usage();
     if (!global_texture() || !global_font())
         return 84;
-    srand(rand_seed());
     win = window_create(ac, av);
+    srand(rand_seed());
     win->is_fullscreen = 0;
     if (!win)
         return 84;

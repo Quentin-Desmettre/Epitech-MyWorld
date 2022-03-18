@@ -7,9 +7,8 @@
 
 #include "menus.h"
 
-void destroy_game_struct(game_t *game, window_t *win)
+void destroy_game_struct(game_t *game)
 {
-    save_game(win);
     destroy_gbuttons(game->gb);
     destroy_minimap(game->minimap);
     sfRenderTexture_destroy(game->rtex);
