@@ -46,7 +46,7 @@
 
     #define MAP_SIZE (get_level_size(win))
 
-    #define IS_WORLD_CLICK (win->state == EDIT_MAP && \
+    #define IS_WORLD_CLICK (win->state == EDIT_MAP &&\
     (mouse_pos(win_size, win) == WORLD || ev.type == sfEvtMouseButtonReleased))
 
     #define SPECTATOR_SIZE 64
