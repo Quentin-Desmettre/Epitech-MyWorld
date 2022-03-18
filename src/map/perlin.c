@@ -43,7 +43,7 @@ float ***get_gradient(sfBool reset)
 
 float lerp(float a, float b, float w)
 {
-    return (1.0 - w)*a + w*b;
+    return (1.0 - w) * a + w * b;
 }
 
 float dot_grid_gradient(int ix, int iy, float x, float y)

@@ -39,15 +39,12 @@
 
     #define ABS(nb) ((nb) < 0 ? -(nb) : (nb))
 
-    #define P_HEIGT(world, i, size) world->a_vertxs \
-    [i * (size) + (size - j)]->pos[1]
+    #define P_HEIGT(world, i, size) \
+    world->a_vertxs[i * (size) + (size - j)]->pos[1]
 
-    #define IS_BLUE(color) \
-    (color).r == sfBlue.r && (color).g == sfBlue.g && (color).b == sfBlue.b
-    #define IS_GREEN(color) \
-    (color).r == sfGreen.r && (color).g == sfGreen.g && (color).b == sfGreen.b
-    #define IS_WHITE(color) \
-    (color).r == sfWhite.r && (color).g == sfWhite.g && (color).b == sfWhite.b
+    #define IS_BLUE(color) my_memcmp(&color, &sfBlue, sizeof(sfColor))
+    #define IS_GREEN(color) my_memcmp(&color, &sfGreen, sizeof(sfColor))
+    #define IS_WHITE(color) my_memcmp(&color, &sfWhite, sizeof(sfColor))
 
     #define BRUSH_DIR (map->is_circle ? \
     (map->s_br - sqrt(pow(i - x, 2) + pow(j - y, 2))) / 10.0 : 1)
@@ -170,5 +167,6 @@ void get_player_dir(world_t *world);
 void where_minimap(world_t *world, minimap_t *map, long long size);
 void where_minimap_square(world_t *world, minimap_t *map, long long size);
 void free_loop_pe(float ***gradient, int i);
+int my_memcmp(void *aa, void *bb, size_t size);
 
 #endif
