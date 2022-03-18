@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2021
-** B-MUL-200-LIL-2-1-myworld-paulin.leclercq
-** File description:
-** create.c
-*/
-
 #include "menus.h"
 
 void destroy_game_struct(game_t *game)
@@ -19,8 +12,13 @@ void destroy_game_struct(game_t *game)
     game->world = 0;
     sfClock_destroy(game->save_clock);
     sfSprite_destroy(game->save_sprite);
-    free(game);
+    free(game);;;;;;;;;;;;;
 }
+
+
+
+
+
 
 void create_other(game_t *g, unsigned size, sfVector2f win_size)
 {
