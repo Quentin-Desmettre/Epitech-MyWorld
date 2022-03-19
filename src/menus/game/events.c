@@ -39,6 +39,11 @@ void world_events(game_t *g, sfEvent ev, window_t *win)
         params(g->win, g->world, g);
     if (ev.type == sfEvtKeyPressed)
         check_tool_bar_key(ev.key.code, win);
+    if (ev.type == sfEvtMouseButtonReleased &&
+    ev.mouseButton.button == sfMouseLeft) {
+        for (int i = 0; i < NB_SOUNDS; i++)
+            sfSound_stop(g->win->sounds[i]);
+    }
 }
 
 void minimap_events(game_t *g, sfEvent ev)
@@ -51,11 +56,6 @@ void minimap_events(game_t *g, sfEvent ev)
     }
     if (ev.type == sfEvtMouseMoved)
         g->minimap->mouse_pos = (sfVector2f){ev.mouseMove.x, ev.mouseMove.y};
-    if (ev.type == sfEvtMouseButtonReleased &&
-    ev.mouseButton.button == sfMouseLeft) {
-        for (int i = 0; i < NB_SOUNDS; i++)
-            sfSound_stop(g->win->sounds[i]);
-    }
 }
 
 mouse_pos_t mouse_pos(sfVector2f win_size, window_t *win)
