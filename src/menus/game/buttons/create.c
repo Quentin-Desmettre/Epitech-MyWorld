@@ -49,8 +49,7 @@ sfSprite *draw_gb(game_t *ga)
             sfSprite_setPosition(g->buttons[i]->sprite, pos);
             g->buttons[i]->pos = pos;
             draw_button_to_rtex(g->buttons[i], g->rtex);
-            if (i == g->selected)
-                draw_box(g->buttons[i], g->rtex);
+            (i == g->selected) ? draw_box(g->buttons[i], g->rtex) : 0;
             pos.x += tex_size.x * 0.3;
         }
         pos.x = tex_size.x * 0.2;
