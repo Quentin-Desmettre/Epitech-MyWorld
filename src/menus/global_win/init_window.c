@@ -45,22 +45,23 @@ void create_pointers(window_t *win)
 window_t *window_create(int ac, char **av)
 {
     window_t *win = malloc(sizeof(window_t));
-    sfVector2f size = {800, 600};
     create_pointers(win);
-    if (ac == 2) {
-        if (!is_file_valid(av[1]))
-            return NULL;
+    if (ac == 2 && is_file_valid(av[1])) {
         win->state = EDIT_MAP;
+        win->next_state = EDIT_MAP;
+    } else if (ac > 2 || (ac == 2 && !is_file_valid(av[1])))
+        return NULL;
+    win->menus[0] = init_main_menu(global_texture(), (sfVector2f){800, 600});
+    win->menus[3] = create_map_create((sfVector2f){800, 600});
+    win->menus[MAP_SELECT] = create_map_select((sfVector2f){800, 600});
+    win->spec = create_spectator((sfVector2f){800, 600});
+    apply_settings(win->menus[2], win);
+    if (ac == 2) {
         win->menus[EDIT_MAP] = create_game(map_size_from_file(av[1]),
-        size, 0, win->menus[SETTINGS]);
+        (sfVector2f){WIN_X, WIN_Y}, 0, win->menus[SETTINGS]);
         load_game_from_file(win->menus[EDIT_MAP], av[1]);
         update_color(((game_t *)(win->menus[EDIT_MAP]))->world);
-    } else if (ac > 2)
-        return NULL;
-    win->menus[0] = init_main_menu(global_texture(), size);
-    win->menus[3] = create_map_create(size);
-    win->menus[MAP_SELECT] = create_map_select(size);
-    win->spec = create_spectator(size);
-    apply_settings(win->menus[2], win);
+        sfMusic_play(GAME(win)->win->musics[0]);
+    }
     return win;
 }

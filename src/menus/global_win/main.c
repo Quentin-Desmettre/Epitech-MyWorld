@@ -47,17 +47,15 @@ void poll_events(window_t *win)
     sfVector2f win_size = {win->mode.width, win->mode.height};
     while (sfRenderWindow_pollEvent(win->win, &ev)) {
         if (ev.type == sfEvtClosed)
-            win->next_state = EXIT;
+            set_next_win_state(win, EXIT);
         if (!win->is_transition)
             win->event[win->state](win, ev);
-        if (IS_WORLD_CLICK)
-            world_clicks(win, ev);
+        IS_WORLD_CLICK ? world_clicks(win, ev) : 0;
     }
     if (win->state == SETTINGS)
         check_sound_repeat(win, &ev);
     if (win->state == EDIT_MAP) {
-        move(((game_t *)win->menus[EDIT_MAP])->world
-        , ((game_t *)win->menus[EDIT_MAP])->win);
+        move(GAME(win)->world, GAME(win)->win);
         if (mouse_pos(win_size, win) == MINIMAP)
             apply_minimap_brush(win->menus[EDIT_MAP]);
         if (!win->is_fullscreen)

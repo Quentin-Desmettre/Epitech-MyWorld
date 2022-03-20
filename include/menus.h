@@ -60,6 +60,9 @@
     #define LINEEDIT_TIME 400000
     #define NB_BUTTONS 13
     #define DOUBLE_CLICK_DELAY 500000
+    #define GAME(win) ((game_t *)(win->menus[EDIT_MAP]))
+    #define WIN_X win->mode.width
+    #define WIN_Y win->mode.height
 
 static const sfColor sfGrey = {
     128, 128, 128, 255
